@@ -50,8 +50,9 @@ function Header() {
         }}
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 shadow-lg"
-        style={{ backgroundColor: '#43259f' }}
+       className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 shadow-lg backdrop-blur-md"
+style={{ backgroundColor: 'rgba(18, 24, 38, 0.55)' }}
+
 
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,7 +60,7 @@ function Header() {
             {/* Logo */}
             <Link to="/" className="flex items-center py-2">
               <img
-                src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769007309/logo_800x240_bcjsaf.png"
+                src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769049627/800x240_bez_t%C5%82a_dkos4d.png"
                 alt="Medulia"
                 className="h-10 md:h-12 w-auto"
                 loading="eager"

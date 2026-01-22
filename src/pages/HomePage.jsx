@@ -12,43 +12,20 @@ import {
   Download,
   ChevronRight,
   FileText,
-  Phone
+  Phone,
+  GraduationCap,
+  UserRound,
+  Package,
 } from 'lucide-react';
+
 import SectionTitle from '@/components/SectionTitle';
 import OpinionsMarquee from '@/components/OpinionsMarquee';
-import OfferCard from '@/components/OfferCard';
 import ContactForm from '@/components/ContactForm';
 import BlogCard from '@/components/BlogCard';
 
 // ===== HERO (podmień na swoje) =====
 const HERO_IMAGE_URL =
   'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=900&auto=format&fit=crop&q=70';
-
-// Updated assets/data
-const offers = [
-  {
-    title: 'Online ze mną 1:1',
-    description: 'Teams + Miro. Pełne wsparcie i 100% uwagi.',
-    price: '180 zł',
-    features: ['Indywidualny plan', 'Materiały w cenie', 'Pełne wsparcie', 'Elastyczność'],
-    icon: Users,
-    highlighted: true
-  },
-  {
-    title: 'Grupowe (2–6 osób)',
-    description: 'Ta sama jakość, niższa cena. Wspólna motywacja.',
-    price: '80 zł',
-    features: ['Małe grupy', 'Teams + Miro', 'Niższa cena', 'Dynamika grupy'],
-    icon: Users
-  },
-  {
-    title: 'Z zespołem (online)',
-    description: '1:1 z moimi zaufanymi nauczycielami. Standard MEDULIA.',
-    price: '140 zł',
-    features: ['1:1 online', 'Zespół ekspertów', 'Taniej niż ze mną', 'Sprawdzone metody'],
-    icon: Zap
-  }
-];
 
 const opinionsData = [
   { name: 'Anna Kowalska', city: 'Warszawa', text: 'Zdałam maturę na 92%! Polecam z całego serca.', videoThumbnail: null },
@@ -73,10 +50,17 @@ const freeMaterials = [
 ];
 
 const benefits = [
-  { no: '01.', title: 'Fachową pomoc doświadczonego nauczyciela i laureata wielu konkursów' },
-  { no: '02.', title: 'Indywidualne podejście i tempo nauki dopasowane do Twoich potrzeb' },
-  { no: '03.', title: 'Wiedzę praktyczną przydatną na sprawdzianach i na maturze' },
-  { no: '04.', title: 'Stały dostęp do nagrań lekcji, żeby powtarzać materiał w dowolnym momencie' }
+  { no: '1.', title: 'Fachową pomoc doświadczonego nauczyciela i laureata wielu konkursów' },
+  { no: '2.', title: 'Indywidualne podejście i tempo nauki dopasowane do Twoich potrzeb' },
+  { no: '3.', title: 'Wiedzę praktyczną przydatną na sprawdzianach i na maturze' },
+  { no: '4.', title: 'Stały dostęp do nagrań lekcji, żeby powtarzać materiał w dowolnym momencie' }
+];
+
+const offerTypesCompact = [
+  { title: 'Indywidualne Premium – ze mną', to: '/oferta/indywidualne-premium', icon: GraduationCap },
+  { title: 'Indywidualne – z pracownikami', to: '/oferta/indywidualne-pracownicy', icon: UserRound },
+  { title: 'Grupowe – ze mną', to: '/oferta/grupowe-ze-mna', icon: Users },
+  { title: 'Pakiety miesięczne – grupowe', to: '/oferta/pakiety-grupowe', icon: Package },
 ];
 
 function HomePage() {
@@ -90,9 +74,8 @@ function HomePage() {
         />
       </Helmet>
 
-      {/* SECTION 1: HERO (NOWY – jak na screenach) */}
+      {/* SECTION 1: HERO */}
       <section className="relative pt-20 md:pt-28 pb-10 md:pb-16 overflow-hidden">
-        {/* Decorative blobs */}
         <div className="absolute top-20 right-[10%] w-64 h-64 bg-purple-500/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft" />
         <div
           className="absolute top-40 left-[10%] w-72 h-72 bg-blue-500/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft"
@@ -101,12 +84,34 @@ function HomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="hero-split">
-            {/* Text side */}
+            {/* ✅ NA MOBILE: najpierw zdjęcie */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="hero-figure-wrap order-1 lg:order-2"
+            >
+              <div className="hero-figure">
+                <div className="hero-ring" aria-hidden="true" />
+                <img
+                  src={HERO_IMAGE_URL}
+                  alt="MEDULIA - korepetycje"
+                  className="hero-figure-img"
+                />
+
+                <a href="tel:+48792074768" className="hero-phone">
+                  <Phone className="w-4 h-4" />
+                  792 074 768
+                </a>
+              </div>
+            </motion.div>
+
+            {/* ✅ NA MOBILE: potem box */}
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="hero-card"
+              className="hero-card order-2 lg:order-1"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-semibold mb-4">
                 🎓 Zapisy 2026/2027 otwarte!
@@ -120,7 +125,6 @@ function HomePage() {
                 Bez stresu i wkuwania. Zrozumienie, które buduje wynik.
               </p>
 
-              {/* mały “proof line” (punkt 3 z propozycji – dodaje „premium” bez zagracania) */}
               <div className="hero-proof">
                 <span className="hero-proof-pill">✅ Indywidualny plan</span>
                 <span className="hero-proof-dot" />
@@ -134,50 +138,25 @@ function HomePage() {
                   Umów korepetycje <ArrowRight className="w-5 h-5" />
                 </Link>
 
-                <Link
-                  to="/oferta"
-                  className="hero-ghost-btn inline-flex items-center justify-center"
-                >
+                <Link to="/oferta" className="hero-ghost-btn inline-flex items-center justify-center">
                   Oferta
                 </Link>
-              </div>
-            </motion.div>
-
-            {/* Image side */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="hero-figure-wrap"
-            >
-              <div className="hero-figure">
-                <div className="hero-ring" aria-hidden="true" />
-                <img
-                  src={HERO_IMAGE_URL}
-                  alt="MEDULIA - korepetycje"
-                  className="hero-figure-img"
-                />
-
-                {/* Phone pill */}
-                <a href="tel:+48792074768" className="hero-phone">
-                  <Phone className="w-4 h-4" />
-                  792 074 768
-                </a>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* SECTION: BENEFITS (NOWA – 01–04) */}
+      {/* SECTION: BENEFITS */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass-panel" data-bg="image">
             <div className="benefits-grid">
               <div>
                 <h2 className="benefits-title">
-                  Co zyskujesz na <span className="text-gradient">indywidualnych</span> zajęciach ze mną?
-                </h2>
+  <span className="text-gradient">Co zyskujesz na</span> zajęciach ze mną?
+</h2>
+
                 <p className="benefits-subtitle">
                   Konkretne efekty — bez stresu, bez lania wody, z planem pod Ciebie.
                 </p>
@@ -241,18 +220,47 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 3: OFFER */}
+      {/* SECTION 3: TYPES (Home: tylko lista + CTA) */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass-panel overflow-hidden" data-bg="image">
-            <SectionTitle>Oferta</SectionTitle>
+            <SectionTitle>Rodzaje zajęć</SectionTitle>
 
-            <div className="mt-8 flex overflow-x-auto snap-x-mandatory gap-4 pb-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:pb-0 md:overflow-visible">
-              {offers.map((offer, idx) => (
-                <div key={idx} className="min-w-[85%] md:min-w-0 snap-center h-full">
-                  <OfferCard {...offer} />
-                </div>
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {offerTypesCompact.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="group rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/7 transition-all p-4 md:p-5 flex items-center justify-between gap-3"
+                >
+                  {/* ✅ min-w-0 żeby tytuł mógł się zawijać/ucinać poprawnie */}
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="w-5 h-5 text-white/85" />
+                    </div>
+
+                    <div className="min-w-0">
+                      <div className="text-white font-semibold text-sm md:text-base leading-snug line-clamp-2">
+                        {item.title}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ✅ prawa strona zawsze w 1 linii */}
+                  <div className="inline-flex items-center gap-2 text-white/70 group-hover:text-white transition-colors text-sm font-semibold flex-shrink-0 whitespace-nowrap">
+                    Zobacz szczegóły <ArrowRight className="w-4 h-4" />
+                  </div>
+                </Link>
               ))}
+            </div>
+
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+              <Link to="/oferta" className="btn-accent inline-flex items-center justify-center gap-2">
+                Zobacz ofertę <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link to="/zapisy" className="hero-ghost-btn inline-flex items-center justify-center">
+                Zapisz się
+              </Link>
             </div>
           </div>
         </div>
@@ -301,7 +309,8 @@ function HomePage() {
       </section>
 
       {/* SECTION 5: OPINIONS MARQUEE */}
-      <section className="py-8 md:py-12">
+      {/* ✅ trochę niżej na mobile */}
+      <section className="pt-12 pb-8 md:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass-panel p-4 md:p-8" data-bg="image">
             <SectionTitle>Opinie</SectionTitle>

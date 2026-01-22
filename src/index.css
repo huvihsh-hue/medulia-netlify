@@ -267,7 +267,7 @@ body::after {
 
 .marquee-track {
   display: flex;
-  gap: 16px;
+  gap: 12px; /* ✅ ciaśniej na mobile */
   width: max-content;
   will-change: transform;
   animation-name: marquee-scroll;
@@ -275,9 +275,19 @@ body::after {
   animation-iteration-count: infinite;
 }
 
+/* ✅ węższe karty na mobile -> widać więcej naraz */
 .marquee-item {
-  width: min(420px, 85vw);
+  width: min(320px, 72vw);
   flex: 0 0 auto;
+}
+
+@media (min-width: 768px) {
+  .marquee-track { gap: 16px; }
+  .marquee-item { width: min(380px, 55vw); }
+}
+
+@media (min-width: 1024px) {
+  .marquee-item { width: 420px; }
 }
 
 .marquee:hover .marquee-track {
@@ -395,13 +405,21 @@ body::after {
 }
 
 .hero-figure-img {
-  width: 82%;
-  height: 82%;
-  object-fit: cover;
+  position: relative;
+  z-index: 1;
+  width: 92%;
+  height: 92%;
   border-radius: 999px;
-  box-shadow: 0 18px 44px rgba(0,0,0,0.28);
-  border: 1px solid rgba(255,255,255,0.18);
+  object-fit: cover;
+
+  /* ✅ bez “ramki”, czystsze pod realne zdjęcie */
+  border: none;
+  outline: none;
+
+  /* zostawiamy elegancki cień */
+  box-shadow: 0 18px 60px rgba(0,0,0,0.25);
 }
+
 
 /* Ring (jak na screenach) */
 .hero-ring {
@@ -488,10 +506,16 @@ body::after {
 }
 
 .benefit-no {
+  display: flex;
+  align-items: center;      /* pion */
+  justify-content: center;  /* poziom */
+  text-align: center;
+  height: 100%;
   font-size: 22px;
   font-weight: 900;
   color: rgba(255,255,255,0.92);
 }
+
 
 .benefit-text {
   font-size: 14px;
@@ -647,9 +671,15 @@ body::after {
   height: 92%;
   border-radius: 999px;
   object-fit: cover;
-  border: 10px solid rgba(255,255,255,0.10);
+
+  /* ✅ bez “ramki”, czystsze pod realne zdjęcie */
+  border: none;
+  outline: none;
+
+  /* zostawiamy elegancki cień */
   box-shadow: 0 18px 60px rgba(0,0,0,0.25);
 }
+
 
 .hero-phone {
   position: absolute;
@@ -748,11 +778,14 @@ body::after {
 }
 
 .benefit-no {
-  font-size: 20px;
+  display: flex;
+  align-items: center;      /* pion */
+  justify-content: center;  /* poziom */
+  text-align: center;
+  height: 100%;
+  font-size: 22px;
   font-weight: 900;
   color: rgba(255,255,255,0.92);
-  text-align: left;
-  letter-spacing: -0.02em;
 }
 
 .benefit-text {

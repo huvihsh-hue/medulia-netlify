@@ -2,14 +2,58 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import SectionTitle from '@/components/SectionTitle';
-import { Download, FileText } from 'lucide-react';
+import { Download, CheckCircle2 } from 'lucide-react';
 
 function MaterialsPage() {
   const materials = [
-    { title: "Metabolizm", desc: "Kompletny przewodnik po procesach.", link: "https://drive.google.com/file/d/1kV4x497QlhZdvUdn9qN1wlMnK75YZ0zI/view" },
-    { title: "Plan maturalny", desc: "Szczegółowy harmonogram nauki.", link: "https://drive.google.com/file/d/1d4CH1nlCSQ8g7jD1mYWl_l3RUSlB_XNs/view" },
-    { title: "Pytania sprawdzające", desc: "Zestaw do samodzielnej pracy.", link: "https://drive.google.com/file/d/1jNUKSEWeplR9pgdQV-nluwYR1vM4xNWb/view" },
-    { title: "Zadanie domowe", desc: "Ćwiczenia praktyczne.", link: "https://drive.google.com/file/d/1s90hS6X0aVSNM5w-YW4OyNYgnV2YYTDw/view" }
+    {
+      title: "Metabolizm",
+      desc: "Kompletny przewodnik po procesach.",
+      link: "https://drive.google.com/file/d/1kV4x497QlhZdvUdn9qN1wlMnK75YZ0zI/view",
+      // TODO: podmień na realne URL-e (3 miniatury stron PDF)
+      previews: [
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769048205/Projekt_bez_nazwy_18_vb1dlh.png",
+        "PASTE_PREVIEW_URL_2",
+        "PASTE_PREVIEW_URL_3",
+      ],
+    },
+    {
+      title: "Plan maturalny",
+      desc: "Szczegółowy harmonogram nauki.",
+      link: "https://drive.google.com/file/d/1d4CH1nlCSQ8g7jD1mYWl_l3RUSlB_XNs/view",
+      previews: [
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769048205/Projekt_bez_nazwy_18_vb1dlh.png",
+        "PASTE_PREVIEW_URL_2",
+        "PASTE_PREVIEW_URL_3",
+      ],
+    },
+    {
+      title: "Pytania sprawdzające",
+      desc: "Zestaw do samodzielnej pracy.",
+      link: "https://drive.google.com/file/d/1jNUKSEWeplR9pgdQV-nluwYR1vM4xNWb/view",
+      previews: [
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769048205/Projekt_bez_nazwy_18_vb1dlh.png",
+        "PASTE_PREVIEW_URL_2",
+        "PASTE_PREVIEW_URL_3",
+      ],
+    },
+    {
+      title: "Zadanie domowe",
+      desc: "Ćwiczenia praktyczne.",
+      link: "https://drive.google.com/file/d/1s90hS6X0aVSNM5w-YW4OyNYgnV2YYTDw/view",
+      previews: [
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769048205/Projekt_bez_nazwy_18_vb1dlh.png",
+        "PASTE_PREVIEW_URL_2",
+        "PASTE_PREVIEW_URL_3",
+      ],
+    }
+  ];
+
+  const benefits = [
+    "Schematy i ryciny omawiane krok po kroku",
+    "Pytania w stylu maturalnym + typowe pułapki",
+    "Zadania do samodzielnego przećwiczenia po lekcji",
+    "Materiały spójne z tym, jak tłumaczę na zajęciach",
   ];
 
   return (
@@ -19,6 +63,7 @@ function MaterialsPage() {
         <meta name="description" content="Darmowe materiały do matury z biologii: notatki, zadania, harmonogramy." />
       </Helmet>
 
+      {/* HERO / header */}
       <div className="pt-28 pb-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -34,38 +79,133 @@ function MaterialsPage() {
         </div>
       </div>
 
+      {/* CONTENT */}
       <section className="py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass-panel p-6 md:p-8" data-bg="image">
             <SectionTitle>Darmowe materiały</SectionTitle>
 
-            <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {materials.map((item, idx) => (
-                <div key={idx} className="card-pdf">
-                  <div className="flex-grow">
-                    <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center mb-3">
-                      <FileText className="w-5 h-5 text-purple-400" />
+            {/* 3) „Co dokładnie dostaniesz?” */}
+            <div className="mt-6 md:mt-8">
+              <p className="text-white/80 text-sm md:text-base max-w-3xl mx-auto text-center">
+                Materiały, na których realnie pracujemy na zajęciach — bez lania wody, jasno i dokładnie pod maturę.
+              </p>
+
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                {benefits.map((b, i) => (
+                  <div
+                    key={i}
+                    className="rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md p-4 flex gap-3"
+                  >
+                    <div className="mt-0.5">
+                      <CheckCircle2 className="w-5 h-5 text-purple-300" />
                     </div>
-                    <h4 className="font-bold text-white text-sm md:text-base mb-2 font-accent">
-                      {item.title}
-                    </h4>
-                    <p className="text-white/60 text-xs md:text-sm mb-4 line-clamp-3">
-                      {item.desc}
+                    <p className="text-white/85 text-sm leading-relaxed font-semibold">
+                      {b}
                     </p>
                   </div>
+                ))}
+              </div>
+            </div>
 
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-auto w-full btn-accent py-2 flex items-center justify-center gap-2 text-xs md:text-sm"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    Pobierz
-                  </a>
+            {/* 4) Mini-galeria stron + pobieranie */}
+            <div className="mt-10 md:mt-12 space-y-10 md:space-y-12">
+              {materials.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-[22px] border border-white/12 bg-white/5 backdrop-blur-md p-5 md:p-7"
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6 lg:gap-10 items-center">
+                    {/* Mini-galeria */}
+                    <div>
+                      <div
+                        className="
+                          flex gap-3 overflow-x-auto no-scrollbar
+                          snap-x-mandatory
+                          py-1
+                        "
+                      >
+                        {/* Mobile: tylko 1 preview (pierwszy URL) */}
+<div className="sm:hidden">
+  {(item.previews || []).slice(0, 1).map((src, pIdx) => (
+    <div
+      key={pIdx}
+      className="w-full rounded-2xl overflow-hidden bg-transparent"
+    >
+      <img
+        src={src}
+        alt={`${item.title} – podgląd strony 1`}
+        className="w-full h-auto object-contain select-none pointer-events-none"
+        loading="lazy"
+      />
+    </div>
+  ))}
+</div>
+
+{/* Tablet/Desktop: 3 preview obok siebie */}
+<div
+  className="
+    hidden sm:flex gap-3 overflow-x-auto no-scrollbar
+    snap-x-mandatory py-1
+  "
+>
+  {(item.previews || []).slice(0, 3).map((src, pIdx) => (
+    <div
+      key={pIdx}
+      className="
+        snap-center
+        flex-none
+        w-[45%] lg:w-[32%]
+        rounded-2xl
+        overflow-hidden
+        bg-transparent
+      "
+    >
+      <img
+        src={src}
+        alt={`${item.title} – podgląd strony ${pIdx + 1}`}
+        className="w-full h-auto object-contain select-none pointer-events-none"
+        loading="lazy"
+      />
+    </div>
+  ))}
+</div>
+
+                      </div>
+
+                      <p className="mt-3 text-xs text-white/55">
+                        Podgląd przykładowych stron (scroll w bok na telefonie).
+                      </p>
+                    </div>
+
+                    {/* Opis + CTA */}
+                    <div>
+                      <h3 className="text-white text-xl md:text-2xl font-extrabold font-accent">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-white/70 text-sm md:text-base leading-relaxed">
+                        {item.desc}
+                      </p>
+
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-5 inline-flex w-full sm:w-auto items-center justify-center gap-2 btn-accent py-3 px-6 text-sm md:text-base"
+                      >
+                        <Download className="w-4 h-4" />
+                        Pobierz PDF
+                      </a>
+
+                      <p className="mt-3 text-xs text-white/55">
+                        Otworzy się w nowej karcie (Google Drive).
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
+
           </div>
         </div>
       </section>

@@ -6,33 +6,20 @@ function OpinionsMarquee({ opinions = [], duration = 40 }) {
   const [openVideo, setOpenVideo] = useState(null);
 
   const base = useMemo(() => (Array.isArray(opinions) ? opinions : []), [opinions]);
-
-  // ✅ Duplikujemy żeby pętla była płynna
   const items = useMemo(() => (base.length ? [...base, ...base] : []), [base]);
 
   return (
     <>
-      {/* ✅ Auto-marquee */}
       <div className="marquee">
-        <div
-          className="marquee-track"
-          style={{ animationDuration: `${duration}s` }}
-        >
+        <div className="marquee-track" style={{ animationDuration: `${duration}s` }}>
           {items.map((op, idx) => (
-            <div
-              key={idx}
-              className="marquee-item"
-            >
-              <OpinionCard
-                {...op}
-                onVideoClick={() => setOpenVideo(op.videoThumbnail)}
-              />
+            <div key={idx} className="marquee-item">
+              <OpinionCard {...op} onVideoClick={() => setOpenVideo(op.videoThumbnail)} />
             </div>
           ))}
         </div>
       </div>
 
-      {/* Modal wideo (placeholder) */}
       <AnimatePresence>
         {openVideo && (
           <motion.div
@@ -62,9 +49,7 @@ function OpinionsMarquee({ opinions = [], duration = 40 }) {
                 <p className="text-gray-700">
                   Podmień to na prawdziwe wideo (np. iframe YouTube) albo własny player.
                 </p>
-                <p className="text-gray-500 text-sm mt-2 break-all">
-                  {openVideo}
-                </p>
+                <p className="text-gray-500 text-sm mt-2 break-all">{openVideo}</p>
               </div>
             </motion.div>
           </motion.div>

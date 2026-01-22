@@ -50,11 +50,11 @@ function BlogArticle() {
       </Helmet>
 
       {/* Breadcrumb */}
-      <section className="pt-24 pb-8 bg-gray-50">
+      <section className="pt-24 pb-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-medium transition-colors"
+            className="inline-flex items-center gap-2 text-white/80 hover:text-white font-medium transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Wróć do bloga
@@ -63,75 +63,95 @@ function BlogArticle() {
       </section>
 
       {/* Article Header */}
-      <section className="py-12 bg-gray-50">
+      <section className="py-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full mb-4">
-              {article.category}
-            </span>
-            
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              {article.title}
-            </h1>
-            
-            <div className="flex items-center gap-2 text-gray-600">
-              <Calendar className="w-5 h-5" />
-              <span>{article.date}</span>
-            </div>
-          </motion.div>
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  className="glass-panel p-8"
+>
+  <span className="inline-block px-3 py-1 bg-white/10 border border-white/15 text-white/80 text-sm font-semibold rounded-full mb-4">
+    {article.category}
+  </span>
+
+  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+    {article.title}
+  </h1>
+
+  <div className="flex items-center gap-2 text-white/70">
+    <Calendar className="w-5 h-5" />
+    <span>{article.date}</span>
+  </div>
+</motion.div>
+
         </div>
       </section>
 
       {/* Article Content */}
-      <section className="py-12 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.article
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="prose prose-lg max-w-none"
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
-        </div>
-      </section>
+      <section className="py-10">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="glass-panel p-8">
+      <motion.article
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="prose prose-lg prose-invert max-w-none"
+        dangerouslySetInnerHTML={{ __html: article.content }}
+      />
+    </div>
+  </div>
+</section>
+
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-purple-600 to-blue-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-white"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Potrzebujesz pomocy w przygotowaniach?
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Zapisz się na korepetycje i osiągnij swój cel na maturze!
-            </p>
-            <Link
-              to="/zapisy"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-purple-600 font-bold rounded-xl hover:bg-gray-100 transition-all duration-200 hover:scale-105 text-lg"
-            >
-              Zapisz się na zajęcia
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </motion.div>
+      <section className="py-12">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="glass-panel p-8 md:p-10 text-center relative overflow-hidden"
+    >
+      {/* subtelne „światło” w tle */}
+      <div className="pointer-events-none absolute inset-0 opacity-60">
+        <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-purple-500/25 blur-3xl" />
+        <div className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-blue-500/20 blur-3xl" />
+      </div>
+
+      <div className="relative z-10 text-white">
+        <h2 className="text-2xl md:text-3xl font-extrabold mb-3">
+          Potrzebujesz pomocy w przygotowaniach?
+        </h2>
+        <p className="text-base md:text-lg text-white/80 mb-7">
+          Zapisz się na korepetycje i osiągnij swój cel na maturze!
+        </p>
+
+        <Link
+          to="/zapisy"
+          className="btn-accent inline-flex items-center justify-center gap-2 text-sm md:text-base px-7 py-3 rounded-xl"
+        >
+          Zapisz się na zajęcia
+          <ArrowRight className="w-5 h-5" />
+        </Link>
+
+        <div className="mt-4 text-[12px] text-white/60">
+          Odpowiadam zwykle w ciągu 24h.
         </div>
-      </section>
+      </div>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* Back to Blog */}
-      <section className="py-8 bg-gray-50">
+      <section className="py-10">
+
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-medium transition-colors"
+            className="inline-flex items-center gap-2 text-white/80 hover:text-white font-medium transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Zobacz więcej artykułów
