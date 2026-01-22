@@ -9,32 +9,31 @@ function MaterialsPage() {
     {
       title: "Metabolizm",
       desc: "Kompletny przewodnik po procesach.",
-      link: "https://drive.google.com/file/d/1kV4x497QlhZdvUdn9qN1wlMnK75YZ0zI/view",
+      link: "https://drive.google.com/file/d/1LcFjDDSHxyW6VsCNNtpfPVIL2frEJadW/view?usp=drive_link",
       // TODO: podmień na realne URL-e (3 miniatury stron PDF)
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769082868/Projekt_bez_nazwy_24_jjkyvd.png",
-        "PASTE_PREVIEW_URL_2",
-        "PASTE_PREVIEW_URL_3",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/3_ejqxtr.png",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/4_zu1mmt.png",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/5_sootg9.png",
       ],
     },
     {
       title: "Plan maturalny",
       desc: "Szczegółowy harmonogram nauki.",
-      link: "https://drive.google.com/file/d/1d4CH1nlCSQ8g7jD1mYWl_l3RUSlB_XNs/view",
+      link: "https://drive.google.com/file/d/1Bgngdk0wNAH_rHXYdL16c7O_Airno94X/view?usp=drive_link",
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769082868/Projekt_bez_nazwy_24_jjkyvd.png",
-        "PASTE_PREVIEW_URL_2",
-        "PASTE_PREVIEW_URL_3",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104949/ipad_grafiki_zvf9pe.png",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104950/5_xkv60z.png",
       ],
     },
     {
       title: "Pytania sprawdzające",
       desc: "Zestaw do samodzielnej pracy.",
-      link: "https://drive.google.com/file/d/1jNUKSEWeplR9pgdQV-nluwYR1vM4xNWb/view",
+      link: "https://drive.google.com/file/d/1Szx0nKs4l2rtcG9jP9LLO-v3jWcenhvV/view?usp=drive_link",
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769082868/Projekt_bez_nazwy_24_jjkyvd.png",
-        "PASTE_PREVIEW_URL_2",
-        "PASTE_PREVIEW_URL_3",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104665/6_q9wzxo.png",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104666/7_pxzxup.png",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104668/8_xvepb6.png",
       ],
     },
     {

@@ -60,7 +60,7 @@ style={{ backgroundColor: 'rgba(18, 24, 38, 0.55)' }}
             {/* Logo */}
             <Link to="/" className="flex items-center py-2">
               <img
-                src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769049627/800x240_bez_t%C5%82a_dkos4d.png"
+                src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769105274/Projekt_bez_nazwy_31_ay7ahl.png"
                 alt="Medulia"
                 className="h-10 md:h-12 w-auto"
                 loading="eager"
