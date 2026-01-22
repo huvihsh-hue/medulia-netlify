@@ -7,8 +7,6 @@ function SignupForm() {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
-    class: '',
-    city: '',
     email: '',
     phone: '',
     message: ''
@@ -17,22 +15,11 @@ function SignupForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const classOptions = [
-    '1 LO',
-    '2 LO',
-    '3 LO',
-    '4 LO',
-    '1 Technikum',
-    '2 Technikum',
-    '3 Technikum',
-    '4 Technikum',
-    'Inne'
-  ];
+  
 
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Imię jest wymagane';
-    if (!formData.class) newErrors.class = 'Wybierz klasę';
     if (!formData.city.trim()) newErrors.city = 'Miasto jest wymagane';
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

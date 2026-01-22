@@ -11,12 +11,14 @@ import BlogPage from '@/pages/BlogPage';
 import BlogArticle from '@/pages/BlogArticle';
 import ContactPage from '@/pages/ContactPage';
 import SignupPage from '@/pages/SignupPage';
+import ScrollToTop from '@/components/ScrollToTop';
 
 import { Toaster } from '@/components/ui/toaster';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />

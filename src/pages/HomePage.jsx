@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import {
   ArrowRight,
   Target,
@@ -9,7 +9,6 @@ import {
   Heart,
   Users,
   CheckCircle,
-  Download,
   ChevronRight,
   FileText,
   Phone,
@@ -63,7 +62,25 @@ const offerTypesCompact = [
   { title: 'Pakiety miesięczne – grupowe', to: '/oferta/pakiety-grupowe', icon: Package },
 ];
 
+// ===== MOTION (subtelne, premium) =====
+const EASE_OUT = [0.22, 1, 0.36, 1];
+
+const makeFadeUp = (reduce) => ({
+  hidden: { opacity: 0, y: reduce ? 0 : 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE_OUT } },
+});
+
+const makeFadeSide = (dir, reduce) => ({
+  hidden: { opacity: 0, x: reduce ? 0 : dir * 22 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE_OUT } },
+});
+
 function HomePage() {
+  const reduceMotion = useReducedMotion();
+  const fadeUp = makeFadeUp(reduceMotion);
+  const fadeLeft = makeFadeSide(-1, reduceMotion);
+  const fadeRight = makeFadeSide(1, reduceMotion);
+
   return (
     <>
       <Helmet>
@@ -88,7 +105,7 @@ function HomePage() {
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT }}
               className="hero-figure-wrap order-1 lg:order-2"
             >
               <div className="hero-figure">
@@ -110,7 +127,7 @@ function HomePage() {
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, ease: EASE_OUT }}
               className="hero-card order-2 lg:order-1"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-semibold mb-4">
@@ -150,12 +167,19 @@ function HomePage() {
       {/* SECTION: BENEFITS */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-panel" data-bg="image">
+          <motion.div
+            className="glass-panel"
+            data-bg="image"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.22 }}
+          >
             <div className="benefits-grid">
               <div>
                 <h2 className="benefits-title">
-  <span className="text-gradient">Co zyskujesz na</span> zajęciach ze mną?
-</h2>
+                  <span className="text-gradient">Co zyskujesz na</span> zajęciach ze mną?
+                </h2>
 
                 <p className="benefits-subtitle">
                   Konkretne efekty — bez stresu, bez lania wody, z planem pod Ciebie.
@@ -171,25 +195,46 @@ function HomePage() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* SECTION 2: VALUES */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-panel" data-bg="image">
+          <motion.div
+            className="glass-panel"
+            data-bg="image"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.22 }}
+          >
             <div className="grid lg:grid-cols-2 gap-8 items-center">
-              <div className="relative order-1">
+              {/* zdjęcie -> z boku */}
+              <motion.div
+                className="relative order-1"
+                variants={fadeLeft}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.22 }}
+              >
                 <div className="absolute inset-0 bg-gradient-to-t from-purple-400/20 via-blue-400/20 to-transparent rounded-full blur-3xl -z-10" />
                 <img
                   src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1768865222/Projekt_bez_nazwy_5_adwhyx.png"
                   alt="Julia - MEDULIA"
                   className="w-full max-w-[320px] md:max-w-[420px] mx-auto lg:mx-0 drop-shadow-2xl relative z-10"
                 />
-              </div>
+              </motion.div>
 
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 order-2">
+              {/* box tekstowy -> od dołu */}
+              <motion.div
+                className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 order-2"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.22 }}
+              >
                 <SectionTitle className="!text-left !mb-6" center={false}>Dlaczego ja?</SectionTitle>
                 <p className="text-white/80 mb-8 leading-relaxed text-sm">
                   Uczę biologii tak, żebyś rozumiał/a, a nie kuł/a. Jestem praktykiem z wynikami.
@@ -213,17 +258,23 @@ function HomePage() {
                     </div>
                   ))}
                 </div>
-              </div>
-
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* SECTION 3: TYPES (Home: tylko lista + CTA) */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-panel overflow-hidden" data-bg="image">
+          <motion.div
+            className="glass-panel overflow-hidden"
+            data-bg="image"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.22 }}
+          >
             <SectionTitle>Rodzaje zajęć</SectionTitle>
 
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -233,7 +284,6 @@ function HomePage() {
                   to={item.to}
                   className="group rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/7 transition-all p-4 md:p-5 flex items-center justify-between gap-3"
                 >
-                  {/* ✅ min-w-0 żeby tytuł mógł się zawijać/ucinać poprawnie */}
                   <div className="flex items-center gap-3 min-w-0">
                     <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0">
                       <item.icon className="w-5 h-5 text-white/85" />
@@ -246,7 +296,6 @@ function HomePage() {
                     </div>
                   </div>
 
-                  {/* ✅ prawa strona zawsze w 1 linii */}
                   <div className="inline-flex items-center gap-2 text-white/70 group-hover:text-white transition-colors text-sm font-semibold flex-shrink-0 whitespace-nowrap">
                     Zobacz szczegóły <ArrowRight className="w-4 h-4" />
                   </div>
@@ -262,14 +311,21 @@ function HomePage() {
                 Zapisz się
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* SECTION: FREE MATERIALS */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-panel p-6 md:p-8" data-bg="image">
+          <motion.div
+            className="glass-panel p-6 md:p-8"
+            data-bg="image"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.22 }}
+          >
             <SectionTitle>Darmowe materiały</SectionTitle>
             <p className="text-center text-white/70 mb-8 max-w-2xl mx-auto text-sm">
               Pobierz przykładowe notatki i zadania. Sprawdź, jak uczę!
@@ -280,10 +336,11 @@ function HomePage() {
                 <motion.div
                   key={idx}
                   className="card-pdf"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{ delay: reduceMotion ? 0 : idx * 0.08, duration: 0.55, ease: EASE_OUT }}
                 >
                   <div className="flex-grow">
                     <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center mb-3">
@@ -292,27 +349,35 @@ function HomePage() {
                     <h4 className="font-bold text-white text-sm md:text-base mb-2 font-accent">{item.title}</h4>
                     <p className="text-white/60 text-xs md:text-sm mb-4 line-clamp-3">{item.desc}</p>
                   </div>
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-auto w-full btn-accent py-2 flex items-center justify-center gap-2 text-xs md:text-sm"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    Pobierz
-                  </a>
+                  <div className="mt-2" />
+
                 </motion.div>
               ))}
             </div>
-          </div>
+            <div className="mt-6 flex justify-center">
+  <Link
+    to="/materialy"
+    className="btn-accent inline-flex items-center justify-center gap-2"
+  >
+    Zobacz wszystkie materiały <ArrowRight className="w-5 h-5" />
+  </Link>
+</div>
+
+          </motion.div>
         </div>
       </section>
 
       {/* SECTION 5: OPINIONS MARQUEE */}
-      {/* ✅ trochę niżej na mobile */}
       <section className="pt-12 pb-8 md:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-panel p-4 md:p-8" data-bg="image">
+          <motion.div
+            className="glass-panel p-4 md:p-8"
+            data-bg="image"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.22 }}
+          >
             <SectionTitle>Opinie</SectionTitle>
             <p className="text-center text-white/80 mb-4 text-sm">Prawdziwe historie.</p>
             <OpinionsMarquee opinions={opinionsData} />
@@ -321,7 +386,7 @@ function HomePage() {
                 Więcej opinii <ChevronRight className="w-4 h-4 ml-1" />
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -329,15 +394,31 @@ function HomePage() {
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div className="relative order-2 lg:order-1">
+            {/* zdjęcie -> z boku */}
+            <motion.div
+              className="relative order-2 lg:order-1"
+              variants={fadeLeft}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.22 }}
+            >
               <div className="absolute inset-0 bg-white/10 rounded-2xl blur-sm" />
               <img
                 src="https://images.unsplash.com/photo-1581726690015-c9861fa5057f?w=800"
                 alt="Maria - Nauczycielka"
                 className="relative rounded-2xl shadow-xl max-h-[400px] w-full object-cover"
               />
-            </div>
-            <div className="order-1 lg:order-2 glass-panel p-6 md:p-8" data-bg="image">
+            </motion.div>
+
+            {/* box tekstowy -> od dołu */}
+            <motion.div
+              className="order-1 lg:order-2 glass-panel p-6 md:p-8"
+              data-bg="image"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.22 }}
+            >
               <SectionTitle className="!text-left" center={false}>Moja misja</SectionTitle>
               <div className="prose prose-sm text-white/80 mt-4 space-y-3">
                 <p>
@@ -353,7 +434,7 @@ function HomePage() {
               >
                 Poznaj mnie <ArrowRight className="w-4 h-4 ml-1" />
               </Link>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -362,7 +443,14 @@ function HomePage() {
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
-            <div className="glass-panel p-6 md:p-8 h-full" data-bg="image">
+            <motion.div
+              className="glass-panel p-6 md:p-8 h-full"
+              data-bg="image"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.22 }}
+            >
               <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white">Zawalcz o 100%</h2>
               <p className="text-white/80 mb-6 leading-relaxed text-sm">
                 Liczba miejsc ograniczona. Decyduje kolejność zgłoszeń.
@@ -377,11 +465,19 @@ function HomePage() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
-            <div className="glass-panel p-6" data-bg="image">
-              <ContactForm />
-            </div>
+            <motion.div
+              className="glass-panel p-6"
+              data-bg="image"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.22 }}
+            >
+              <ContactForm hideClass />
+
+            </motion.div>
           </div>
         </div>
       </section>

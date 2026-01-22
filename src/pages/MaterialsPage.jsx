@@ -12,7 +12,7 @@ function MaterialsPage() {
       link: "https://drive.google.com/file/d/1kV4x497QlhZdvUdn9qN1wlMnK75YZ0zI/view",
       // TODO: podmień na realne URL-e (3 miniatury stron PDF)
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769048205/Projekt_bez_nazwy_18_vb1dlh.png",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769082868/Projekt_bez_nazwy_24_jjkyvd.png",
         "PASTE_PREVIEW_URL_2",
         "PASTE_PREVIEW_URL_3",
       ],
@@ -22,7 +22,7 @@ function MaterialsPage() {
       desc: "Szczegółowy harmonogram nauki.",
       link: "https://drive.google.com/file/d/1d4CH1nlCSQ8g7jD1mYWl_l3RUSlB_XNs/view",
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769048205/Projekt_bez_nazwy_18_vb1dlh.png",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769082868/Projekt_bez_nazwy_24_jjkyvd.png",
         "PASTE_PREVIEW_URL_2",
         "PASTE_PREVIEW_URL_3",
       ],
@@ -32,7 +32,7 @@ function MaterialsPage() {
       desc: "Zestaw do samodzielnej pracy.",
       link: "https://drive.google.com/file/d/1jNUKSEWeplR9pgdQV-nluwYR1vM4xNWb/view",
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769048205/Projekt_bez_nazwy_18_vb1dlh.png",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769082868/Projekt_bez_nazwy_24_jjkyvd.png",
         "PASTE_PREVIEW_URL_2",
         "PASTE_PREVIEW_URL_3",
       ],
@@ -42,7 +42,7 @@ function MaterialsPage() {
       desc: "Ćwiczenia praktyczne.",
       link: "https://drive.google.com/file/d/1s90hS6X0aVSNM5w-YW4OyNYgnV2YYTDw/view",
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769048205/Projekt_bez_nazwy_18_vb1dlh.png",
+        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769082868/Projekt_bez_nazwy_24_jjkyvd.png",
         "PASTE_PREVIEW_URL_2",
         "PASTE_PREVIEW_URL_3",
       ],

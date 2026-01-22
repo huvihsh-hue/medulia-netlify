@@ -3,17 +3,18 @@ import { motion } from 'framer-motion';
 import { Loader2, CheckCircle, User, GraduationCap, Layers, MapPin, Mail, Phone, MessageSquare } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast.jsx';
 
-function ContactForm() {
+function ContactForm({ hideClass = false }) {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
-    class: '',
+    ...(hideClass ? {} : { class: '' }),
     lessonType: '',
     city: '',
     email: '',
     phone: '',
     message: ''
   });
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -40,7 +41,7 @@ function ContactForm() {
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Imię jest wymagane';
-    if (!formData.class) newErrors.class = 'Wybierz klasę';
+        if (!hideClass && !formData.class) newErrors.class = 'Wybierz klasę';
     if (!formData.lessonType) newErrors.lessonType = 'Wybierz rodzaj zajęć';
     if (!formData.city.trim()) newErrors.city = 'Miasto jest wymagane';
 
@@ -89,7 +90,16 @@ function ContactForm() {
     });
 
     setTimeout(() => {
-      setFormData({ name: '', class: '', lessonType: '', city: '', email: '', phone: '', message: '' });
+            setFormData({
+        name: '',
+        ...(hideClass ? {} : { class: '' }),
+        lessonType: '',
+        city: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+
       setIsSuccess(false);
     }, 5000);
   };
@@ -167,33 +177,38 @@ function ContactForm() {
           </ControlShell>
         </Field>
 
-        {/* Klasa */}
-        <Field label="Klasa" required error={errors.class}>
-          <ControlShell icon={GraduationCap} hasError={!!errors.class}>
-            <select
-              name="class"
-              value={formData.class}
-              onChange={handleChange}
-              className={selectBase}
-            >
-              <option value="" className="select-option">
-                Wybierz klasę
-              </option>
-              {classOptions.map(opt => (
-                <option key={opt} value={opt} className="select-option">
-                  {opt}
-                </option>
-              ))}
-            </select>
+                {!hideClass && (
+          <>
+            {/* Klasa */}
+            <Field label="Klasa" required error={errors.class}>
+              <ControlShell icon={GraduationCap} hasError={!!errors.class}>
+                <select
+                  name="class"
+                  value={formData.class}
+                  onChange={handleChange}
+                  className={selectBase}
+                >
+                  <option value="" className="select-option">
+                    Wybierz klasę
+                  </option>
+                  {classOptions.map(opt => (
+                    <option key={opt} value={opt} className="select-option">
+                      {opt}
+                    </option>
+                  ))}
+                </select>
 
-            {/* strzałka */}
-            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/55">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-          </ControlShell>
-        </Field>
+                {/* strzałka */}
+                <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/55">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              </ControlShell>
+            </Field>
+          </>
+        )}
+
 
         {/* Rodzaj zajęć */}
         <Field label="Rodzaj zajęć" required error={errors.lessonType}>
@@ -277,7 +292,7 @@ function ContactForm() {
                 onChange={handleChange}
                 rows={4}
                 className="w-full min-h-[110px] pl-10 pr-3 py-3 rounded-xl bg-transparent text-white placeholder-white/35 outline-none text-sm resize-none"
-                placeholder="Np. termin zajęć, preferowane dni, dodatkowe info…"
+                placeholder="Cześć! Jestem uczniem/uczennicą 4LO. Przygotowuję się do matury z biologii (poziom: rozszerzenie) w 2027. Mój cel to 80%...."
               />
             </ControlShell>
           </Field>
