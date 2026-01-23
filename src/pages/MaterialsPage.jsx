@@ -173,7 +173,7 @@ function MaterialsPage() {
                       </div>
 
                       <p className="mt-3 text-xs text-white/55">
-                        Podgląd przykładowych stron (scroll w bok na telefonie).
+                      
                       </p>
                     </div>
 

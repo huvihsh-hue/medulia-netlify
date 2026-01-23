@@ -1,40 +1,70 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Quote, Play } from 'lucide-react';
+import { Quote, Image as ImageIcon } from 'lucide-react';
 
-function OpinionCard({ name, city, text, videoThumbnail, onVideoClick }) {
+function OpinionCard({ name, city, text, proofImage, onImageClick, variant = 'full' }) {
+  const hasProof = Boolean(proofImage);
+
+  // ile linii tekstu pokazujemy w zależności od miejsca użycia
+  // compact: Home / węższe sekcje
+  // full: Opinions page / większe karty
+  const lines = variant === 'compact' ? (hasProof ? 2 : 4) : (hasProof ? 3 : 6);
+
   return (
     <motion.div
-      whileHover={{ y: -5 }}
-      className="bg-white rounded-2xl p-4 md:p-6 shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col"
+      whileHover={{ y: -3 }}
+      className="opinion-card rounded-2xl p-4 md:p-6 h-full flex flex-col"
     >
-      {videoThumbnail ? (
-        <div
-          className="relative mb-4 rounded-xl overflow-hidden cursor-pointer group"
-          onClick={onVideoClick}
+      {/* GÓRA: dowód (jeśli jest) */}
+      {hasProof ? (
+        <button
+          type="button"
+          onClick={onImageClick}
+          className="relative mb-4 rounded-xl overflow-hidden border border-white/10 bg-white/5 text-left group"
+          aria-label={`${name} – pokaż zdjęcie opinii`}
         >
-          <img
-            src={videoThumbnail}
-            alt={`${name} - opinia wideo`}
-            className="w-full h-40 md:h-48 object-cover"
-          />
-          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center">
-            <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Play className="w-7 h-7 md:w-8 md:h-8 text-purple-600 ml-1" />
-            </div>
+          {/* pionowe screeny: pokazujemy CAŁOŚĆ */}
+          <div className="aspect-[9/16] w-full bg-black/20">
+            <img
+              src={proofImage}
+              alt={`${name} – zdjęcie opinii`}
+              className="w-full h-full object-contain"
+              loading="lazy"
+            />
           </div>
-        </div>
+
+          {/* delikatna nakładka */}
+          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/18 transition-colors" />
+
+          {/* badge */}
+          <div className="absolute left-3 top-3 inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-black/45 border border-white/12 text-white text-[11px] font-semibold">
+            <ImageIcon className="w-3.5 h-3.5" />
+          </div>
+        </button>
       ) : (
-        <Quote className="w-9 h-9 md:w-10 md:h-10 text-purple-600 mb-3 md:mb-4" />
+        <div className="mb-3 md:mb-4 text-purple-300">
+          <Quote className="w-9 h-9 md:w-10 md:h-10" />
+        </div>
       )}
 
-      <p className="text-gray-700 mb-4 flex-grow leading-relaxed text-sm md:text-base">
-        "{text}"
-      </p>
+      {/* ✅ TEKST: pokazuj zawsze, jeśli jest */}
+      {text ? (
+        <p
+          className={[
+            'text-white/85 leading-relaxed text-sm md:text-base flex-grow',
+            `line-clamp-${lines}`,
+          ].join(' ')}
+        >
+          {text}
+        </p>
+      ) : (
+        <div className="flex-grow" />
+      )}
 
-      <div className="pt-4 border-t border-gray-100">
-        <p className="font-semibold text-gray-900">{name}</p>
-        <p className="text-sm text-gray-600">{city}</p>
+      {/* STOPKA */}
+      <div className="pt-4 mt-4 border-t border-white/10">
+        <p className="font-semibold text-white">{name}</p>
+        <p className="text-sm text-white/60">{city}</p>
       </div>
     </motion.div>
   );

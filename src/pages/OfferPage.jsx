@@ -55,6 +55,7 @@ function MediaSlot({ alt, label = 'Miejsce na zdjęcie (wstaw URL)' }) {
 
 function OfferCardRow({ o, index }) {
   const Icon = o.icon;
+  const isPremium = o.slug === 'indywidualne-premium';
 
   return (
     <motion.div
@@ -62,8 +63,19 @@ function OfferCardRow({ o, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.06 }}
-      className="rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all p-5 md:p-6"
+      className={[
+        'relative rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all p-5 md:p-6',
+        // ✅ wyróżnienie Premium TYLKO na mobile (md+ bez zmian)
+        isPremium ? 'border-white/25 shadow-[0_0_28px_rgba(124,58,237,0.28)] md:border-white/10 md:shadow-none' : '',
+      ].join(' ')}
     >
+      {/* ✅ Mobile-only: cała karta klikalna (bez powtarzania "Zobacz szczegóły") */}
+      <Link
+        to={`/oferta/${o.slug}`}
+        className="md:hidden absolute inset-0 rounded-2xl z-10"
+        aria-label={`Zobacz szczegóły: ${o.title}`}
+      />
+
       <div className="grid lg:grid-cols-[1.35fr_0.65fr] gap-5 items-start">
         {/* TEXT */}
         <div>
@@ -72,9 +84,26 @@ function OfferCardRow({ o, index }) {
               <Icon className="w-5 h-5 text-white/85" />
             </div>
 
-            <div>
-              <h3 className="text-white font-bold text-base md:text-lg leading-snug">{o.title}</h3>
-              <div className="text-white/70 text-sm mt-1 font-semibold">{o.priceLine}</div>
+            <div className="min-w-0">
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="text-white font-bold text-base md:text-lg leading-snug">
+                  {o.title}
+                </h3>
+
+                {/* ✅ tylko na mobile: subtelna wskazówka, że karta jest klikalna */}
+                <ArrowRight className="md:hidden w-4 h-4 text-white/55 flex-shrink-0 mt-1" />
+              </div>
+
+              <div className="text-white/70 text-sm mt-1 font-semibold">
+                {o.priceLine}
+              </div>
+
+              {/* ✅ Mobile-only: badge Premium */}
+              {isPremium && (
+                <div className="md:hidden mt-2 inline-flex items-center rounded-full px-3 py-1 text-xs font-bold border border-white/18 bg-white/8 text-white/85">
+                  Najczęściej wybierane
+                </div>
+              )}
             </div>
           </div>
 
@@ -87,7 +116,8 @@ function OfferCardRow({ o, index }) {
             ))}
           </ul>
 
-          <div className="mt-5 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+          {/* ✅ Desktop-only: zostaje dokładnie jak było */}
+          <div className="mt-5 hidden md:flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
             <Link
               to={`/oferta/${o.slug}`}
               className="inline-flex items-center gap-2 text-white font-semibold hover:text-white/80 transition-colors text-sm"
@@ -133,8 +163,15 @@ function OfferPage() {
             data-bg="image"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Oferta zajęć</h1>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto">
+
+            {/* ✅ Desktop: bez zmian */}
+            <p className="hidden md:block text-lg text-white/80 max-w-2xl mx-auto">
               Kliknij „Zobacz szczegóły”, żeby zobaczyć dokładny opis, zasady i materiały.
+            </p>
+
+            {/* ✅ Mobile: dopasowany komunikat */}
+            <p className="md:hidden text-sm text-white/80 max-w-2xl mx-auto leading-relaxed">
+              Kliknij w kartę, aby zobaczyć szczegóły oferty.
             </p>
           </motion.div>
         </div>
@@ -145,10 +182,24 @@ function OfferPage() {
           <div className="glass-panel p-6 md:p-8" data-bg="image">
             <SectionTitle>Rodzaje zajęć</SectionTitle>
 
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* ✅ Mobile: więcej oddechu; Desktop: bez zmian */}
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-4">
               {offers.map((o, i) => (
                 <OfferCardRow key={o.slug} o={o} index={i} />
               ))}
+            </div>
+
+            {/* ✅ Mobile-only: jedno mocne CTA zamiast 4 przycisków w kartach */}
+            <div className="mt-6 md:hidden">
+              <Link
+                to="/zapisy"
+                className="btn-accent w-full inline-flex items-center justify-center gap-2 text-sm"
+              >
+                Zapisz się <ArrowRight className="w-4 h-4" />
+              </Link>
+              <p className="mt-2 text-xs text-white/55 text-center">
+                Po wybraniu oferty dopasujemy najlepszą formę zajęć.
+              </p>
             </div>
 
             <div className="mt-8 rounded-2xl bg-white/5 border border-white/10 p-5 md:p-6">
