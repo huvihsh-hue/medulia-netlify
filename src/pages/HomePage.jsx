@@ -163,7 +163,7 @@ const videoClips = [
     title: 'Zadania CKE',
     desc: 'Jak czytać polecenie i zgarniać punkty.',
     src: 'https://res.cloudinary.com/dyxif8hyp/video/upload/v1769202949/WhatsApp_Video_2026-01-22_at_16.43.48_rjpww3.mp4',
-    poster: 'tu wklej filmiki',
+    poster: 'miniaturki filmików',
   },
 ];
 
