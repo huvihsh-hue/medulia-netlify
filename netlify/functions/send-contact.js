@@ -15,10 +15,10 @@ export const handler = async (event) => {
     } = JSON.parse(event.body || "{}");
 
     // Minimalna walidacja po stronie backendu
+    // city i class są opcjonalne (np. ukryte na /zapisy)
     const missing = [];
     if (!name) missing.push("name");
     if (!lessonType) missing.push("lessonType");
-    if (!city) missing.push("city");
     if (!email) missing.push("email");
     if (!phone) missing.push("phone");
 
@@ -51,7 +51,7 @@ export const handler = async (event) => {
       `Imię: ${name}`,
       studentClass ? `Klasa: ${studentClass}` : null,
       `Rodzaj zajęć: ${lessonType}`,
-      `Miasto: ${city}`,
+      city ? `Miasto: ${city}` : null,
       `Email: ${email}`,
       `Telefon: ${phone}`,
       ``,
@@ -67,7 +67,7 @@ export const handler = async (event) => {
         <p><b>Imię:</b> ${escapeHtml(name)}</p>
         ${studentClass ? `<p><b>Klasa:</b> ${escapeHtml(studentClass)}</p>` : ""}
         <p><b>Rodzaj zajęć:</b> ${escapeHtml(lessonType)}</p>
-        <p><b>Miasto:</b> ${escapeHtml(city)}</p>
+        ${city ? `<p><b>Miasto:</b> ${escapeHtml(city)}</p>` : ""}
         <p><b>Email:</b> ${escapeHtml(email)}</p>
         <p><b>Telefon:</b> ${escapeHtml(phone)}</p>
         <hr/>
