@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Loader2, CheckCircle, User, GraduationCap, MapPin, Mail, Phone, MessageSquare } from 'lucide-react';
+import { Loader2, CheckCircle, User, Mail, Phone, MessageSquare } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast.jsx';
 
 function SignupForm() {
@@ -9,18 +9,16 @@ function SignupForm() {
     name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  
-
   const validateForm = () => {
     const newErrors = {};
+
     if (!formData.name.trim()) newErrors.name = 'Imię jest wymagane';
-    if (!formData.city.trim()) newErrors.city = 'Miasto jest wymagane';
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) newErrors.email = 'Email jest wymagany';
@@ -36,8 +34,8 @@ function SignupForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
   const handleSubmit = async (e) => {
@@ -47,7 +45,7 @@ function SignupForm() {
       toast({
         title: 'Błąd walidacji',
         description: 'Proszę poprawić błędy w formularzu',
-        variant: 'destructive'
+        variant: 'destructive',
       });
       return;
     }
@@ -55,7 +53,7 @@ function SignupForm() {
     setIsSubmitting(true);
     console.log('Form data:', formData);
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
     setIsSubmitting(false);
     setIsSuccess(true);
@@ -66,7 +64,7 @@ function SignupForm() {
     });
 
     setTimeout(() => {
-      setFormData({ name: '', class: '', city: '', email: '', phone: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '' });
       setIsSuccess(false);
     }, 3000);
   };
@@ -84,15 +82,15 @@ function SignupForm() {
   const ControlShell = ({ icon: Icon, children, hasError }) => (
     <div
       className={[
-        "group relative rounded-xl border",
-        hasError ? "border-red-300/70" : "border-white/15",
-        "bg-white/[0.08]",
-        "shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
-        "backdrop-blur-md",
-        "transition-all duration-200",
-        "focus-within:border-purple-300/60 focus-within:ring-2 focus-within:ring-purple-400/25",
-        "hover:bg-white/[0.10]"
-      ].join(" ")}
+        'group relative rounded-xl border',
+        hasError ? 'border-red-300/70' : 'border-white/15',
+        'bg-white/[0.08]',
+        'shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]',
+        'backdrop-blur-md',
+        'transition-all duration-200',
+        'focus-within:border-purple-300/60 focus-within:ring-2 focus-within:ring-purple-400/25',
+        'hover:bg-white/[0.10]',
+      ].join(' ')}
     >
       <div className="absolute left-3 top-1/2 -translate-y-1/2 text-white/55 group-focus-within:text-white/80 transition-colors">
         <Icon className="w-4 h-4" />
@@ -102,10 +100,7 @@ function SignupForm() {
   );
 
   const inputBase =
-    "w-full h-11 pl-10 pr-3 rounded-xl bg-transparent text-white placeholder-white/35 outline-none text-sm";
-
-  const selectBase =
-    "w-full h-11 pl-10 pr-10 rounded-xl bg-transparent text-white outline-none text-sm appearance-none";
+    'w-full h-11 pl-10 pr-3 rounded-xl bg-transparent text-white placeholder-white/35 outline-none text-sm';
 
   if (isSuccess) {
     return (
@@ -124,7 +119,8 @@ function SignupForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5 text-left">
       <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-xs text-white/70">
-        Wypełnienie formularza nie zobowiązuje — odezwę się w ciągu <span className="text-white/90 font-semibold">24h</span>.
+        Wypełnienie formularza nie zobowiązuje — odezwę się w ciągu{' '}
+        <span className="text-white/90 font-semibold">24h</span>.
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -138,22 +134,6 @@ function SignupForm() {
               className={inputBase}
               placeholder="Np. Ola"
               autoComplete="given-name"
-            />
-          </ControlShell>
-        </Field>
-
-       
-
-        <Field label="Miasto" required error={errors.city}>
-          <ControlShell icon={MapPin} hasError={!!errors.city}>
-            <input
-              type="text"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              className={inputBase}
-              placeholder="Np. Warszawa"
-              autoComplete="address-level2"
             />
           </ControlShell>
         </Field>

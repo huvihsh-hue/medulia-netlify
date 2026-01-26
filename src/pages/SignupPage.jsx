@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { CheckCircle, Clock, MessageCircle, Calendar as CalendarIcon, ArrowRight } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
-import SignupForm from '@/components/SignupForm';
+import ContactForm from '@/components/ContactForm';
 
 function SignupPage() {
   const steps = [
@@ -29,7 +29,7 @@ function SignupPage() {
         <meta name="description" content="Zapisz się na korepetycje z biologii na rok 2026/2027. Ograniczona liczba miejsc!" />
       </Helmet>
 
-      {/* HERO (spójny z resztą strony) */}
+      {/* HERO */}
       <section className="pt-28 pb-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -87,7 +87,7 @@ function SignupPage() {
               Zostaw kontakt — odezwę się w ciągu <span className="text-white/85 font-semibold">24 godzin</span>.
             </p>
 
-            <SignupForm />
+            <ContactForm hideClass hideCity />
           </div>
         </div>
       </section>
@@ -140,12 +140,8 @@ function SignupPage() {
                   transition={{ duration: 0.5, delay: index * 0.05 }}
                   className="rounded-2xl bg-white/5 border border-white/10 p-5 md:p-6"
                 >
-                  <h3 className="text-base font-extrabold text-white mb-2">
-                    {faq.question}
-                  </h3>
-                  <p className="text-sm text-white/70 leading-relaxed">
-                    {faq.answer}
-                  </p>
+                  <h3 className="text-base font-extrabold text-white mb-2">{faq.question}</h3>
+                  <p className="text-sm text-white/70 leading-relaxed">{faq.answer}</p>
                 </motion.div>
               ))}
             </div>
@@ -153,13 +149,11 @@ function SignupPage() {
         </div>
       </section>
 
-      {/* CTA / URGENCY (bez gradientowego pasa) */}
+      {/* CTA */}
       <section className="py-6 pb-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass-panel p-6 md:p-8 text-center" data-bg="image">
-            <h2 className="text-2xl md:text-4xl font-extrabold text-white">
-              Nie czekaj do ostatniej chwili
-            </h2>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-white">Nie czekaj do ostatniej chwili</h2>
             <p className="mt-3 text-white/75 md:text-lg">
               Im wcześniej zaczniesz, tym spokojniej zrobimy plan i nadrobimy braki.
             </p>
