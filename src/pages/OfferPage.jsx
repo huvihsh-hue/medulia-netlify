@@ -13,6 +13,7 @@ const offers = [
     priceLine: '180 zł / 60 minut',
     bullets: ['Pełna uwaga nauczyciela', 'Indywidualny plan nauki'],
     imageAlt: 'Indywidualne Premium – zdjęcie',
+    imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/4_xshhhi.png',
   },
   {
     slug: 'indywidualne-pracownicy',
@@ -21,6 +22,7 @@ const offers = [
     priceLine: '140 zł / 60 minut',
     bullets: ['Nauczyciele po rekrutacji i szkoleniu', 'Materiały i metoda zgodne z programem'],
     imageAlt: 'Indywidualne z pracownikami – zdjęcie',
+    imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/5_ieey8l.png',
   },
   {
     slug: 'grupowe-ze-mna',
@@ -29,6 +31,7 @@ const offers = [
     priceLine: '80 zł / osoba / 60 minut',
     bullets: ['Kameralne grupy 3–5 osób', 'Regularna nauka w stałej grupie'],
     imageAlt: 'Grupowe zajęcia – zdjęcie',
+    imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457808/6_xjzcpu.png',
   },
   {
     slug: 'pakiety-grupowe',
@@ -37,17 +40,38 @@ const offers = [
     priceLine: 'Pakiety: 4 / 8 / 12 zajęć',
     bullets: ['Tylko dla grup prowadzonych przeze mnie', 'Płatność z góry'],
     imageAlt: 'Pakiety miesięczne – zdjęcie',
+    imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/7_anslg8.png',
   },
 ];
 
-function MediaSlot({ alt, label = 'Miejsce na zdjęcie (wstaw URL)' }) {
+function MediaSlot({
+  alt,
+  src,
+  label = 'Miejsce na zdjęcie (wstaw URL)',
+}) {
   return (
     <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
-      <div className="aspect-[16/10] w-full grid place-items-center text-center p-4">
-        <div>
-          <div className="text-white font-semibold text-sm">{alt}</div>
-          <div className="text-white/60 text-xs mt-1">{label}</div>
-        </div>
+      <div className="aspect-[16/10] w-full relative">
+        {src ? (
+          <>
+            <img
+              src={src}
+              alt={alt}
+              className="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+            {/* delikatna warstwa pod czytelność UI (opcjonalna, ale pomaga) */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-black/0 to-black/10" />
+          </>
+        ) : (
+          <div className="absolute inset-0 grid place-items-center text-center p-4">
+            <div>
+              <div className="text-white font-semibold text-sm">{alt}</div>
+              <div className="text-white/60 text-xs mt-1">{label}</div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -136,7 +160,7 @@ function OfferCardRow({ o, index }) {
 
         {/* MEDIA */}
         <div className="order-first lg:order-last">
-          <MediaSlot alt={o.imageAlt} />
+          <MediaSlot alt={o.imageAlt} src={o.imageSrc} />
         </div>
       </div>
     </motion.div>

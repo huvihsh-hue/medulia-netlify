@@ -16,22 +16,7 @@ function AboutPage() {
         />
       </Helmet>
 
-      {/* HERO */}
-      <div className="pt-24 md:pt-28 pb-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center glass-panel p-7 md:p-9"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">O mnie</h1>
-            <p className="text-lg text-white/80 max-w-3xl mx-auto">
-              Tu ma być spokojna, konkretna historia: kim jestem, skąd doświadczenie i jak uczę, żeby uczeń realnie
-              zdobywał punkty na arkuszu — bez chaosu i bez „lania wody”.
-            </p>
-          </motion.div>
-        </div>
-      </div>
+      
 
       {/* MAIN */}
       <section className="py-6">
@@ -168,10 +153,16 @@ function AboutPage() {
               <div className="grid gap-5">
                 {/* Zdjęcie 1 */}
                 <div className="glass-panel p-4">
-                  <div className="rounded-2xl bg-white/5 border border-dashed border-white/20 aspect-[4/3] flex items-center justify-center text-white/60 text-sm">
-                    Placeholder zdjęcia 1 (np. przy pracy / tablica)
-                  </div>
-                </div>
+  <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 aspect-[4/3]">
+    <img
+      src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769454403/2_co3dkt.png"
+      alt="MEDULIA — praca i nauka"
+      className="w-full h-full object-cover"
+      loading="lazy"
+    />
+  </div>
+</div>
+
 
                 {/* MOBILE: Co dostajesz (po zdj1) */}
                 <div className="lg:hidden">
@@ -201,10 +192,16 @@ function AboutPage() {
 
                 {/* Zdjęcie 2 */}
                 <div className="glass-panel p-4">
-                  <div className="rounded-2xl bg-white/5 border border-dashed border-white/20 aspect-[4/3] flex items-center justify-center text-white/60 text-sm">
-                    Placeholder zdjęcia 2 (np. biurko + materiały)
-                  </div>
-                </div>
+  <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 aspect-[4/3]">
+    <img
+      src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769454401/1_mxfqja.png"
+      alt="MEDULIA — biurko i materiały"
+      className="w-full h-full object-cover"
+      loading="lazy"
+    />
+  </div>
+</div>
+
 
                 {/* MOBILE: Jak zaczynamy (po zdj2) */}
                 <div className="lg:hidden">

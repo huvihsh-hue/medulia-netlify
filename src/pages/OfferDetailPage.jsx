@@ -5,14 +5,37 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, CheckCircle, FileText, Info } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
 
-function MediaSlot({ title, desc = 'Miejsce na zdjęcie — wstaw URL', ratio = 'aspect-[16/10]' }) {
+function MediaSlot({
+  title,
+  desc = 'Miejsce na zdjęcie — wstaw URL',
+  ratio = 'aspect-[16/10]',
+  src,
+  alt,
+}) {
+  const finalAlt = alt || title || 'Zdjęcie';
+
   return (
     <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
-      <div className={`${ratio} w-full grid place-items-center text-center p-4`}>
-        <div>
-          <div className="text-white font-semibold text-sm">{title}</div>
-          <div className="text-white/60 text-xs mt-1">{desc}</div>
-        </div>
+      <div className={`${ratio} w-full relative`}>
+        {src ? (
+          <>
+            <img
+              src={src}
+              alt={finalAlt}
+              className="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-black/0 to-black/10" />
+          </>
+        ) : (
+          <div className="absolute inset-0 grid place-items-center text-center p-4">
+            <div>
+              <div className="text-white font-semibold text-sm">{title}</div>
+              <div className="text-white/60 text-xs mt-1">{desc}</div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -37,10 +60,6 @@ function FileSlot({ title, desc = 'Miejsce na plik (PDF/Drive) — wstaw link' }
   );
 }
 
-/**
- * Teksty są “mocne” i kompletne,
- * ale jeśli później chcesz je dopieszczać – podmieniasz tylko stringi poniżej.
- */
 const OFFER_DETAILS = {
   'indywidualne-premium': {
     title: 'Indywidualne Premium – zajęcia ze mną',
@@ -53,12 +72,11 @@ const OFFER_DETAILS = {
       'Idealne przygotowanie do matur, egzaminów i sprawdzianów.',
     ],
     benefits: [
-  'Tempo i plan dopasowane do Ciebie — bez kompromisów.',
-  'Największy nacisk na zadania i analizę błędów (to robi wynik).',
-  'Szybkie domykanie luk: wiesz, co umiesz i co dokładnie poprawić.',
-  'Stała kontrola postępów i korekta strategii nauki.'
-],
-
+      'Tempo i plan dopasowane do Ciebie — bez kompromisów.',
+      'Największy nacisk na zadania i analizę błędów (to robi wynik).',
+      'Szybkie domykanie luk: wiesz, co umiesz i co dokładnie poprawić.',
+      'Stała kontrola postępów i korekta strategii nauki.',
+    ],
     forWho: [
       'Maturzyści celujący w bardzo wysoki wynik (np. medycyna, farmacja, biotechnologia).',
       'Osoby, które chcą szybko zidentyfikować luki i je zamknąć planem.',
@@ -76,8 +94,13 @@ const OFFER_DETAILS = {
     ],
     media: {
       hero: 'Premium 1:1 — zdjęcie (np. praca 1:1)',
+      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/4_xshhhi.png',
+
       sectionA: 'Plan nauki — zdjęcie (tablica / notatki / schemat)',
+      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459071/8_gggzxf.png',
+
       sectionB: 'Zadania egzaminacyjne — zdjęcie (arkusz / analiza)',
+      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459082/9_zuxy3j.png',
     },
     files: [
       { title: 'Karta maturalna: Metabolizm (PDF)', desc: 'Wstaw link do pliku / Drive' },
@@ -98,12 +121,11 @@ const OFFER_DETAILS = {
       'Jednolita jakość nauczania.',
     ],
     benefits: [
-  'Ten sam standard programu MEDULIA, tylko w niższej cenie.',
-  'Dużo pracy 1:1 na Twoich błędach — szybko widać progres.',
-  'Stabilna regularność: łatwiej utrzymać rytm nauki.',
-  'Materiały i struktura zajęć spójne z metodą.'
-],
-
+      'Ten sam standard programu MEDULIA, tylko w niższej cenie.',
+      'Dużo pracy 1:1 na Twoich błędach — szybko widać progres.',
+      'Stabilna regularność: łatwiej utrzymać rytm nauki.',
+      'Materiały i struktura zajęć spójne z metodą.',
+    ],
     forWho: [
       'Osoby, które chcą regularnych zajęć 1:1, ale w niższej cenie.',
       'Uczniowie, którzy potrzebują stałego prowadzenia i kontroli postępów.',
@@ -114,14 +136,16 @@ const OFFER_DETAILS = {
       'Zajęcia prowadzone w logicznej strukturze: teoria → przykłady → zadania → powtórka.',
       'Dostajesz materiały do pracy między zajęciami (karty, checklisty, krótkie zadania).',
     ],
-    rules: [
-      'Brak pakietów dla pracowników — tylko pojedyncze godziny.',
-      'Rezerwacja terminu obowiązkowa.',
-    ],
+    rules: ['Brak pakietów dla pracowników — tylko pojedyncze godziny.', 'Rezerwacja terminu obowiązkowa.'],
     media: {
       hero: '1:1 z pracownikiem — zdjęcie',
+      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/5_ieey8l.png',
+
       sectionA: 'Program i materiały — zdjęcie',
+      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459070/10_bsn9ts.png',
+
       sectionB: 'Powtórki i zadania — zdjęcie',
+      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459070/11_r8xosi.png',
     },
     files: [
       { title: 'Karta maturalna: Fotosynteza (PDF)', desc: 'Wstaw link do pliku / Drive' },
@@ -140,12 +164,11 @@ const OFFER_DETAILS = {
       'Pakiety miesięczne dostępne tylko dla grup prowadzonych przeze mnie.',
     ],
     benefits: [
-  'Motywacja i tempo grupy bez tłoku (3–5 osób).',
-  'Regularność: stałe miejsce = stały progres.',
-  'Uczysz się na pytaniach innych — to przyspiesza zrozumienie.',
-  'Dużo zadań i powtórek w rytmie tygodniowym.'
-],
-
+      'Motywacja i tempo grupy bez tłoku (3–5 osób).',
+      'Regularność: stałe miejsce = stały progres.',
+      'Uczysz się na pytaniach innych — to przyspiesza zrozumienie.',
+      'Dużo zadań i powtórek w rytmie tygodniowym.',
+    ],
     forWho: [
       'Osoby, które chcą motywacji i tempa grupy, ale bez tłoku.',
       'Uczniowie, którzy najlepiej uczą się przez zadania i dyskusję.',
@@ -163,8 +186,13 @@ const OFFER_DETAILS = {
     ],
     media: {
       hero: 'Zajęcia grupowe — zdjęcie',
+      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457808/6_xjzcpu.png',
+
       sectionA: 'Kameralna grupa — zdjęcie',
+      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459070/12_tkszhv.png',
+
       sectionB: 'Wspólna praca — zdjęcie',
+      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459071/13_bxzkpe.png',
     },
     files: [
       { title: 'Karta maturalna: Ekologia (PDF)', desc: 'Wstaw link do pliku / Drive' },
@@ -184,48 +212,29 @@ const OFFER_DETAILS = {
       'Rezerwacja miejsca obowiązkowa; minimum 3 osoby.',
     ],
     benefits: [
-  'Najlepsza opcja pod systematyczność — plan na cały miesiąc.',
-  'Stałe miejsce w grupie i przewidywalny rytm nauki.',
-  'Więcej powtórek i więcej zadań = stabilnie rosnący wynik.',
-  'Najkorzystniejsza cena za pojedyncze zajęcia (w pakietach).'
-],
-forWho: [
-  'Osoby, które chcą stałej struktury i regularności (bez “zrywów” przed maturą).',
-  'Maturzyści, którzy lubią plan i konsekwencję — tydzień po tygodniu budujemy wynik.',
-  'Uczniowie, którym łatwiej utrzymać motywację, gdy mają stałe miejsce w grupie.',
-  'Osoby przygotowujące się do sprawdzianów/egzaminów i chcące intensywniejszego rytmu (8 lub 12 zajęć).',
-],
-
-
-
-
+      'Najlepsza opcja pod systematyczność — plan na cały miesiąc.',
+      'Stałe miejsce w grupie i przewidywalny rytm nauki.',
+      'Więcej powtórek i więcej zadań = stabilnie rosnący wynik.',
+      'Najkorzystniejsza cena za pojedyncze zajęcia (w pakietach).',
+    ],
+    forWho: [
+      'Osoby, które chcą stałej struktury i regularności (bez “zrywów” przed maturą).',
+      'Maturzyści, którzy lubią plan i konsekwencję — tydzień po tygodniu budujemy wynik.',
+      'Uczniowie, którym łatwiej utrzymać motywację, gdy mają stałe miejsce w grupie.',
+      'Osoby przygotowujące się do sprawdzianów/egzaminów i chcące intensywniejszego rytmu (8 lub 12 zajęć).',
+    ],
     packages: [
       {
         name: 'Pakiet Standard',
-        details: [
-          '4 zajęcia w miesiącu (1× w tygodniu)',
-          '300 zł / osoba',
-          '75 zł za pojedyncze zajęcie',
-          'Stałe miejsce w grupie, regularna nauka',
-        ],
+        details: ['4 zajęcia w miesiącu (1× w tygodniu)', '300 zł / osoba', '75 zł za pojedyncze zajęcie', 'Stałe miejsce w grupie, regularna nauka'],
       },
       {
         name: 'Pakiet Intensywny',
-        details: [
-          '8 zajęć w miesiącu (2× w tygodniu)',
-          '560 zł / osoba',
-          '70 zł za pojedyncze zajęcie',
-          'Polecany przed sprawdzianami i egzaminami',
-        ],
+        details: ['8 zajęć w miesiącu (2× w tygodniu)', '560 zł / osoba', '70 zł za pojedyncze zajęcie', 'Polecany przed sprawdzianami i egzaminami'],
       },
       {
         name: 'Pakiet Egzamin / Matura',
-        details: [
-          '12 zajęć w miesiącu (3× w tygodniu)',
-          '780 zł / osoba',
-          '65 zł za pojedyncze zajęcie',
-          'Intensywne przygotowanie, powtórki i zadania egzaminacyjne',
-        ],
+        details: ['12 zajęć w miesiącu (3× w tygodniu)', '780 zł / osoba', '65 zł za pojedyncze zajęcie', 'Intensywne przygotowanie, powtórki i zadania egzaminacyjne'],
       },
     ],
     rules: [
@@ -236,8 +245,13 @@ forWho: [
     ],
     media: {
       hero: 'Pakiety — zdjęcie',
+      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/7_anslg8.png',
+
       sectionA: 'Plan miesiąca — zdjęcie',
+      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459071/14_aak9fw.png',
+
       sectionB: 'Zadania i powtórki — zdjęcie',
+      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459071/15_iyckee.png',
     },
     files: [
       { title: 'Kalendarz powtórek (PDF)', desc: 'Wstaw link do pliku / Drive' },
@@ -257,11 +271,12 @@ function OfferDetailPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass-panel" data-bg="image">
             <h1 className="text-2xl md:text-3xl font-bold text-white">Nie znaleziono oferty</h1>
-            <p className="text-white/80 mt-3 text-sm">
-              Ten adres nie pasuje do żadnej pozycji oferty.
-            </p>
+            <p className="text-white/80 mt-3 text-sm">Ten adres nie pasuje do żadnej pozycji oferty.</p>
             <div className="mt-6">
-              <Link to="/oferta" className="inline-flex items-center gap-2 text-white font-semibold hover:text-white/80">
+              <Link
+                to="/oferta"
+                className="inline-flex items-center gap-2 text-white font-semibold hover:text-white/80"
+              >
                 <ArrowLeft className="w-4 h-4" /> Wróć do oferty
               </Link>
             </div>
@@ -287,7 +302,10 @@ function OfferDetailPage() {
             className="glass-panel p-6 md:p-8"
             data-bg="image"
           >
-            <Link to="/oferta" className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-semibold">
+            <Link
+              to="/oferta"
+              className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-semibold"
+            >
               <ArrowLeft className="w-4 h-4" /> Wróć do oferty
             </Link>
 
@@ -296,9 +314,7 @@ function OfferDetailPage() {
                 <h1 className="text-3xl md:text-4xl font-bold text-white">{data.title}</h1>
                 <div className="text-white/70 mt-2 font-semibold">{data.price}</div>
 
-                <p className="text-white/80 mt-4 leading-relaxed text-sm md:text-base">
-                  {data.lead}
-                </p>
+                <p className="text-white/80 mt-4 leading-relaxed text-sm md:text-base">{data.lead}</p>
 
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <Link to="/zapisy" className="btn-accent inline-flex items-center justify-center gap-2">
@@ -328,6 +344,8 @@ function OfferDetailPage() {
                   title={data.media?.hero || 'Zdjęcie oferty'}
                   desc="Wstaw tu realne zdjęcie tej formy zajęć"
                   ratio="aspect-[4/3]"
+                  src={data.media?.heroSrc}
+                  alt={data.title}
                 />
               </div>
             </div>
@@ -377,45 +395,56 @@ function OfferDetailPage() {
                   </li>
                 ))}
               </ul>
-              {/* WYPEŁNIENIE BOXA: ZALETY + CHECKLISTA */}
-<div className="mt-6 grid gap-4">
-  <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
-    <div className="text-white font-bold text-sm mb-3">Zalety tej formy</div>
-    <ul className="space-y-2 text-white/80 text-sm leading-relaxed">
-      {(data.benefits || []).slice(0, 5).map((b) => (
-        <li key={b} className="flex items-start gap-2">
-          <CheckCircle className="w-4 h-4 mt-0.5 text-white/70" />
-          <span>{b}</span>
-        </li>
-      ))}
-    </ul>
-  </div>
 
-  <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
-    <div className="text-white font-bold text-sm mb-3">Jak przygotować się do pierwszych zajęć</div>
-    <ul className="space-y-2 text-white/80 text-sm leading-relaxed">
-      {[
-        'Napisz, do czego się przygotowujesz (matura / sprawdzian / egzamin) i kiedy.',
-        'Podeślij 1–2 ostatnie arkusze/sprawdziany albo listę tematów, które sprawiają problem.',
-        'Powiedz, ile czasu realnie masz tygodniowo na naukę — ustawimy plan bez spiny.',
-        'Na pierwszych zajęciach zrobimy diagnozę i ustalimy priorytety.'
-      ].map((x) => (
-        <li key={x} className="flex items-start gap-2">
-          <CheckCircle className="w-4 h-4 mt-0.5 text-white/70" />
-          <span>{x}</span>
-        </li>
-      ))}
-    </ul>
-  </div>
-</div>
+              <div className="mt-6 grid gap-4">
+                <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
+                  <div className="text-white font-bold text-sm mb-3">Zalety tej formy</div>
+                  <ul className="space-y-2 text-white/80 text-sm leading-relaxed">
+                    {(data.benefits || []).slice(0, 5).map((b) => (
+                      <li key={b} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 mt-0.5 text-white/70" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
+                <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
+                  <div className="text-white font-bold text-sm mb-3">Jak przygotować się do pierwszych zajęć</div>
+                  <ul className="space-y-2 text-white/80 text-sm leading-relaxed">
+                    {[
+                      'Napisz, do czego się przygotowujesz (matura / sprawdzian / egzamin) i kiedy.',
+                      'Podeślij 1–2 ostatnie arkusze/sprawdziany albo listę tematów, które sprawiają problem.',
+                      'Powiedz, ile czasu realnie masz tygodniowo na naukę — ustawimy plan bez spiny.',
+                      'Na pierwszych zajęciach zrobimy diagnozę i ustalimy priorytety.',
+                    ].map((x) => (
+                      <li key={x} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 mt-0.5 text-white/70" />
+                        <span>{x}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
 
             <div className="glass-panel p-6 md:p-8" data-bg="image">
-              <SectionTitle center={false}>Galeria / podgląd</SectionTitle>
+              <SectionTitle center={false}>Galeria</SectionTitle>
               <div className="mt-5 grid gap-4">
-                <MediaSlot title={data.media?.sectionA || 'Zdjęcie A'} desc="np. plan, tablica, notatki" ratio="aspect-[16/10]" />
-                <MediaSlot title={data.media?.sectionB || 'Zdjęcie B'} desc="np. zadania CKE, analiza błędów" ratio="aspect-[16/10]" />
+                <MediaSlot
+                  title={data.media?.sectionA || 'Zdjęcie A'}
+                  desc="np. plan, tablica, notatki"
+                  ratio="aspect-[16/10]"
+                  src={data.media?.sectionASrc}
+                  alt={`${data.title} – galeria A`}
+                />
+                <MediaSlot
+                  title={data.media?.sectionB || 'Zdjęcie B'}
+                  desc="np. zadania CKE, analiza błędów"
+                  ratio="aspect-[16/10]"
+                  src={data.media?.sectionBSrc}
+                  alt={`${data.title} – galeria B`}
+                />
               </div>
             </div>
           </div>
@@ -445,9 +474,7 @@ function OfferDetailPage() {
           {/* PLIKI / MATERIAŁY */}
           <div className="glass-panel p-6 md:p-8" data-bg="image">
             <SectionTitle>Materiały do pobrania</SectionTitle>
-            <p className="text-white/70 text-sm mt-4">
-              Tu wstawisz linki do kart maturalnych, PDF-ów, mini-arkuszy i checklist.
-            </p>
+            <p className="text-white/70 text-sm mt-4">Tu wstawisz linki do kart maturalnych, PDF-ów, mini-arkuszy i checklist.</p>
 
             <div className="mt-6 grid md:grid-cols-2 gap-4">
               {(data.files || []).map((f) => (
@@ -461,7 +488,6 @@ function OfferDetailPage() {
               </Link>
             </div>
           </div>
-
         </div>
       </section>
     </>

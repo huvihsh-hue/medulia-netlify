@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -145,25 +145,21 @@ const offerTypesCompact = [
 ];
 
 // ✅ SEKJCA VIDEO (tiktokowy format pionowy)
-// tu wklej filmiki (podmień src na swoje linki mp4 / cloudinary)
 const videoClips = [
   {
-    title: 'Genetyka bez stresu',
+    title: 'Fotosynteza - jak odróżnić',
     desc: 'Zobacz jak tłumaczę krok po kroku.',
     src: 'https://res.cloudinary.com/dyxif8hyp/video/upload/v1769202939/WhatsApp_Video_2026-01-22_at_16.43.42_orl5k0.mp4',
-    poster: 'tu wklej filmiki',
-  },
-  {
-    title: 'Metabolizm — schematy',
-    desc: 'Najczęstsze pułapki i jak je ogarnąć.',
-    src: 'https://res.cloudinary.com/dyxif8hyp/video/upload/v1769202943/WhatsApp_Video_2026-01-22_at_16.43.42_1_i6aonx.mp4',
-    poster: 'tu wklej filmiki',
   },
   {
     title: 'Zadania CKE',
-    desc: 'Jak czytać polecenie i zgarniać punkty.',
-    src: 'https://res.cloudinary.com/dyxif8hyp/video/upload/v1769202949/WhatsApp_Video_2026-01-22_at_16.43.48_rjpww3.mp4',
-    poster: 'miniaturki filmików',
+    desc: 'Ogarniamy każdy rodzaj zadań!.',
+    src: 'https://res.cloudinary.com/dyxif8hyp/video/upload/v1769202943/WhatsApp_Video_2026-01-22_at_16.43.42_1_i6aonx.mp4',
+  },
+  {
+    title: 'Oddychanie komórkowe',
+    desc: 'Najważniejsze informacje w pigułce!.',
+    src: 'https://res.cloudinary.com/dyxif8hyp/video/upload/v1769453167/0126_1_umuqmc.mp4',
   },
 ];
 
@@ -184,117 +180,183 @@ function HomePage() {
   const reduceMotion = useReducedMotion();
   const fadeUp = makeFadeUp(reduceMotion);
   const fadeLeft = makeFadeSide(-1, reduceMotion);
-  const fadeRight = makeFadeSide(1, reduceMotion);
+
+  // ===== VIDEO: refs + auto pause =====
+  const videoSectionRef = useRef(null);
+  const videoRefs = useRef([]);
+
+  const pauseAllVideos = () => {
+    videoRefs.current.forEach((v) => {
+      if (!v) return;
+      try {
+        v.pause();
+      } catch (_) {}
+    });
+  };
+
+  const pauseOtherVideos = (currentEl) => {
+    videoRefs.current.forEach((v) => {
+      if (!v || v === currentEl) return;
+      try {
+        v.pause();
+      } catch (_) {}
+    });
+  };
+
+  useEffect(() => {
+    const el = videoSectionRef.current;
+    if (!el) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        // gdy sekcja przestaje być widoczna => pauzuj wszystko
+        if (entry && entry.isIntersecting === false) {
+          pauseAllVideos();
+        }
+      },
+      {
+        // sekcja uznana za "niewidoczną", gdy spadnie poniżej progu
+        threshold: 0.25,
+      }
+    );
+
+    obs.observe(el);
+
+    return () => {
+      try {
+        obs.disconnect();
+      } catch (_) {}
+    };
+  }, []);
 
   return (
     <>
-      <Helmet>
-        <title>MEDULIA - Matura z biologii na 100% | Zapisy 2026/2027</title>
-        <meta
-          name="description"
-          content="Profesjonalne przygotowanie do matury z biologii. Zajęcia indywidualne, grupowe i materiały edukacyjne. Dołącz do setek zadowolonych uczniów."
-        />
-      </Helmet>
+     {/* ✅ Fix zoom w fullscreen: contain + czarne pasy + ukrycie scrollbara w opiniach */}
+<style>{`
+  video.medulia-clip { background: #000; }
+  video.medulia-clip:fullscreen { object-fit: contain !important; background: #000; }
+  video.medulia-clip:-webkit-full-screen { object-fit: contain !important; background: #000; }
+  video.medulia-clip::-webkit-media-controls-panel { background-image: none; }
 
-      {/* SECTION 1: HERO */}
-      <section className="relative pt-20 md:pt-28 pb-10 md:pb-16 overflow-hidden">
-        <div className="absolute top-20 right-[10%] w-64 h-64 bg-purple-500/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft" />
-        <div
-          className="absolute top-40 left-[10%] w-72 h-72 bg-blue-500/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft"
-          style={{ animationDelay: '2s' }}
-        />
+  /* OPINIE: ukryj “kreski” / paginację (różne implementacje) */
+  .opinions-no-scrollbar [role="tablist"],
+  .opinions-no-scrollbar [class*="dots"],
+  .opinions-no-scrollbar [class*="indicator"],
+  .opinions-no-scrollbar [class*="progress"],
+  .opinions-no-scrollbar [class*="pagination"] {
+    display: none !important;
+  }
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="hero-split">
-            {/* ✅ NA MOBILE: najpierw zdjęcie */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT }}
-              className="hero-figure-wrap order-1 lg:order-2"
+  /* OPINIE: ukryj prawdziwe scrollbary (jeśli są) */
+  .opinions-no-scrollbar *::-webkit-scrollbar { display: none; height: 0; }
+  .opinions-no-scrollbar * { scrollbar-width: none; -ms-overflow-style: none; }
+  /* ✅ OPINIE: twarde ukrycie paginacji/progressu sliderów */
+.opinions-no-scrollbar .embla__dots,
+.opinions-no-scrollbar .embla__progress,
+.opinions-no-scrollbar .embla__pagination,
+.opinions-no-scrollbar .swiper-pagination,
+.opinions-no-scrollbar .swiper-pagination-bullets,
+.opinions-no-scrollbar .keen-slider__dots,
+.opinions-no-scrollbar .keen-slider__pagination,
+.opinions-no-scrollbar [data-dots],
+.opinions-no-scrollbar [data-pagination],
+.opinions-no-scrollbar [aria-label*="pagination" i],
+.opinions-no-scrollbar [class*="pagination" i],
+.opinions-no-scrollbar [class*="progress" i],
+.opinions-no-scrollbar [class*="dots" i] {
+  display: none !important;
+}
+
+`}</style>
+
+
+
+<Helmet>
+  <title>MEDULIA - Matura z biologii na 100% | Zapisy 2026/2027</title>
+  <meta
+    name="description"
+    content="Profesjonalne przygotowanie do matury z biologii. Zajęcia indywidualne, grupowe i materiały edukacyjne. Dołącz do setek zadowolonych uczniów."
+  />
+</Helmet>
+
+{/* SECTION 1: HERO */}
+<section className="relative pt-20 md:pt-28 pb-10 md:pb-16 overflow-hidden">
+  <div className="absolute top-20 right-[10%] w-64 h-64 bg-purple-500/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft" />
+  <div
+    className="absolute top-40 left-[10%] w-72 h-72 bg-blue-500/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft"
+    style={{ animationDelay: '2s' }}
+  />
+
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="grid lg:grid-cols-2 gap-8 items-center">
+      {/* MOBILE: najpierw obrazek */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT }}
+        className="order-1 lg:order-2"
+      >
+        <div className="relative mx-auto w-full max-w-[420px]">
+          <div className="absolute inset-0 rounded-[32px] bg-white/5 blur-2xl" aria-hidden="true" />
+          <div className="relative rounded-[32px] overflow-hidden border border-white/12 bg-white/5 shadow-2xl">
+            <img
+              src={HERO_IMAGE_URL}
+              alt="MEDULIA - korepetycje"
+              className="w-full h-[280px] md:h-[360px] object-cover"
+            />
+
+            <a
+              href="tel:+48792074768"
+              className="absolute left-4 bottom-4 inline-flex items-center gap-2 px-3 py-2 rounded-full bg-black/45 border border-white/15 text-white text-sm backdrop-blur-md"
             >
-              <div className="hero-figure">
-                <div className="hero-ring" aria-hidden="true" />
-                <img src={HERO_IMAGE_URL} alt="MEDULIA - korepetycje" className="hero-figure-img" />
-
-                <a href="tel:+48792074768" className="hero-phone">
-                  <Phone className="w-4 h-4" />
-                  792 074 768
-                </a>
-              </div>
-            </motion.div>
-
-            {/* ✅ NA MOBILE: potem box */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE_OUT }}
-              className="hero-card order-2 lg:order-1"
-            >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-semibold mb-4">
-                🎓 Zapisy 2026/2027 otwarte!
-              </div>
-
-              <h1 className="hero-title">
-                Biologia na <span className="text-gradient">100%</span>
-              </h1>
-
-              <p className="hero-subtitle">Bez stresu i wkuwania. Zrozumienie, które buduje wynik.</p>
-
-              <div className="hero-proof">
-                <span className="hero-proof-pill">✅ Indywidualny plan</span>
-                <span className="hero-proof-dot" />
-                <span className="hero-proof-pill">📌 Materiały CKE</span>
-                <span className="hero-proof-dot" />
-                <span className="hero-proof-pill">💬 Stały kontakt</span>
-              </div>
-
-              <div className="hero-cta">
-                <Link to="/zapisy" className="btn-accent inline-flex items-center justify-center gap-2">
-                  Umów korepetycje <ArrowRight className="w-5 h-5" />
-                </Link>
-
-                <Link to="/oferta" className="hero-ghost-btn inline-flex items-center justify-center">
-                  Oferta
-                </Link>
-              </div>
-            </motion.div>
+              <Phone className="w-4 h-4" />
+              792 074 768
+            </a>
           </div>
         </div>
-      </section>
+      </motion.div>
 
-      {/* SECTION: BENEFITS */}
-      <section className="py-8 md:py-12 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="glass-panel"
-            data-bg="image"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.22 }}
-          >
-            <div className="benefits-grid">
-              <div>
-                <h2 className="benefits-title">
-                  <span className="text-gradient">Co zyskujesz na</span> zajęciach ze mną?
-                </h2>
+      {/* MOBILE: potem box */}
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: EASE_OUT }}
+        className="order-2 lg:order-1"
+      >
+        <div className="glass-panel p-6 md:p-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-semibold mb-4">
+            🎓 Zapisy 2026/2027 otwarte!
+          </div>
 
-                <p className="benefits-subtitle">Konkretne efekty — bez stresu, bez lania wody, z planem pod Ciebie.</p>
-              </div>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white leading-tight">
+            Biologia na <span className="text-gradient">100%</span>
+          </h1>
 
-              <div className="benefits-list">
-                {benefits.map((b) => (
-                  <div key={b.no} className="benefit-row">
-                    <div className="benefit-no">{b.no}</div>
-                    <div className="benefit-text">{b.title}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+          <p className="mt-4 text-white/80 text-sm md:text-base leading-relaxed">
+            Bez stresu i wkuwania. Zrozumienie, które buduje wynik.
+          </p>
+
+          <div className="mt-5 flex flex-wrap items-center gap-2 text-xs">
+            <span className="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-white/90">✅ Indywidualny plan</span>
+            <span className="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-white/90">📌 Materiały CKE</span>
+            <span className="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-white/90">💬 Stały kontakt</span>
+          </div>
+
+          <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <Link to="/zapisy" className="btn-accent inline-flex items-center justify-center gap-2">
+              Umów korepetycje <ArrowRight className="w-5 h-5" />
+            </Link>
+
+            <Link to="/oferta" className="hero-ghost-btn inline-flex items-center justify-center">
+              Oferta
+            </Link>
+          </div>
         </div>
-      </section>
+      </motion.div>
+    </div>
+  </div>
+</section>
 
       {/* SECTION 2: VALUES */}
       <section className="py-8 md:py-12 relative">
@@ -364,7 +426,7 @@ function HomePage() {
       </section>
 
       {/* ✅ SECTION: VIDEO (pionowe “tiktokowe” clipy) */}
-      <section className="py-8 md:py-12 relative">
+      <section ref={videoSectionRef} className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="glass-panel p-6 md:p-8"
@@ -384,7 +446,7 @@ function HomePage() {
               {videoClips.map((v, idx) => (
                 <motion.div
                   key={idx}
-                  className="flex-none w-[78vw] max-w-[340px] md:w-auto"
+                  className="flex-none w-[78vw] max-w-[300px] md:max-w-[260px] md:w-auto"
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="show"
@@ -392,25 +454,41 @@ function HomePage() {
                   transition={{ delay: reduceMotion ? 0 : idx * 0.06, duration: 0.55, ease: EASE_OUT }}
                 >
                   <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden hover:border-white/20 transition-all">
-                    <div className="relative w-full aspect-[9/16] bg-black/30">
-                      {/* tu wklej filmiki */}
-                      <video
-                        className="absolute inset-0 w-full h-full object-cover"
-                        src={v.src}
-                        poster={v.poster}
-                        controls
-                        playsInline
-                        preload="metadata"
-                      />
+                    {/* RAMKA "iPhone" */}
+                    <div className="p-4">
+                      <div className="relative mx-auto w-full max-w-[240px]">
+                        {/* obudowa */}
+                        <div className="relative aspect-[9/16] rounded-[34px] border border-white/15 bg-black/30 p-2 shadow-xl backdrop-blur-md">
+                          {/* notch */}
+                          <div className="pointer-events-none absolute left-1/2 top-[10px] -translate-x-1/2 w-[46%] h-[16px] rounded-full bg-black/35 border border-white/10" />
+
+                          {/* ekran */}
+                          <div className="h-full w-full overflow-hidden rounded-[26px] bg-black">
+                            <video
+                              ref={(el) => {
+                                videoRefs.current[idx] = el;
+                              }}
+                              className="medulia-clip h-full w-full object-cover"
+                              src={v.src}
+                              controls
+                              playsInline
+                              preload="metadata"
+                              onPlay={(e) => pauseOtherVideos(e.currentTarget)}
+                              onLoadedMetadata={(e) => {
+                                // łap klatkę startową (często eliminuje czarny kadr)
+                                try {
+                                  e.currentTarget.currentTime = 0.01;
+                                } catch (_) {}
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="p-4">
+                    <div className="px-4 pb-4">
                       <div className="text-white font-extrabold text-sm md:text-base">{v.title}</div>
                       <div className="mt-1 text-xs text-white/70 leading-relaxed">{v.desc}</div>
-
-                      
-                      
-                      
                     </div>
                   </div>
                 </motion.div>
@@ -597,7 +675,7 @@ function HomePage() {
       </section>
 
       {/* SECTION 5: OPINIONS */}
-      <section className="pt-12 pb-8 md:py-12">
+      <section className="pt-12 pb-8 md:py-12 opinions-no-scrollbar">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="glass-panel p-4 md:p-8"
@@ -609,7 +687,10 @@ function HomePage() {
           >
             <SectionTitle>Opinie</SectionTitle>
             <p className="text-center text-white/80 mb-4 text-sm">Prawdziwe historie.</p>
-            <OpinionsMarquee opinions={opinionsData} cardVariant="compact" />
+           <div className="opinions-marquee-wrap">
+  <OpinionsMarquee opinions={opinionsData} cardVariant="compact" />
+</div>
+
             <div className="text-center mt-4">
               <Link to="/opinie" className="inline-flex items-center text-white font-semibold hover:text-white/80 text-sm">
                 Więcej opinii <ChevronRight className="w-4 h-4 ml-1" />
@@ -632,7 +713,7 @@ function HomePage() {
             >
               <div className="absolute inset-0 bg-white/10 rounded-2xl blur-sm" />
               <img
-                src="https://images.unsplash.com/photo-1581726690015-c9861fa5057f?w=800"
+                src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457371/Style_documentary_photography_real-life_photo_natural_imperfections._NO_illustration_NO_cinematic_lighting_NO_fantasy_NO_soft_glow_NO_dreamy_look._NO_stylized_colors_NO_exaggerated_depth_of_h9ew75.png"
                 alt="Maria - Nauczycielka"
                 className="relative rounded-2xl shadow-xl max-h-[400px] w-full object-cover"
               />

@@ -206,25 +206,8 @@ function OpinionsMarquee({ opinions = [] }) {
             </motion.div>
           </AnimatePresence>
 
-          {/* Dots */}
-          <div className="mt-4 flex items-center justify-center gap-2">
-            {Array.from({ length: pagesCount }).map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => {
-                  setDir(i > page ? 1 : -1);
-                  setPage(i);
-                }}
-                className={`h-2.5 rounded-full transition-all border ${
-                  i === page
-                    ? 'w-8 bg-white/70 border-white/20'
-                    : 'w-2.5 bg-white/20 border-white/10 hover:bg-white/30'
-                }`}
-                aria-label={`Przejdź do opinii: ${i + 1}`}
-              />
-            ))}
-          </div>
+          <p className="mt-2 text-center text-xs text-white/55"></p>
+
 
           <p className="mt-2 text-center text-xs text-white/55">
            
