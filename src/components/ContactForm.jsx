@@ -76,13 +76,35 @@ function ContactForm({ hideClass = false }) {
 
     setIsSubmitting(true);
 
-    // TODO: Integracja wysyłki (EmailJS / backend) – zostawiamy jak było
-    console.log('Sending form data:', formData);
+try {
+  const res = await fetch('/.netlify/functions/send-contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData),
+  });
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+  const data = await res.json().catch(() => ({}));
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
+  if (!res.ok || !data?.ok) {
+    throw new Error(data?.error || 'Nie udało się wysłać wiadomości');
+  }
+
+  setIsSuccess(true);
+
+  toast({
+    title: 'Dziękuję!',
+    description: 'Wkrótce się do Ciebie odezwę!',
+  });
+
+} catch (err) {
+  toast({
+    title: 'Błąd wysyłki',
+    description: err?.message || 'Spróbuj ponownie za chwilę',
+    variant: 'destructive',
+  });
+} finally {
+  setIsSubmitting(false);
+}
 
     toast({
       title: 'Dziękuję!',
