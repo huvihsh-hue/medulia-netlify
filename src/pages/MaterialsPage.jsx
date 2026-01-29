@@ -5,48 +5,60 @@ import SectionTitle from '@/components/SectionTitle';
 import { Download, CheckCircle2 } from 'lucide-react';
 
 function MaterialsPage() {
-  const materials = [
-    {
-      title: "Metabolizm",
-      desc: "Kompletny przewodnik po procesach.",
-      link: "https://drive.google.com/file/d/1LcFjDDSHxyW6VsCNNtpfPVIL2frEJadW/view?usp=drive_link",
-      // TODO: podmień na realne URL-e (3 miniatury stron PDF)
-      previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/3_ejqxtr.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/4_zu1mmt.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/5_sootg9.png",
-      ],
-    },
-    {
-      title: "Plan maturalny",
-      desc: "Szczegółowy harmonogram nauki.",
-      link: "https://drive.google.com/file/d/1Bgngdk0wNAH_rHXYdL16c7O_Airno94X/view?usp=drive_link",
-      previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104949/ipad_grafiki_zvf9pe.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104950/5_xkv60z.png",
-      ],
-    },
-    {
-      title: "Pytania sprawdzające",
-      desc: "Zestaw do samodzielnej pracy.",
-      link: "https://drive.google.com/file/d/1Szx0nKs4l2rtcG9jP9LLO-v3jWcenhvV/view?usp=drive_link",
-      previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104665/6_q9wzxo.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104666/7_pxzxup.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104668/8_xvepb6.png",
-      ],
-    },
-    {
-      title: "Zadanie domowe",
-      desc: "Ćwiczenia praktyczne.",
-      link: "https://drive.google.com/file/d/1s90hS6X0aVSNM5w-YW4OyNYgnV2YYTDw/view",
-      previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769082868/Projekt_bez_nazwy_24_jjkyvd.png",
-        "PASTE_PREVIEW_URL_2",
-        "PASTE_PREVIEW_URL_3",
-      ],
-    }
-  ];
+const materials = [
+  {
+    title: "Podstawa programowa – Biologia 2025/26",
+    desc: "Co dokładnie obowiązuje na maturze w tym roku? (CKE) – idealne na start.",
+    link: "https://drive.google.com/file/d/1MzZsdCY2cwAbA-fJBPVLsLIag-2znoJZ/view?usp=drive_link",
+    previews: [
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697796/12_pm7rsk.png",
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697797/14_qqdeer.png",
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697796/13_swe6jx.png",
+    ],
+  },
+  {
+    title: "Metabolizm",
+    desc: "Kompletny przewodnik po procesach.",
+    link: "https://drive.google.com/file/d/1LcFjDDSHxyW6VsCNNtpfPVIL2frEJadW/view?usp=drive_link",
+    previews: [
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/3_ejqxtr.png",
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/4_zu1mmt.png",
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/5_sootg9.png",
+    ],
+  },
+  {
+    title: "Pytania sprawdzające",
+    desc: "Zestaw do samodzielnej pracy.",
+    link: "https://drive.google.com/file/d/1Szx0nKs4l2rtcG9jP9LLO-v3jWcenhvV/view?usp=drive_link",
+    previews: [
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104665/6_q9wzxo.png",
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104666/7_pxzxup.png",
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104668/8_xvepb6.png",
+    ],
+  },
+  {
+    title: "Matura rozszerzona",
+    desc: "Materiały do matury rozszerzonej – konkretne wymagania i przykłady.",
+    link: "https://drive.google.com/file/d/1NQr6KscUxVJEhJQumNn9DDv7RHkUHWFQ/view?usp=drive_link",
+    previews: [
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697805/9_y0edsb.png",
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697805/11_rzpgco.png",
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697805/10_tym8f3.png",
+    ],
+  },
+  {
+    title: "Plan maturalny",
+    desc: "Szczegółowy harmonogram nauki.",
+    link: "https://drive.google.com/file/d/1Bgngdk0wNAH_rHXYdL16c7O_Airno94X/view?usp=drive_link",
+    previews: [
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104949/ipad_grafiki_zvf9pe.png",
+      "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104950/5_xkv60z.png",
+    ],
+  },
+];
+
+
+
 
   const benefits = [
     "Schematy i ryciny omawiane krok po kroku",
@@ -62,26 +74,17 @@ function MaterialsPage() {
         <meta name="description" content="Darmowe materiały do matury z biologii: notatki, zadania, harmonogramy." />
       </Helmet>
 
-      {/* HERO / header */}
-      <div className="pt-28 pb-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center glass-panel p-8"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Materiały</h1>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto">
-              Pobierz darmowe pliki i zobacz, jak pracujemy na zajęciach.
-            </p>
-          </motion.div>
-        </div>
-      </div>
+     
 
       {/* CONTENT */}
       <section className="py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-panel p-6 md:p-8" data-bg="image">
+          <div
+  className="p-6 md:p-8"
+  data-bg="image"
+  style={{ backdropFilter: 'none' }}
+>
+
             <SectionTitle>Darmowe materiały</SectionTitle>
 
             {/* 3) „Co dokładnie dostaniesz?” */}
@@ -94,7 +97,7 @@ function MaterialsPage() {
                 {benefits.map((b, i) => (
                   <div
                     key={i}
-                    className="rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md p-4 flex gap-3"
+                    className="rounded-2xl bg-white/5 backdrop-blur-[3px] p-4 flex gap-3"
                   >
                     <div className="mt-0.5">
                       <CheckCircle2 className="w-5 h-5 text-purple-300" />
@@ -112,7 +115,7 @@ function MaterialsPage() {
               {materials.map((item, idx) => (
                 <div
                   key={idx}
-                  className="rounded-[22px] border border-white/12 bg-white/5 backdrop-blur-md p-5 md:p-7"
+                  className="rounded-[22px] border border-white/5 bg-white/5 backdrop-blur-[2px] p-5 md:p-7"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6 lg:gap-10 items-center">
                     {/* Mini-galeria */}

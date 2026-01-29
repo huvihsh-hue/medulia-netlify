@@ -67,17 +67,22 @@ button {
     transform: translateY(0px);
   }
 
-  .card-pdf {
-    background: var(--gradient-pdf);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-  }
+ .card-pdf {
+  background: var(--gradient-pdf);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  /* ✅ bez blura */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  display: flex;
+  flex-direction: column;
+}
+
 
   .card-pdf:hover {
     transform: translateY(-4px) scale(1.02);
@@ -165,16 +170,39 @@ button {
   }
 
   .glass-panel, .glass-card {
+  border-radius: 20px;
+  padding: 24px;
+
+  /* ✅ matte (bez blur) */
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  color: white;
+  overflow: hidden;
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+    .glass-panel-noblur {
     border-radius: 20px;
     padding: 24px;
     background: rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     color: white;
     overflow: hidden;
+
+    /* klucz: brak blura */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
+
+  .glass-panel-noblur > * {
+    position: relative;
+    z-index: 1;
+  }
+
 
   .glass-panel > * {
     position: relative;
@@ -310,12 +338,14 @@ body::after {
    ========================= */
 
 .opinion-card {
-  background: rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
+
 
 /* Mobile: przewijanie w bok + snap */
 .opinions-snap {
@@ -538,8 +568,8 @@ body::after {
   border-radius: 16px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .benefit-no {

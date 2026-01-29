@@ -16,14 +16,15 @@ const offers = [
     imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/4_xshhhi.png',
   },
   {
-    slug: 'indywidualne-pracownicy',
-    icon: UserRound,
-    title: 'Indywidualne zajęcia z pracownikami',
-    priceLine: '140 zł / 60 minut',
-    bullets: ['Nauczyciele po rekrutacji i szkoleniu', 'Materiały i metoda zgodne z programem'],
-    imageAlt: 'Indywidualne z pracownikami – zdjęcie',
-    imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/5_ieey8l.png',
-  },
+  slug: 'indywidualne-pracownicy',
+  icon: UserRound,
+  title: 'Indywidualne – Medulia Team',
+  priceLine: '140 zł / 60 minut',
+  bullets: ['Nauczyciele po rekrutacji i szkoleniu', 'Materiały i metoda zgodne z programem'],
+  imageAlt: 'Indywidualne – MEDULIA Team – zdjęcie',
+  imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/5_ieey8l.png',
+},
+
   {
     slug: 'grupowe-ze-mna',
     icon: Users,
@@ -95,10 +96,10 @@ function OfferCardRow({ o, index }) {
     >
       {/* ✅ Mobile-only: cała karta klikalna (bez powtarzania "Zobacz szczegóły") */}
       <Link
-        to={`/oferta/${o.slug}`}
-        className="md:hidden absolute inset-0 rounded-2xl z-10"
-        aria-label={`Zobacz szczegóły: ${o.title}`}
-      />
+  to={`/oferta/${o.slug}${o.slug === 'pakiety-grupowe' ? '#pakiety' : '#skrot'}`}
+  className="md:hidden absolute inset-0 rounded-2xl z-10"
+  aria-label={`Zobacz szczegóły: ${o.title}`}
+/>
 
       <div className="grid lg:grid-cols-[1.35fr_0.65fr] gap-5 items-start">
         {/* TEXT */}
@@ -143,11 +144,12 @@ function OfferCardRow({ o, index }) {
           {/* ✅ Desktop-only: zostaje dokładnie jak było */}
           <div className="mt-5 hidden md:flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
             <Link
-              to={`/oferta/${o.slug}`}
-              className="inline-flex items-center gap-2 text-white font-semibold hover:text-white/80 transition-colors text-sm"
-            >
-              Zobacz szczegóły <ArrowRight className="w-4 h-4" />
-            </Link>
+  to={`/oferta/${o.slug}${o.slug === 'pakiety-grupowe' ? '#pakiety' : '#skrot'}`}
+  className="inline-flex items-center gap-2 text-white font-semibold hover:text-white/80 transition-colors text-sm"
+>
+  Zobacz szczegóły <ArrowRight className="w-4 h-4" />
+</Link>
+
 
             <Link
               to="/zapisy"
@@ -174,7 +176,8 @@ function OfferPage() {
         <title>Oferta - MEDULIA | Korepetycje z biologii</title>
         <meta
           name="description"
-          content="Oferta zajęć MEDULIA: indywidualne premium, indywidualne z pracownikami, grupowe oraz pakiety miesięczne. Zobacz szczegóły każdej opcji."
+          content="Oferta zajęć MEDULIA: indywidualne premium, indywidualne – Medulia Team, grupowe oraz pakiety miesięczne. Zobacz szczegóły każdej opcji."
+
         />
       </Helmet>
 

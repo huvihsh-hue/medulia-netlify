@@ -110,7 +110,7 @@ const OFFER_DETAILS = {
   },
 
   'indywidualne-pracownicy': {
-    title: 'Indywidualne zajęcia z pracownikami',
+    title: 'Indywidualne - Medulia Team',
     price: '140 zł / 60 minut',
     lead:
       'Zajęcia 1:1 prowadzone przez nauczycieli po rekrutacji i szkoleniu. Pracują według jednolitego programu MEDULIA, z tym samym sposobem tłumaczenia, materiałami i standardem prowadzenia.',
@@ -358,8 +358,8 @@ function OfferDetailPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-6">
           {/* HIGHLIGHTS + DLA KOGO */}
           <div className="grid lg:grid-cols-2 gap-6">
-            <div className="glass-panel p-6 md:p-8" data-bg="image">
-              <SectionTitle center={false}>Najważniejsze w skrócie</SectionTitle>
+            <div id="skrot" className="glass-panel p-6 md:p-8 scroll-mt-28" data-bg="image">
+  <SectionTitle center={false}>Najważniejsze w skrócie</SectionTitle>
               <ul className="mt-5 space-y-3 text-white/80 text-sm leading-relaxed">
                 {(data.highlights || []).map((p) => (
                   <li key={p} className="flex items-start gap-2">
@@ -451,8 +451,8 @@ function OfferDetailPage() {
 
           {/* PAKIETY (tylko jeśli istnieją) */}
           {Array.isArray(data.packages) && (
-            <div className="glass-panel p-6 md:p-8" data-bg="image">
-              <SectionTitle>Pakiety miesięczne</SectionTitle>
+  <div id="pakiety" className="glass-panel p-6 md:p-8 scroll-mt-28" data-bg="image">
+    <SectionTitle>Pakiety miesięczne</SectionTitle>
               <div className="mt-8 grid md:grid-cols-3 gap-4">
                 {data.packages.map((pkg) => (
                   <div key={pkg.name} className="rounded-2xl bg-white/5 border border-white/10 p-5">

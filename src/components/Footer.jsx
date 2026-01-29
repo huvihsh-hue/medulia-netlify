@@ -13,10 +13,10 @@ function Footer() {
   ];
 
   return (
-    <footer className="border-t border-white/10 mt-10 py-12 px-4 text-white/80">
+    <footer className="mt-10 py-12 px-4 text-white/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* delikatny panel w stopce, ale bez “twardego” tła */}
-        <div className="rounded-[22px] bg-white/[0.04] border border-white/10 backdrop-blur-md p-6 md:p-8">
+        <div className="rounded-[22px] bg-white/[0.04] border border-white/10 backdrop-blur-[2px] p-6 md:p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Brand */}
             <div className="space-y-4">
@@ -87,14 +87,18 @@ function Footer() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-2">
                   <Mail className="w-5 h-5 mt-0.5 text-white/80 flex-shrink-0" />
-                  <a href="mailto:kontakt@medulia.pl" className="text-sm text-white/80 hover:text-white transition-colors">
-                    kontakt@medulia.pl
-                  </a>
+                 <a
+  href="mailto:medulia.kontakt@gmail.com"
+  className="text-sm text-white/80 hover:text-white transition-colors"
+>
+  medulia.kontakt@gmail.com
+</a>
+
                 </li>
                 <li className="flex items-start gap-2">
                   <Phone className="w-5 h-5 mt-0.5 text-white/80 flex-shrink-0" />
-                  <a href="tel:+48123456789" className="text-sm text-white/80 hover:text-white transition-colors">
-                    +48 123 456 789
+                  <a href="tel:+48532208335" className="text-sm text-white/80 hover:text-white transition-colors">
+                    +48 532 208 335
                   </a>
                 </li>
                 <li className="flex items-start gap-2">
