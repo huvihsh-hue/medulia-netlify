@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
 
@@ -9,8 +9,48 @@ function Footer() {
     { name: 'Materiały', path: '/materialy' },
     { name: 'Opinie', path: '/opinie' },
     { name: 'Blog', path: '/blog' },
-    { name: 'Zapisy', path: '/zapisy' }
+    { name: 'Zapisy', path: '/zapisy' },
   ];
+
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [nlStatus, setNlStatus] = useState('idle'); // idle | loading | success | error
+  const [nlMsg, setNlMsg] = useState('');
+
+  const submitNewsletter = async () => {
+    const email = newsletterEmail.trim();
+
+    if (!email) {
+      setNlStatus('error');
+      setNlMsg('Wpisz adres email.');
+      return;
+    }
+
+    setNlStatus('loading');
+    setNlMsg('');
+
+    try {
+      const res = await fetch('/.netlify/functions/subscribe-newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data?.ok) {
+        setNlStatus('error');
+        setNlMsg('Coś poszło nie tak. Spróbuj ponownie.');
+        return;
+      }
+
+      setNlStatus('success');
+      setNlMsg('Super! Jesteś zapisany/a ✅');
+      setNewsletterEmail('');
+    } catch (e) {
+      setNlStatus('error');
+      setNlMsg('Błąd sieci. Spróbuj ponownie.');
+    }
+  };
 
   return (
     <footer className="mt-10 py-12 px-4 text-white/80">
@@ -66,7 +106,9 @@ function Footer() {
 
             {/* Quick Links */}
             <div>
-              <span className="text-lg font-bold text-white mb-4 block accent-text">Szybkie linki</span>
+              <span className="text-lg font-bold text-white mb-4 block accent-text">
+                Szybkie linki
+              </span>
               <ul className="space-y-2">
                 {quickLinks.map((link) => (
                   <li key={link.path}>
@@ -87,23 +129,27 @@ function Footer() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-2">
                   <Mail className="w-5 h-5 mt-0.5 text-white/80 flex-shrink-0" />
-                 <a
-  href="mailto:medulia.kontakt@gmail.com"
-  className="text-sm text-white/80 hover:text-white transition-colors"
->
-  medulia.kontakt@gmail.com
-</a>
-
+                  <a
+                    href="mailto:medulia.kontakt@gmail.com"
+                    className="text-sm text-white/80 hover:text-white transition-colors"
+                  >
+                    medulia.kontakt@gmail.com
+                  </a>
                 </li>
+
                 <li className="flex items-start gap-2">
                   <Phone className="w-5 h-5 mt-0.5 text-white/80 flex-shrink-0" />
-                  <a href="tel:+48532208335" className="text-sm text-white/80 hover:text-white transition-colors">
+                  <a
+                    href="tel:+48532208335"
+                    className="text-sm text-white/80 hover:text-white transition-colors"
+                  >
                     +48 532 208 335
                   </a>
                 </li>
+
                 <li className="flex items-start gap-2">
                   <MapPin className="w-5 h-5 mt-0.5 text-white/80 flex-shrink-0" />
-                  <span className="text-sm text-white/70">Warszawa, Polska</span>
+                  <span className="text-sm text-white/70">Zielona Góra, Polska</span>
                 </li>
               </ul>
             </div>
@@ -114,15 +160,39 @@ function Footer() {
               <p className="text-sm mb-4 text-white/70">
                 Zapisz się do newslettera i otrzymuj darmowe materiały!
               </p>
+
               <div className="flex flex-col gap-2">
                 <input
                   type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') submitNewsletter();
+                  }}
                   placeholder="Twój email"
                   className="px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 text-sm"
                 />
-                <button className="btn-accent text-sm py-2">
-                  Zapisz się
+
+                <button
+                  type="button"
+                  className="btn-accent text-sm py-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                  onClick={submitNewsletter}
+                  disabled={nlStatus === 'loading'}
+                >
+                  {nlStatus === 'loading' ? 'Zapisywanie…' : 'Zapisz się'}
                 </button>
+
+                {nlMsg ? (
+                  <p
+                    className={`text-xs ${
+                      nlStatus === 'success' ? 'text-white/80' : 'text-red-200'
+                    }`}
+                  >
+                    {nlMsg}
+                  </p>
+                ) : null}
               </div>
             </div>
           </div>
