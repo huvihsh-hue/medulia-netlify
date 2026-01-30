@@ -19,11 +19,10 @@ import {
 import SectionTitle from '@/components/SectionTitle';
 import OpinionsMarquee from '@/components/OpinionsMarquee';
 import ContactForm from '@/components/ContactForm';
-import BlogCard from '@/components/BlogCard';
 
-// ===== HERO (podmień na swoje) =====
+// ===== HERO IMAGE =====
 const HERO_IMAGE_URL =
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769719548/Projekt_bez_nazwy_34_xstll6.png';
+  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787492/Projekt_bez_nazwy_36_mpubsb.png';
 
 const proofImages = [
   'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198554/2c273e46-a225-4aa8-8eb8-5cec120f6b5b_cjmnsf.jpg',
@@ -50,7 +49,6 @@ const proofImages = [
   'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198556/d85766a4-6f82-4db4-b2b5-6754448e9761_dddiyc.jpg',
 ];
 
-// stabilne przypisanie “losowego” zdjęcia po indeksie
 const pickProof = (i) => proofImages[i % proofImages.length];
 
 const opinionsData = [
@@ -74,11 +72,9 @@ const opinionsData = [
   { name: 'Sandra Nowak', city: 'Słupsk', text: 'Mega mi pomogły notatki i powtórki. Wszystko w punkt.', proofImage: pickProof(17) },
   { name: 'Karolina Duda', city: 'Gliwice', text: 'Przestałam uczyć się “na pamięć”. Zaczęłam rozumieć.', proofImage: pickProof(18) },
   { name: 'Kamila Michalska', city: 'Olsztyn', text: 'Najlepsze przygotowanie do CKE — typowe pułapki omówione.', proofImage: pickProof(19) },
-
   { name: 'Maja Czarnecka', city: 'Lublin', text: 'Bardzo dobre tempo i tłumaczenie “jak człowiek”.' },
   { name: 'Ala Wójcik', city: 'Wrocław', text: 'Wynik rośnie, bo w końcu mam plan i kontrolę.' },
   { name: 'Tola Majewska', city: 'Łódź', text: 'Pierwszy raz czułam, że mam kontrolę nad powtórkami, a nie chaos.' },
-
   { name: 'Szymon Pędzin', city: 'Kraków', text: 'Zadania z doświadczeń w końcu przestały mnie zabijać. Mega konkrety.' },
   { name: 'Mateusz Grabowski', city: 'Warszawa', text: 'Dostałem jasny plan i checklistę – tak powinno się uczyć do matury.' },
   { name: 'Kacper Olsza', city: 'Poznań', text: 'Najlepsze było to, że każdy błąd był omówiony “dlaczego”, nie tylko “źle”.' },
@@ -99,12 +95,6 @@ const opinionsData = [
   { name: 'Paweł Kaczmar', city: 'Warszawa', text: 'W 2 tygodnie ogarnąłem tematy, które odkładałem miesiącami.' },
   { name: 'Adrian Nowak', city: 'Wrocław', text: 'W końcu wiem, co jest najważniejsze na maturze i na czym się skupić.' },
   { name: 'Łukasz Kowalski', city: 'Słupsk', text: 'Bardzo dużo praktyki na arkuszach. O to chodzi.' },
-];
-
-const blogPosts = [
-  { title: 'Jak zaplanować powtórki?', excerpt: 'Plan na ostatnie 3 miesiące.', date: '12.01.2026', category: 'Strategie', slug: 'planowanie-powtorek' },
-  { title: 'Błędy maturalne', excerpt: 'Nie trać punktów na głupotach.', date: '05.01.2026', category: 'Błędy', slug: 'bledy-maturalne' },
-  { title: 'Metabolizm w pigułce', excerpt: 'Kluczowe schematy.', date: '28.12.2025', category: 'Wiedza', slug: 'metabolizm-schematy' },
 ];
 
 const freeMaterials = [
@@ -130,13 +120,6 @@ const freeMaterials = [
   },
 ];
 
-const benefits = [
-  { no: '1.', title: 'Fachową pomoc doświadczonego nauczyciela i laureata wielu konkursów' },
-  { no: '2.', title: 'Indywidualne podejście i tempo nauki dopasowane do Twoich potrzeb' },
-  { no: '3.', title: 'Wiedzę praktyczną przydatną na sprawdzianach i na maturze' },
-  { no: '4.', title: 'Stały dostęp do nagrań lekcji, żeby powtarzać materiał w dowolnym momencie' },
-];
-
 const offerTypesCompact = [
   { title: 'Indywidualne Premium – ze mną', to: '/oferta/indywidualne-premium', icon: GraduationCap },
   { title: 'Indywidualne – Medulia Team', to: '/oferta/indywidualne-pracownicy', icon: UserRound },
@@ -144,9 +127,7 @@ const offerTypesCompact = [
   { title: 'Pakiety miesięczne – grupowe', to: '/oferta/pakiety-grupowe', icon: Package },
 ];
 
-
-
-// ✅ SEKJCA VIDEO (tiktokowy format pionowy)
+// ✅ SEKJCA VIDEO
 const videoClips = [
   {
     title: 'Fotosynteza - jak odróżnić',
@@ -165,7 +146,7 @@ const videoClips = [
   },
 ];
 
-// ===== MOTION (subtelne, premium) =====
+// ===== MOTION =====
 const EASE_OUT = [0.22, 1, 0.36, 1];
 
 const makeFadeUp = (reduce) => ({
@@ -217,55 +198,76 @@ function HomePage() {
     return () => { try { obs.disconnect(); } catch (_) {} };
   }, []);
 
-  // ✅ Blur tylko w HERO (Opcja 1)
+  // Blur styles
   const blur2Style = { backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)' };
 
   return (
-    <>
-      {/* ✅ Fix zoom w fullscreen: contain + czarne pasy + ukrycie scrollbara w opiniach */}
+    <div className="home-page">
       <style>{`
-  video.medulia-clip { background: #000; }
-  video.medulia-clip:fullscreen { object-fit: contain !important; background: #000; }
-  video.medulia-clip:-webkit-full-screen { object-fit: contain !important; background: #000; }
-  video.medulia-clip::-webkit-media-controls-panel { background-image: none; }
+        /* Gradient tekstu w Hero */
+        .text-gradient-purple {
+           background: linear-gradient(to right, #c084fc, #e879f9);
+           -webkit-background-clip: text;
+           -webkit-text-fill-color: transparent;
+        }
 
-  /* OPINIE: ukryj “kreski” / paginację (różne implementacje) */
-  .opinions-no-scrollbar [role="tablist"],
-  .opinions-no-scrollbar [class*="dots"],
-  .opinions-no-scrollbar [class*="indicator"],
-  .opinions-no-scrollbar [class*="progress"],
-  .opinions-no-scrollbar [class*="pagination"] {
-    display: none !important;
-  }
+        /* video fullscreen fix */
+        .home-page video.medulia-clip { background: #000; }
+        .home-page video.medulia-clip:fullscreen { object-fit: contain !important; background: #000; }
+        .home-page video.medulia-clip:-webkit-full-screen { object-fit: contain !important; background: #000; }
+        .home-page video.medulia-clip::-webkit-media-controls-panel { background-image: none; }
 
-  /* OPINIE: ukryj prawdziwe scrollbary (jeśli są) */
-  .opinions-no-scrollbar *::-webkit-scrollbar { display: none; height: 0; }
-  .opinions-no-scrollbar * { scrollbar-width: none; -ms-overflow-style: none; }
+        /* OPINIE: ukryj “kreski” / paginację */
+        .home-page .opinions-no-scrollbar [role="tablist"],
+        .home-page .opinions-no-scrollbar [class*="dots"],
+        .home-page .opinions-no-scrollbar [class*="indicator"],
+        .home-page .opinions-no-scrollbar [class*="progress"],
+        .home-page .opinions-no-scrollbar [class*="pagination"] {
+          display: none !important;
+        }
 
-  /* ✅ OPINIE: twarde ukrycie paginacji/progressu sliderów */
-  .opinions-no-scrollbar .embla__dots,
-  .opinions-no-scrollbar .embla__progress,
-  .opinions-no-scrollbar .embla__pagination,
-  .opinions-no-scrollbar .swiper-pagination,
-  .opinions-no-scrollbar .swiper-pagination-bullets,
-  .opinions-no-scrollbar .keen-slider__dots,
-  .opinions-no-scrollbar .keen-slider__pagination,
-  .opinions-no-scrollbar [data-dots],
-  .opinions-no-scrollbar [data-pagination],
-  .opinions-no-scrollbar [aria-label*="pagination" i],
-  .opinions-no-scrollbar [class*="pagination" i],
-  .opinions-no-scrollbar [class*="progress" i],
-  .opinions-no-scrollbar [class*="dots" i] {
-    display: none !important;
-  }
+        .home-page .opinions-no-scrollbar *::-webkit-scrollbar { display: none; height: 0; }
+        .home-page .opinions-no-scrollbar * { scrollbar-width: none; -ms-overflow-style: none; }
 
-  /* ✅ HOME: zdejmij globalny blur z paneli (blur zostaje tylko tam,
-     gdzie masz inline style={blur2Style}, czyli w HERO) */
-  .glass-panel {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-`}</style>
+        .home-page .opinions-no-scrollbar .embla__dots,
+        .home-page .opinions-no-scrollbar .embla__progress,
+        .home-page .opinions-no-scrollbar .embla__pagination,
+        .home-page .opinions-no-scrollbar .swiper-pagination,
+        .home-page .opinions-no-scrollbar .swiper-pagination-bullets,
+        .home-page .opinions-no-scrollbar .keen-slider__dots,
+        .home-page .opinions-no-scrollbar .keen-slider__pagination,
+        .home-page .opinions-no-scrollbar [data-dots],
+        .home-page .opinions-no-scrollbar [data-pagination],
+        .home-page .opinions-no-scrollbar [aria-label*="pagination" i],
+        .home-page .opinions-no-scrollbar [class*="pagination" i],
+        .home-page .opinions-no-scrollbar [class*="progress" i],
+        .home-page .opinions-no-scrollbar [class*="dots" i] {
+          display: none !important;
+        }
+
+        /* Zdejmij blur na mobile */
+        @media (max-width: 767px) {
+          .home-page .glass-panel {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+          }
+        }
+        /* HERO Mask */
+        .home-page .hero-img{
+          -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 78%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 78%, rgba(0,0,0,0) 100%);
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+        }
+        @media (max-width: 767px){
+          .home-page .hero-img{
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+          }
+        }
+      `}</style>
 
       <Helmet>
         <title>MEDULIA - Matura z biologii na 100% | Zapisy 2026/2027</title>
@@ -275,137 +277,115 @@ function HomePage() {
         />
       </Helmet>
 
-      {/* SECTION 1: HERO */}
-      <section className="relative pt-10 md:pt-28 pb-10 md:pb-16 overflow-hidden">
-        <div className="absolute top-20 right-[10%] w-64 h-64 bg-purple-500/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft" />
-        <div
-          className="absolute top-40 left-[10%] w-72 h-72 bg-blue-500/25 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft"
-          style={{ animationDelay: '2s' }}
-        />
+      {/* SECTION 1: HERO (Zoptymalizowana) */}
+      <section className="relative pt-0 md:pt-16 pb-10 md:pb-16 overflow-hidden lg:overflow-visible">
+        {/* Blaski w tle */}
+        <div className="absolute top-20 right-[10%] w-64 h-64 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft" />
+        <div className="absolute top-40 left-[10%] w-72 h-72 bg-blue-500/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
-            {/* MOBILE: najpierw obrazek */}
+            
+            {/* OBRAZEK (Twarz marki) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT }}
               className="order-1 lg:order-2"
             >
-              <div className="relative mx-auto w-full max-w-[560px] lg:max-w-[720px] lg:-mt-6">
-  <div className="absolute -inset-6 rounded-[52px] bg-white/12 blur-3xl" aria-hidden="true" />
-  <div className="relative overflow-hidden rounded-[44px] shadow-2xl">
-    <img
-      src={HERO_IMAGE_URL}
-      alt="MEDULIA - korepetycje"
-      className="w-full aspect-[3/4] object-cover"
-      loading="eager"
-      decoding="async"
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
-
-
-                  <a
-  href="tel:+48532083335"
-  className="absolute left-5 bottom-5 inline-flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-black/55 border border-white/20 text-white text-sm"
-  style={blur2Style}
->
-
-                    <Phone className="w-4 h-4" />
-                    532 208 335
-                  </a>
+              {/* ZMIANA: -mt-10 na mobile wyciąga całe zdjęcie w górę, niwelując gap od nagłówka */}
+              <div className="relative w-full -mt-10 lg:-mt-10 lg:ml-auto">
+                <div className="absolute -inset-6 rounded-[52px] bg-purple-500/10 blur-3xl" aria-hidden="true" />
+                <div className="relative overflow-hidden rounded-[44px] -mx-4 sm:mx-0 lg:ml-auto lg:w-[110%] xl:w-[120%] 2xl:w-[100%]">
+                  <div className="relative h-[45vh] md:h-[65vh] min-h-[350px] w-full">
+                    <img
+                      src={HERO_IMAGE_URL}
+                      alt="MEDULIA - korepetycje"
+                      className="hero-img absolute inset-0 h-full w-full object-cover object-[50%_18%] md:object-top"
+                      loading="eager"
+                    />
+                    <a
+                      href="tel:+48532083335"
+                      className="absolute left-5 bottom-5 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 border border-white/20 text-white text-sm backdrop-blur-md"
+                    >
+                      <Phone className="w-4 h-4 text-purple-400" />
+                      532 208 335
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>
 
-            {/* HERO TEXT: blur tylko tu */}
+            {/* BOX TEKSTOWY */}
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE_OUT }}
               className="order-2 lg:order-1"
             >
+              {/* ZMIANA: -mt-20 na mobile tworzy efekt "nasunięcia" boxa na zdjęcie (zero gap) */}
               <div
-  className="
-    rounded-[28px]
-    p-6 md:p-8 lg:p-10
-    bg-white/5 border border-white/10 shadow-2xl
-    lg:min-h-[520px] xl:min-h-[600px]
-    lg:flex lg:flex-col lg:justify-center
-  "
-  style={blur2Style}
->
-
-                <div
-                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/30 border border-white/20 text-white/90 text-xs font-semibold mb-4 shadow-sm"
-                  style={blur2Style}
-                >
-                  🎓 Zapisy 2026/2027 otwarte!
-                </div>
-
-                <h1 className="text-3xl md:text-5xl font-extrabold text-white leading-tight">
-                  Biologia na <span className="text-gradient">100%</span>
+                className="rounded-[32px] p-4 md:p-10 bg-white/5 border border-white/10 shadow-2xl backdrop-blur-md relative overflow-hidden -mt-10 md:mt-0 z-10"
+              >
+                
+                <h1 className="mt-4 md:mt-0 text-3xl md:text-6xl font-extrabold text-white leading-[1.1]">
+                  Biologia na <span className="text-gradient-purple">100%</span>
                 </h1>
 
-                <p className="mt-4 text-white/80 text-sm md:text-base leading-relaxed">
-                  Bez stresu i wkuwania. Zrozumienie, które buduje wynik.
+                <p className="mt-2 md:mt-5 text-white/70 text-xs md:text-lg leading-relaxed max-w-md">
+                  Bez stresu i wkuwania. Budujemy wynik na <span className="text-white font-semibold">zrozumieniu mechanizmów</span>, a nie definicji.
                 </p>
 
-                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-                  <span className="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-white/90 shadow-sm transition-all hover:bg-white/15 hover:border-white/25 hover:-translate-y-[1px]">
-                    ✅ Indywidualny plan
-                  </span>
-                  <span className="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-white/90 shadow-sm transition-all hover:bg-white/15 hover:border-white/25 hover:-translate-y-[1px]">
-                    📌 Materiały CKE
-                  </span>
-                  <span className="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-white/90 shadow-sm transition-all hover:bg-white/15 hover:border-white/25 hover:-translate-y-[1px]">
-                    💬 Stały kontakt
-                  </span>
+                {/* CECHY */}
+                <div className="mt-3 md:mt-6 flex flex-wrap gap-2">
+                  {['Indywidualny plan', 'Materiały CKE', 'Stały kontakt'].map((tag) => (
+                    <span key={tag} className="px-3 py-1 rounded-xl bg-white/10 border border-white/10 text-white/90 text-[10px] md:text-xs font-medium">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
 
-                <div className="mt-6 flex flex-col sm:flex-row gap-3">
-  <Link to="/zapisy" className="btn-accent inline-flex items-center justify-center gap-2">
-    Umów korepetycje <ArrowRight className="w-5 h-5" />
-  </Link>
+                {/* PRZYCISKI - ZMNIEJSZONE NA DESKTOP I MOBILE */}
+                <div className="mt-4 md:mt-8 flex flex-col sm:flex-row gap-2 md:gap-4">
+                  <Link to="/zapisy" className="btn-accent py-2.5 px-6 text-base md:py-2.5 md:px-6 md:text-base rounded-2xl inline-flex items-center justify-center gap-2 font-bold group">
+                    Umów korepetycje 
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
 
-  <Link to="/oferta" className="hero-ghost-btn inline-flex items-center justify-center">
-    Oferta
-  </Link>
-</div>
+                  <Link
+  to="/oferta"
+  className="hero-ghost-btn py-1 px-4 text-sm md:py-2 md:px-6 md:text-base rounded-2xl inline-flex items-center justify-center font-bold border-white/10 hover:bg-white/5 transition-all text-white"
+>
+  Oferta
+</Link>
+                </div>
 
-{/* ✅ Desktop-only: wypełnienie boxa tekstem (mobile bez zmian) */}
-<div className="hidden lg:block mt-8">
-  <div className="h-px w-full bg-white/10 mb-6" />
-
-  <div className="text-white/90 font-extrabold text-sm mb-3">
-    To jest dla Ciebie, jeśli:
-  </div>
-
-  <ul className="space-y-2.5 text-sm text-white/75">
-    <li className="flex items-start gap-3">
-      <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-white/60 flex-shrink-0" />
-      <span>uczysz się biologii, ale czujesz chaos i brak planu</span>
-    </li>
-    <li className="flex items-start gap-3">
-      <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-white/60 flex-shrink-0" />
-      <span>wiesz, że wkuwanie nie działa i chcesz rozumieć mechanizmy</span>
-    </li>
-    <li className="flex items-start gap-3">
-      <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-white/60 flex-shrink-0" />
-      <span>chcesz wiedzieć co robić tydzień po tygodniu — bez zgadywania</span>
-    </li>
-    <li className="flex items-start gap-3">
-      <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-white/60 flex-shrink-0" />
-      <span>celujesz w wysoki wynik i zależy Ci na konkretach pod maturę</span>
-    </li>
-  </ul>
-</div>
-</div>
-</motion.div>
-</div>
-</div>
-</section>
-
+                {/* 3. PASEK ZAJĘTOŚCI */}
+                <div className="mt-5 md:mt-8 pt-4 md:pt-6 border-t border-white/10">
+                  <div className="flex justify-between items-end mb-2">
+                    <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-wider">Dostępność miejsc 2026/27</span>
+                    <span className="text-[10px] md:text-xs font-black text-white drop-shadow-[0_0_8px_rgba(232,121,249,0.9)]">
+                      Zostało 15 miejsc!
+                    </span>
+                  </div>
+                  <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '85%' }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, ease: "easeOut", delay: 0.6 }}
+                      className="h-full bg-gradient-to-r from-purple-600 to-pink-500 shadow-[0_0_12px_rgba(168,85,247,0.6)]"
+                    />
+                  </div>
+                  <p className="mt-2 text-[9px] md:text-[10px] text-white/60 italic">
+                    * Grafik indywidualny zapełnia się szybko. Rezerwacja przez formularz gwarantuje miejsce w kolejce.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* SECTION 2: VALUES */}
       <section className="py-8 md:py-12 relative">
@@ -419,7 +399,6 @@ function HomePage() {
             viewport={{ once: true, amount: 0.22 }}
           >
             <div className="grid lg:grid-cols-2 gap-8 items-center">
-              {/* zdjęcie -> z boku */}
               <motion.div
                 className="relative order-1"
                 variants={fadeLeft}
@@ -428,26 +407,21 @@ function HomePage() {
                 viewport={{ once: true, amount: 0.22 }}
               >
                 <div className="relative mx-auto lg:mx-0 w-full max-w-[520px]">
-  <div className="relative overflow-hidden rounded-[28px] border border-white/12 bg-white/5 shadow-2xl">
-    {/* stały kadr (żeby zawsze wyglądało równo) */}
-    <div className="aspect-[4/5] w-full">
-      <img
-        src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769719634/Projekt_bez_nazwy_35_zfslpq.png"
-        alt="Julia - MEDULIA"
-        className="h-full w-full object-cover object-[50%_20%] md:object-[50%_25%]"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-
-    {/* delikatnie „scala” ze szkłem */}
-    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/18 via-black/0 to-black/0" />
-  </div>
-</div>
-
+                  <div className="relative overflow-hidden rounded-[28px] border border-white/12 bg-white/5 shadow-2xl">
+                    <div className="aspect-[4/5] w-full">
+                      <img
+                        src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787679/Projekt_bez_nazwy_37_t3jkss.png"
+                        alt="Julia - MEDULIA"
+                        className="h-full w-full object-cover object-[50%_20%] md:object-[50%_25%]"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/18 via-black/0 to-black/0" />
+                  </div>
+                </div>
               </motion.div>
 
-              {/* box tekstowy */}
               <motion.div
                 className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 order-2"
                 variants={fadeUp}
@@ -504,66 +478,62 @@ function HomePage() {
 
             <div className="flex gap-4 overflow-x-auto no-scrollbar md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:items-stretch">
               {videoClips.map((v, idx) => (
-  <motion.div
-    key={idx}
-    className="flex-none w-[78vw] max-w-[300px] md:max-w-[260px] md:w-auto"
-    variants={fadeUp}
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true, amount: 0.25 }}
-    transition={{
-      delay: reduceMotion ? 0 : idx * 0.06,
-      duration: 0.55,
-      ease: EASE_OUT,
-    }}
-  >
-    {/* ✅ wrapper BEZ motion -> tu działa translate-x */}
-    <div
-      className={[
-         "overflow-visible transition-transform",
-    idx === 0 ? "md:translate-x-[85px]" : "",
-    idx === 1 ? "md:translate-x-[55px]" : "",  // środkowy
-    idx === 2 ? "md:translate-x-[26px]" : "",  // prawy
-      ].join(" ")}
-    >
-      <div className="p-4">
-        <div className="relative mx-auto w-full max-w-[240px] flex justify-center">
-          <div className="relative aspect-[9/16] rounded-[34px] border border-white/15 bg-black/30 p-2 shadow-xl">
-            <div className="pointer-events-none absolute left-1/2 top-[10px] -translate-x-1/2 w-[46%] h-[16px] rounded-full bg-black/35 border border-white/10" />
-            <div className="h-full w-full overflow-hidden rounded-[26px] bg-black">
-              <video
-                ref={(el) => {
-                  videoRefs.current[idx] = el;
-                }}
-                className="medulia-clip h-full w-full object-cover"
-                src={v.src}
-                controls
-                playsInline
-                preload="metadata"
-                onPlay={(e) => pauseOtherVideos(e.currentTarget)}
-                onLoadedMetadata={(e) => {
-                  try {
-                    e.currentTarget.currentTime = 0.01;
-                  } catch (_) {}
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+                <motion.div
+                  key={idx}
+                  className="flex-none w-[78vw] max-w-[300px] md:max-w-[260px] md:w-auto"
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{
+                    delay: reduceMotion ? 0 : idx * 0.06,
+                    duration: 0.55,
+                    ease: EASE_OUT,
+                  }}
+                >
+                  <div
+                    className={[
+                      "overflow-visible transition-transform",
+                      idx === 0 ? "md:translate-x-[85px]" : "",
+                      idx === 1 ? "md:translate-x-[55px]" : "",
+                      idx === 2 ? "md:translate-x-[26px]" : "",
+                    ].join(" ")}
+                  >
+                    <div className="p-4">
+                      <div className="relative mx-auto w-full max-w-[240px] flex justify-center">
+                        <div className="relative aspect-[9/16] rounded-[34px] border border-white/15 bg-black/30 p-2 shadow-xl">
+                          <div className="pointer-events-none absolute left-1/2 top-[10px] -translate-x-1/2 w-[46%] h-[16px] rounded-full bg-black/35 border border-white/10" />
+                          <div className="h-full w-full overflow-hidden rounded-[26px] bg-black">
+                            <video
+                              ref={(el) => {
+                                videoRefs.current[idx] = el;
+                              }}
+                              className="medulia-clip h-full w-full object-cover"
+                              src={v.src}
+                              controls
+                              playsInline
+                              preload="metadata"
+                              onPlay={(e) => pauseOtherVideos(e.currentTarget)}
+                              onLoadedMetadata={(e) => {
+                                try { e.currentTarget.currentTime = 0.01; } catch (_) {}
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-      <div className="px-4 pb-4 w-full text-center">
-        <div className="text-white font-extrabold text-sm md:text-base min-h-[48px] flex items-center justify-center">
-          {v.title}
-        </div>
-        <div className="mt-1 text-xs text-white/70 leading-relaxed min-h-[40px]">
-          {v.desc}
-        </div>
-      </div>
-    </div>
-  </motion.div>
-))}
-
+                    <div className="px-4 pb-4 w-full text-center">
+                      <div className="text-white font-extrabold text-sm md:text-base min-h-[48px] flex items-center justify-center">
+                        {v.title}
+                      </div>
+                      <div className="mt-1 text-xs text-white/70 leading-relaxed min-h-[40px]">
+                        {v.desc}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
 
             <div className="mt-6 flex justify-center">
@@ -590,43 +560,41 @@ function HomePage() {
 
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-4">
               {offerTypesCompact.map((item) => {
-  const Icon = item.icon;
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    aria-label={`Zobacz szczegóły: ${item.title}`}
+                    className="
+                      group rounded-2xl bg-white/5 border border-white/10
+                      hover:border-white/20 hover:bg-white/7 transition-all
+                      p-4 md:p-5 flex items-center justify-between gap-3
+                    "
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-5 h-5 text-white/85" />
+                      </div>
 
-  return (
-    <Link
-      key={item.to}
-      to={item.to}
-      aria-label={`Zobacz szczegóły: ${item.title}`}
-      className="
-        group rounded-2xl bg-white/5 border border-white/10
-        hover:border-white/20 hover:bg-white/7 transition-all
-        p-4 md:p-5 flex items-center justify-between gap-3
-      "
-    >
-      <div className="flex items-center gap-3 min-w-0">
-        <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0">
-          <Icon className="w-5 h-5 text-white/85" />
-        </div>
+                      <div className="min-w-0">
+                        <div className="text-white font-semibold text-sm md:text-base leading-snug md:line-clamp-2">
+                          {item.title}
+                        </div>
+                        <div className="md:hidden mt-1 text-xs text-white/55">
+                          Kliknij, aby zobaczyć szczegóły
+                        </div>
+                      </div>
+                    </div>
 
-        <div className="min-w-0">
-          <div className="text-white font-semibold text-sm md:text-base leading-snug md:line-clamp-2">
-            {item.title}
-          </div>
-          <div className="md:hidden mt-1 text-xs text-white/55">
-            Kliknij, aby zobaczyć szczegóły
-          </div>
-        </div>
-      </div>
+                    <div className="hidden md:inline-flex items-center gap-2 text-white/70 group-hover:text-white transition-colors text-sm font-semibold flex-shrink-0 whitespace-nowrap">
+                      Zobacz szczegóły <ArrowRight className="w-4 h-4" />
+                    </div>
 
-      <div className="hidden md:inline-flex items-center gap-2 text-white/70 group-hover:text-white transition-colors text-sm font-semibold flex-shrink-0 whitespace-nowrap">
-        Zobacz szczegóły <ArrowRight className="w-4 h-4" />
-      </div>
-
-      <ArrowRight className="md:hidden w-4 h-4 text-white/55 flex-shrink-0" />
-    </Link>
-  );
-})}
-
+                    <ArrowRight className="md:hidden w-4 h-4 text-white/55 flex-shrink-0" />
+                  </Link>
+                );
+              })}
             </div>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
@@ -658,6 +626,7 @@ function HomePage() {
               Pobierz przykładowe notatki i zadania. Sprawdź, jak uczę!
             </p>
 
+            {/* Mobile Grid */}
             <div className="grid grid-cols-2 gap-4 md:hidden">
               {freeMaterials.map((item, idx) => (
                 <motion.div
@@ -683,7 +652,6 @@ function HomePage() {
                         />
                       </div>
                     </div>
-
                     <div className="p-4 pt-3">
                       <h4 className="text-white font-extrabold text-sm leading-snug">{item.title}</h4>
                       <div className="mt-2 text-xs text-white/70 inline-flex items-center gap-2">
@@ -695,6 +663,7 @@ function HomePage() {
               ))}
             </div>
 
+            {/* Desktop Scroller */}
             <div className="hidden md:block">
               <div className="flex gap-4 overflow-x-auto no-scrollbar snap-x-mandatory py-2">
                 {freeMaterials.map((item, idx) => (
@@ -722,7 +691,6 @@ function HomePage() {
                           />
                         </div>
                       </div>
-
                       <div className="p-4 pt-3">
                         <h4 className="text-white font-extrabold text-sm md:text-base leading-snug">{item.title}</h4>
                         <div className="mt-2 text-xs text-white/70 inline-flex items-center gap-2">
@@ -733,7 +701,6 @@ function HomePage() {
                   </motion.div>
                 ))}
               </div>
-
               <p className="mt-2 text-center text-xs text-white/55">Przykładowy wygląd materiałów.</p>
             </div>
 
@@ -822,7 +789,7 @@ function HomePage() {
       <section className="py-8 md:py-12 relative">
         <div className="max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
-            {/* LEWY BOX — bez blur */}
+            {/* LEWY BOX */}
             <motion.div
               className="glass-panel p-6 md:p-8 h-full flex flex-col"
               data-bg="image"
@@ -893,7 +860,7 @@ function HomePage() {
               </div>
             </motion.div>
 
-            {/* PRAWY BOX (formularz) — bez blur */}
+            {/* PRAWY BOX (formularz) */}
             <motion.div
               className="order-2 lg:order-1 lg:pl-6 xl:pl-10"
               data-bg="image"
@@ -907,9 +874,8 @@ function HomePage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
 
 export default HomePage;
-
