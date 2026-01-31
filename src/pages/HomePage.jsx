@@ -836,50 +836,63 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 7: MY STORY */}
-      <section className="py-8 md:py-12 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-6 xl:gap-8 items-center">
-            <motion.div
-              className="relative order-2 lg:order-1"
-              variants={fadeLeft}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.22 }}
-            >
-              <div className="absolute inset-0 bg-white/10 rounded-2xl blur-sm" />
-              <img
-                src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457371/Style_documentary_photography_real-life_photo_natural_imperfections._NO_illustration_NO_cinematic_lighting_NO_fantasy_NO_soft_glow_NO_dreamy_look._NO_stylized_colors_NO_exaggerated_depth_of_h9ew75.png"
-                alt="Maria - Nauczycielka"
-                className="relative rounded-2xl shadow-xl max-h-[400px] w-full object-cover"
-              />
-            </motion.div>
-
-            <motion.div
-              className="order-1 lg:order-2 glass-panel p-6 md:p-8"
-              data-bg="image"
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.22 }}
-            >
-              <SectionTitle className="!text-left" center={false}>
-                Moja misja
-              </SectionTitle>
-              <div className="prose prose-sm text-white/80 mt-4 space-y-3">
-                <p>Biologia to sposób patrzenia na świat. Nie ucz się na pamięć – zrozum mechanizmy.</p>
-                <p>Na moich zajęciach nie ma głupich pytań. Błąd to okazja do nauki.</p>
-              </div>
-              <Link
-                to="/o-mnie"
-                className="mt-6 inline-flex items-center text-white font-bold hover:text-white/80 transition-all group text-sm"
-              >
-                Poznaj mnie <ArrowRight className="w-4 h-4 ml-1" />
-              </Link>
-            </motion.div>
-          </div>
+      {/* SECTION 7: MY STORY / MISSION */}
+<section className="py-8 md:py-12 relative">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid lg:grid-cols-2 gap-6 xl:gap-8 items-center">
+      
+      {/* LEWA KOLUMNA - NOWA GRAFIKA (STUDY DESK) */}
+      <motion.div
+        className="relative order-2 lg:order-1"
+        variants={fadeLeft}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.22 }}
+      >
+        <div className="absolute -inset-2 bg-purple-500/10 rounded-3xl blur-2xl" />
+        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[16/9] lg:aspect-auto">
+          <img
+            src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769826124/A_bright_cozy_study_desk_setup_during_late_afternoon._A_laptop_screen_shows_a_friendly_smiling_female_tutor_with_tied-back_hair_actively_explaining_a_biology_diagram._The_student_s_desk_is_neat_k4czfi.png"
+            alt="Przyjazna nauka biologii online"
+            className="relative w-full h-full object-cover object-center max-h-[450px]"
+            loading="lazy"
+          />
+          {/* Delikatny fioletowy filtr nakładkowy, by lepiej siadło w designie */}
+          <div className="absolute inset-0 bg-purple-900/5 mix-blend-multiply pointer-events-none" />
         </div>
-      </section>
+      </motion.div>
+
+      {/* PRAWA KOLUMNA - TEKST MISJI */}
+      <motion.div
+        className="order-1 lg:order-2 glass-panel p-6 md:p-10"
+        data-bg="image"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.22 }}
+      >
+        <SectionTitle className="!text-left" center={false}>
+          Moja misja
+        </SectionTitle>
+        <div className="prose prose-sm text-white/80 mt-4 space-y-4">
+          <p className="text-base md:text-lg leading-relaxed">
+            Biologia to sposób patrzenia na świat. Nie uczymy się regułek na pamięć – wspólnie <span className="text-white font-bold">rozgryzamy mechanizmy</span>, które rządzą życiem.
+          </p>
+          <p className="text-sm md:text-base opacity-90">
+            Na moich zajęciach tworzymy bezpieczną przestrzeń. Nie ma głupich pytań, a każdy błąd to tylko kolejny krok do Twojego <span className="text-gradient-purple font-bold">100% na maturze</span>.
+          </p>
+        </div>
+        <Link
+          to="/o-mnie"
+          className="mt-8 inline-flex items-center text-white font-bold hover:text-purple-300 transition-all group text-base"
+        >
+          Poznaj mnie bliżej <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+        </Link>
+      </motion.div>
+
+    </div>
+  </div>
+</section>
 
       {/* SECTION 9: SIGNUP */}
       <section className="py-8 md:py-12 relative">
