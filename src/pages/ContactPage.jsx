@@ -68,14 +68,7 @@ function ContactPage() {
                 </div>
               </div>
 
-              <div className="glass-panel p-6">
-                <h3 className="text-xl font-bold text-white mb-4">Sprawdź również</h3>
-                <div className="flex flex-wrap gap-3">
-                  <Link to="/oferta" className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm transition-colors border border-white/10">Oferta</Link>
-                  <Link to="/opinie" className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm transition-colors border border-white/10">Opinie</Link>
-                  <Link to="/o-mnie" className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm transition-colors border border-white/10">O mnie</Link>
-                </div>
-              </div>
+              
             </div>
 
             {/* Form */}

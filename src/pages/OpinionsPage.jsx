@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Maximize2, X, ChevronDown, ArrowRight } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
-import OpinionsMarquee from '@/components/OpinionsMarquee';
 
+// ===== DATA =====
 const proofImages = [
   "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198554/2c273e46-a225-4aa8-8eb8-5cec120f6b5b_cjmnsf.jpg",
   "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198553/b9bf748a-472b-41dc-9523-b3897df6066e_yk3eok.jpg",
@@ -31,13 +33,7 @@ const proofImages = [
 
 const pickProof = (i) => proofImages[i % proofImages.length];
 
-/**
- * ZAŁOŻENIE:
- * - wszystkie opinie z proofImage są od KOBIET
- * - dodajemy 20 męskich opinii tekstowych (bez proofImage)
- */
-const opinionsData = [
-  // ===== KOBIETY: ze screenami (proofImage) =====
+const opinionsWithPhotos = [
   { name: 'Zuzanna Nowak', city: 'Gdynia', proofImage: pickProof(0), text: 'Z czwórki na próbnej do 98% na prawdziwej. Totalny sztos.' },
   { name: 'Julia Wiśniewska', city: 'Lublin', proofImage: pickProof(1), text: 'W końcu zrozumiałam genetykę i zadania maturalne. Wynik 94%.' },
   { name: 'Martyna Kowalczyk', city: 'Szczecin', proofImage: pickProof(2), text: 'Zero stresu, konkret i plan. Pierwszy raz czułam, że ogarniam materiał.' },
@@ -58,81 +54,140 @@ const opinionsData = [
   { name: 'Sandra Nowak', city: 'Słupsk', proofImage: pickProof(17), text: 'Mega mi pomogły notatki i powtórki. Wszystko w punkt.' },
   { name: 'Karolina Duda', city: 'Gliwice', proofImage: pickProof(18), text: 'Przestałam uczyć się “na pamięć”. Zaczęłam rozumieć.' },
   { name: 'Kamila Michalska', city: 'Olsztyn', proofImage: pickProof(19), text: 'Najlepsze przygotowanie do CKE — typowe pułapki omówione.' },
-
-  // ===== KOBIETY: tekstowe (bez screenów) – zostawiamy kilka, żeby miks 3:1 działał fajnie =====
-  { name: 'Tola Majewska', city: 'Łódź', text: 'Pierwszy raz czułam, że mam kontrolę nad powtórkami, a nie chaos.' },
-  { name: 'Maja Czarnecka', city: 'Lublin', text: 'Bardzo dobre tempo i tłumaczenie “jak człowiek”.' },
-  { name: 'Barbora Wójcik', city: 'Wrocław', text: 'Wynik rośnie, bo w końcu mam plan i kontrolę.' },
-
-  // ===== MĘŻCZYŹNI: 20 opinii tekstowych (bez screenów) =====
-  { name: 'Szymon Pędzin', city: 'Kraków', text: 'Zadania z doświadczeń w końcu przestały mnie zabijać. Mega konkrety.' },
-  { name: 'Mateusz Grabowski', city: 'Warszawa', text: 'Dostałem jasny plan i checklistę – tak powinno się uczyć do matury.' },
-  { name: 'Kacper Olsza', city: 'Poznań', text: 'Najlepsze było to, że każdy błąd był omówiony “dlaczego”, nie tylko “źle”.' },
-  { name: 'Oskar Jakubowski', city: 'Gdańsk', text: 'Genetyka i krzyżówki – pierwszy raz ogarniam to bez stresu.' },
-  { name: 'Jakub Grzybek', city: 'Wrocław', text: 'Różnica po miesiącu była widoczna w testach. Polecam.' },
-  { name: 'Filip Znicz', city: 'Łódź', text: 'W końcu uczę się mądrze, a nie dużo. Wynik rośnie.' },
-  { name: 'Dominik Zając', city: 'Toruń', text: 'Najbardziej doceniam porządek: co, kiedy i po co robię.' },
-  { name: 'Patryk Leszko', city: 'Katowice', text: 'Nareszcie rozumiem metabolizm i widzę schematy w zadaniach.' },
-  { name: 'Michał Barszczyk', city: 'Szczecin', text: 'Wcześniej był chaos, teraz mam system i rutynę.' },
-  { name: 'Bartek Dzieciątkowski', city: 'Bydgoszcz', text: 'Dużo tipów pod CKE i pułapki z arkuszy. To daje punkty.' },
-  { name: 'Kamil Stanek', city: 'Olsztyn', text: 'Największy plus: proste wyjaśnienia i powtórki z sensem.' },
-  { name: 'Igor Majewski', city: 'Białystok', text: 'Nie ma lania wody – jest konkret, plan i feedback.' },
-  { name: 'Hubert Puchacz', city: 'Rzeszów', text: 'Nauczyłem się jak analizować polecenia. To była moja największa blokada.' },
-  { name: 'Alan Wolski', city: 'Opole', text: 'Zrobiłem progres, bo przestałem wkuwać – zacząłem rozumieć.' },
-  { name: 'Marcel Kubial', city: 'Gdynia', text: 'Świetne tempo i mega cierpliwość w tłumaczeniu.' },
-  { name: 'Tomasz Filipiak', city: 'Lublin', text: 'Najlepsza inwestycja przed maturą. Mniej stresu, więcej punktów.' },
-  { name: 'Krzysztof Nowicki', city: 'Poznań', text: 'Fajne materiały i zadania “pod wynik”.' },
-  { name: 'Paweł Kaczmar', city: 'Warszawa', text: 'W 2 tygodnie ogarnąłem tematy, które odkładałem miesiącami.' },
-  { name: 'Adrian Nowak', city: 'Wrocław', text: 'W końcu wiem, co jest najważniejsze na maturze i na czym się skupić.' },
-  { name: 'Łukasz Kowalski', city: 'Słupsk', text: 'Bardzo dużo praktyki na arkuszach. O to chodzi.' },
 ];
 
 function OpinionsPage() {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const INITIAL_COUNT = 8;
+  const displayedOpinions = isExpanded ? opinionsWithPhotos : opinionsWithPhotos.slice(0, INITIAL_COUNT);
+
   return (
     <>
       <Helmet>
         <title>Opinie uczniów - MEDULIA</title>
+        <meta name="description" content="Poznaj opinie moich uczniów. Prawdziwe wiadomości, realne wyniki maturalne i historie sukcesu." />
       </Helmet>
 
-      <div className="pt-28 pb-6">
+      {/* START: PANEL Z OPINIAMI */}
+      <section className="pt-24 pb-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center glass-panel p-8"
+            className="glass-panel p-6 md:p-8" 
+            data-bg="image"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Opinie uczniów</h1>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto">
-              Prawdziwe wiadomości i realne efekty.
-            </p>
+            <SectionTitle>Galeria Sukcesów</SectionTitle>
+            <p className="text-center text-white/70 mb-8 text-sm">Kliknij zdjęcie, aby zobaczyć pełną wiadomość.</p>
+
+            <div className="relative">
+                <motion.div 
+                  layout
+                  className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+                >
+                {displayedOpinions.map((op, idx) => (
+                    <motion.div 
+                      key={idx} 
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: idx * 0.05 }}
+                      className="flex flex-col gap-3 group cursor-pointer"
+                      onClick={() => setSelectedImage(op.proofImage)}
+                    >
+                        <div className="relative rounded-xl overflow-hidden border border-white/10 bg-black/40 aspect-[9/16] shadow-lg group-hover:border-purple-500/50 transition-colors duration-300">
+                            <img 
+                              src={op.proofImage} 
+                              alt={`Opinia - ${op.name}`}
+                              className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                              <div className="w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                                  <Maximize2 className="w-5 h-5 text-white" />
+                              </div>
+                            </div>
+                        </div>
+
+                        <div className="px-1 flex flex-col gap-1">
+                            <div className="flex gap-0.5 text-yellow-400 mb-0.5">
+                              {[...Array(5)].map((_, i) => (
+                                  <svg key={i} className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                              ))}
+                            </div>
+                            <p className="text-white/80 text-xs leading-relaxed line-clamp-3 italic">
+                              "{op.text}"
+                            </p>
+                            <div className="mt-1 border-t border-white/10 pt-1">
+                              <div className="text-white font-bold text-xs">{op.name}</div>
+                              <div className="text-white/50 text-[10px]">{op.city}</div>
+                            </div>
+                        </div>
+                    </motion.div>
+                ))}
+                </motion.div>
+
+                {/* GRADIENT I PRZYCISK ZOBACZ WIĘCEJ (tylko gdy zwinięte) */}
+                {!isExpanded && (
+                    <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#1a0b2e] via-[#1a0b2e]/90 to-transparent flex items-end justify-center z-10 rounded-b-2xl">
+                        <button 
+                            onClick={() => setIsExpanded(true)}
+                            className="group relative flex flex-col items-center gap-2 mb-32" 
+                        >
+                            <div className="absolute inset-0 bg-purple-600/20 blur-xl rounded-full group-hover:bg-purple-600/40 transition-all duration-500"></div>
+                            <span className="relative text-white font-bold uppercase tracking-widest text-[10px] md:text-sm group-hover:text-purple-200 transition-colors">
+                                Zobacz więcej historii
+                            </span>
+                            <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
+                                <ChevronDown className="w-5 h-5 md:w-6 md:h-6 text-white animate-bounce" />
+                            </div>
+                        </button>
+                    </div>
+                )}
+
+                {/* PRZYCISK ZAPISZ SIĘ - dopasowany do szerokości na mobile */}
+                <div className={`${!isExpanded ? 'absolute bottom-8 left-0 w-full px-4' : 'mt-8 flex justify-center px-4'} z-20`}>
+                    <motion.div 
+                        className="w-full max-w-md mx-auto flex justify-center"
+                        initial={false}
+                        animate={{ scale: isExpanded ? 1.05 : 1 }}
+                    >
+                        <Link 
+                            to="/zapisy" 
+                            className="btn-accent w-full sm:w-auto py-3 px-4 md:px-8 rounded-2xl inline-flex items-center justify-center gap-3 font-extrabold group shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] transition-all text-sm md:text-base"
+                        >
+                            Zapisz się na zajęcia 
+                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                    </motion.div>
+                </div>
+            </div>
           </motion.div>
         </div>
-      </div>
-
-      <section className="py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-panel p-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              {[
-                { k: 'Realne screeny', v: 'wiadomości od uczniów — bez ściemy' },
-                { k: 'Plan i kontrola', v: 'wiesz co robisz i po co' },
-                { k: 'Efekt w wyniku', v: 'a nie motywacja na 2 dni' },
-              ].map((s) => (
-                <div key={s.k} className="rounded-2xl bg-white/5 border border-white/10 p-4">
-                  <div className="text-white font-extrabold">{s.k}</div>
-                  <div className="text-white/70 text-sm mt-1">{s.v}</div>
-                </div>
-              ))}
-            </div>
-
-            <SectionTitle>Prawdziwe historie</SectionTitle>
-
-            <div className="mt-8">
-              <OpinionsMarquee opinions={opinionsData} cardVariant="full" />
-            </div>
-          </div>
-        </div>
       </section>
+
+      {/* LIGHTBOX MODAL */}
+      {selectedImage && (
+        <div 
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-10 animate-in fade-in duration-200"
+            onClick={() => setSelectedImage(null)}
+        >
+            <button 
+                className="absolute top-5 right-5 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-50"
+                onClick={() => setSelectedImage(null)}
+            >
+                <X className="w-6 h-6" />
+            </button>
+            <img 
+                src={selectedImage} 
+                alt="Pełna opinia" 
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                onClick={(e) => e.stopPropagation()} 
+            />
+        </div>
+      )}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -14,6 +14,8 @@ import {
   GraduationCap,
   UserRound,
   Package,
+  X,
+  Maximize2
 } from 'lucide-react';
 
 import SectionTitle from '@/components/SectionTitle';
@@ -101,22 +103,22 @@ const freeMaterials = [
   {
     slug: 'metabolizm',
     title: 'Metabolizm',
-    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/3_ejqxtr.png',
+    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769817607/3_xuy5d3.png',
   },
   {
     slug: 'plan-maturalny',
     title: 'Plan maturalny',
-    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104949/ipad_grafiki_zvf9pe.png',
+    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769817607/1_tpw8vw.png',
   },
   {
     slug: 'pytania-sprawdzajace',
     title: 'Pytania sprawdzające',
-    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104665/6_q9wzxo.png',
+    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769817607/4_esfg8k.png',
   },
   {
-    slug: 'zadanie-domowe',
-    title: 'Zadanie domowe',
-    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769082868/Projekt_bez_nazwy_24_jjkyvd.png',
+    slug: 'matura-rozszerzona-2026',
+    title: 'Matura Rozszerzona 2026',
+    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769817607/2_jdxk7h.png',
   },
 ];
 
@@ -160,6 +162,7 @@ const makeFadeSide = (dir, reduce) => ({
 });
 
 function HomePage() {
+  const [selectedImage, setSelectedImage] = useState(null);
   const reduceMotion = useReducedMotion();
   const fadeUp = makeFadeUp(reduceMotion);
   const fadeLeft = makeFadeSide(-1, reduceMotion);
@@ -229,22 +232,6 @@ function HomePage() {
         .home-page .opinions-no-scrollbar *::-webkit-scrollbar { display: none; height: 0; }
         .home-page .opinions-no-scrollbar * { scrollbar-width: none; -ms-overflow-style: none; }
 
-        .home-page .opinions-no-scrollbar .embla__dots,
-        .home-page .opinions-no-scrollbar .embla__progress,
-        .home-page .opinions-no-scrollbar .embla__pagination,
-        .home-page .opinions-no-scrollbar .swiper-pagination,
-        .home-page .opinions-no-scrollbar .swiper-pagination-bullets,
-        .home-page .opinions-no-scrollbar .keen-slider__dots,
-        .home-page .opinions-no-scrollbar .keen-slider__pagination,
-        .home-page .opinions-no-scrollbar [data-dots],
-        .home-page .opinions-no-scrollbar [data-pagination],
-        .home-page .opinions-no-scrollbar [aria-label*="pagination" i],
-        .home-page .opinions-no-scrollbar [class*="pagination" i],
-        .home-page .opinions-no-scrollbar [class*="progress" i],
-        .home-page .opinions-no-scrollbar [class*="dots" i] {
-          display: none !important;
-        }
-
         /* Zdejmij blur na mobile */
         @media (max-width: 767px) {
           .home-page .glass-panel {
@@ -277,7 +264,7 @@ function HomePage() {
         />
       </Helmet>
 
-      {/* SECTION 1: HERO (Zoptymalizowana) */}
+      {/* SECTION 1: HERO */}
       <section className="relative pt-0 md:pt-16 pb-10 md:pb-16 overflow-hidden lg:overflow-visible">
         {/* Blaski w tle */}
         <div className="absolute top-20 right-[10%] w-64 h-64 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-soft" />
@@ -286,14 +273,13 @@ function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             
-            {/* OBRAZEK (Twarz marki) */}
+            {/* OBRAZEK */}
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT }}
               className="order-1 lg:order-2"
             >
-              {/* ZMIANA: -mt-10 na mobile wyciąga całe zdjęcie w górę, niwelując gap od nagłówka */}
               <div className="relative w-full -mt-10 lg:-mt-10 lg:ml-auto">
                 <div className="absolute -inset-6 rounded-[52px] bg-purple-500/10 blur-3xl" aria-hidden="true" />
                 <div className="relative overflow-hidden rounded-[44px] -mx-4 sm:mx-0 lg:ml-auto lg:w-[110%] xl:w-[120%] 2xl:w-[100%]">
@@ -323,7 +309,6 @@ function HomePage() {
               transition={{ duration: 0.6, ease: EASE_OUT }}
               className="order-2 lg:order-1"
             >
-              {/* ZMIANA: -mt-20 na mobile tworzy efekt "nasunięcia" boxa na zdjęcie (zero gap) */}
               <div
                 className="rounded-[32px] p-4 md:p-10 bg-white/5 border border-white/10 shadow-2xl backdrop-blur-md relative overflow-hidden -mt-10 md:mt-0 z-10"
               >
@@ -336,7 +321,6 @@ function HomePage() {
                   Bez stresu i wkuwania. Budujemy wynik na <span className="text-white font-semibold">zrozumieniu mechanizmów</span>, a nie definicji.
                 </p>
 
-                {/* CECHY */}
                 <div className="mt-3 md:mt-6 flex flex-wrap gap-2">
                   {['Indywidualny plan', 'Materiały CKE', 'Stały kontakt'].map((tag) => (
                     <span key={tag} className="px-3 py-1 rounded-xl bg-white/10 border border-white/10 text-white/90 text-[10px] md:text-xs font-medium">
@@ -345,7 +329,6 @@ function HomePage() {
                   ))}
                 </div>
 
-                {/* PRZYCISKI - ZMNIEJSZONE NA DESKTOP I MOBILE */}
                 <div className="mt-4 md:mt-8 flex flex-col sm:flex-row gap-2 md:gap-4">
                   <Link to="/zapisy" className="btn-accent py-2.5 px-6 text-base md:py-2.5 md:px-6 md:text-base rounded-2xl inline-flex items-center justify-center gap-2 font-bold group">
                     Umów korepetycje 
@@ -353,14 +336,14 @@ function HomePage() {
                   </Link>
 
                   <Link
-  to="/oferta"
-  className="hero-ghost-btn py-1 px-4 text-sm md:py-2 md:px-6 md:text-base rounded-2xl inline-flex items-center justify-center font-bold border-white/10 hover:bg-white/5 transition-all text-white"
->
-  Oferta
-</Link>
+                    to="/oferta"
+                    className="hero-ghost-btn py-1 px-4 text-sm md:py-2 md:px-6 md:text-base rounded-2xl inline-flex items-center justify-center font-bold border-white/10 hover:bg-white/5 transition-all text-white"
+                  >
+                    Oferta
+                  </Link>
                 </div>
 
-                {/* 3. PASEK ZAJĘTOŚCI */}
+                {/* PASEK ZAJĘTOŚCI */}
                 <div className="mt-5 md:mt-8 pt-4 md:pt-6 border-t border-white/10">
                   <div className="flex justify-between items-end mb-2">
                     <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-wider">Dostępność miejsc 2026/27</span>
@@ -387,7 +370,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 2: VALUES */}
+      {/* SECTION 2: VALUES (Poprawiona: Ikony Solid Gradient + Czytelność) */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -399,6 +382,7 @@ function HomePage() {
             viewport={{ once: true, amount: 0.22 }}
           >
             <div className="grid lg:grid-cols-2 gap-8 items-center">
+              {/* LEWA KOLUMNA - ZDJĘCIE */}
               <motion.div
                 className="relative order-1"
                 variants={fadeLeft}
@@ -422,6 +406,7 @@ function HomePage() {
                 </div>
               </motion.div>
 
+              {/* PRAWA KOLUMNA - DLACZEGO JA */}
               <motion.div
                 className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 order-2"
                 variants={fadeUp}
@@ -433,23 +418,56 @@ function HomePage() {
                   Dlaczego ja?
                 </SectionTitle>
                 <p className="text-white/80 mb-8 leading-relaxed text-sm">
-                  Uczę biologii tak, żebyś rozumiał/a, a nie kuł/a. Jestem praktykiem z wynikami.
+                  Jestem praktykiem. Uczę biologii tak, żebyś rozumiał/a procesy, a nie wkuwał/a podręcznik.
                 </p>
 
-                <div className="space-y-6">
+                <div className="grid gap-4">
                   {[
-                    { icon: Target, title: 'Plan', desc: 'Dostosowany do Ciebie.' },
-                    { icon: Zap, title: 'Logika', desc: 'Zero wkuwania na pamięć.' },
-                    { icon: Heart, title: 'Wsparcie', desc: 'Jesteśmy w tym razem.' },
-                    { icon: Users, title: 'Wynik', desc: 'Celujemy w 90%+.' },
+                    { 
+                      icon: Target, 
+                      // FIOLETOWY GRADIENT
+                      bgClass: "bg-gradient-to-br from-purple-500 to-indigo-600 shadow-purple-500/25",
+                      title: 'Strategia "pod klucz"', 
+                      desc: 'Piszesz dokładnie to, za co CKE przyznaje punkty. Zero lania wody.' 
+                    },
+                    { 
+                      icon: Zap, 
+                      // ZŁOTY/BURSZTYNOWY GRADIENT (Czytelniejszy niż żółty)
+                      bgClass: "bg-gradient-to-br from-amber-400 to-orange-500 shadow-orange-500/25",
+                      title: 'Logika, nie pamięć', 
+                      desc: 'Rozumiesz procesy, zamiast kuć definicje na blachę. To zostaje w głowie.' 
+                    },
+                    { 
+                      icon: Heart, 
+                      // RÓŻOWY GRADIENT
+                      bgClass: "bg-gradient-to-br from-pink-500 to-rose-600 shadow-pink-500/25",
+                      title: 'Zero stresu', 
+                      desc: 'Pytasz o wszystko. Tłumaczę do skutku, aż w końcu "kliknie".' 
+                    },
+                    { 
+                      icon: GraduationCap, 
+                      // NIEBIESKI GRADIENT
+                      bgClass: "bg-gradient-to-br from-blue-400 to-cyan-500 shadow-blue-500/25",
+                      title: 'Wynik na medycynę', 
+                      desc: 'Nie celujemy w "zdanie". Walczymy o każdy procent powyżej 90%.' 
+                    },
                   ].map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0 text-white">
-                        <item.icon className="w-5 h-5" />
+                    <div 
+                      key={idx} 
+                      className="group flex items-center gap-4 p-3 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-colors"
+                    >
+                      {/* Ikona na pełnym gradiencie */}
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-white shadow-lg ${item.bgClass} group-hover:scale-105 transition-transform duration-300`}>
+                        <item.icon className="w-6 h-6" />
                       </div>
+                      
                       <div>
-                        <h4 className="text-white font-bold text-sm mb-1">{item.title}</h4>
-                        <p className="text-white/70 text-xs leading-relaxed">{item.desc}</p>
+                        <h4 className="text-white font-bold text-sm mb-0.5">
+                          {item.title}
+                        </h4>
+                        <p className="text-white/60 text-xs leading-snug">
+                          {item.desc}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -545,7 +563,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 3: TYPES */}
+      {/* SECTION 3: TYPES (Poprawiona: Ikony Solid Gradient + Kolory Kategorii) */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -558,8 +576,37 @@ function HomePage() {
           >
             <SectionTitle>Rodzaje zajęć</SectionTitle>
 
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-4">
-              {offerTypesCompact.map((item) => {
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                { 
+                  title: 'Indywidualne Premium – ze mną', 
+                  to: '/oferta/indywidualne-premium', 
+                  icon: GraduationCap,
+                  // ZŁOTY (PREMIUM)
+                  bgClass: "bg-gradient-to-br from-amber-400 to-orange-600 shadow-orange-500/25"
+                },
+                { 
+                  title: 'Indywidualne – Medulia Team', 
+                  to: '/oferta/indywidualne-pracownicy', 
+                  icon: UserRound,
+                  // NIEBIESKI (ZAUFANIE)
+                  bgClass: "bg-gradient-to-br from-blue-400 to-cyan-600 shadow-blue-500/25"
+                },
+                { 
+                  title: 'Grupowe – ze mną', 
+                  to: '/oferta/grupowe-ze-mna', 
+                  icon: Users,
+                  // FIOLETOWY (SPOŁECZNOŚĆ)
+                  bgClass: "bg-gradient-to-br from-purple-500 to-indigo-600 shadow-purple-500/25"
+                },
+                { 
+                  title: 'Pakiety miesięczne – grupowe', 
+                  to: '/oferta/pakiety-grupowe', 
+                  icon: Package,
+                  // ZIELONY (PAKIET/OSZCZĘDNOŚĆ)
+                  bgClass: "bg-gradient-to-br from-emerald-400 to-teal-600 shadow-emerald-500/25"
+                },
+              ].map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
@@ -568,38 +615,43 @@ function HomePage() {
                     aria-label={`Zobacz szczegóły: ${item.title}`}
                     className="
                       group rounded-2xl bg-white/5 border border-white/10
-                      hover:border-white/20 hover:bg-white/7 transition-all
-                      p-4 md:p-5 flex items-center justify-between gap-3
+                      hover:border-white/20 hover:bg-white/10 transition-all
+                      p-4 flex items-center justify-between gap-4
                     "
                   >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-5 h-5 text-white/85" />
+                    <div className="flex items-center gap-4 min-w-0">
+                      {/* Ikona Solid Gradient */}
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-white shadow-lg ${item.bgClass} group-hover:scale-105 transition-transform duration-300`}>
+                        <Icon className="w-6 h-6" />
                       </div>
 
                       <div className="min-w-0">
-                        <div className="text-white font-semibold text-sm md:text-base leading-snug md:line-clamp-2">
+                        <div className="text-white font-bold text-sm md:text-base leading-snug pr-2">
                           {item.title}
                         </div>
-                        <div className="md:hidden mt-1 text-xs text-white/55">
+                        <div className="md:hidden mt-1 text-[10px] text-white/50 font-medium">
                           Kliknij, aby zobaczyć szczegóły
                         </div>
                       </div>
                     </div>
 
-                    <div className="hidden md:inline-flex items-center gap-2 text-white/70 group-hover:text-white transition-colors text-sm font-semibold flex-shrink-0 whitespace-nowrap">
-                      Zobacz szczegóły <ArrowRight className="w-4 h-4" />
+                    {/* Strzałka na desktopie z napisem */}
+                    <div className="hidden md:inline-flex items-center gap-2 text-white/60 group-hover:text-white transition-colors text-xs font-bold uppercase tracking-wider flex-shrink-0 whitespace-nowrap">
+                      Szczegóły <ArrowRight className="w-4 h-4" />
                     </div>
 
-                    <ArrowRight className="md:hidden w-4 h-4 text-white/55 flex-shrink-0" />
+                    {/* Strzałka na mobile */}
+                    <div className="md:hidden w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors flex-shrink-0">
+                        <ArrowRight className="w-4 h-4 text-white/70" />
+                    </div>
                   </Link>
                 );
               })}
             </div>
 
-            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
               <Link to="/oferta" className="btn-accent inline-flex items-center justify-center gap-2">
-                Zobacz ofertę <ArrowRight className="w-5 h-5" />
+                Zobacz pełną ofertę <ArrowRight className="w-5 h-5" />
               </Link>
 
               <Link to="/zapisy" className="hidden sm:inline-flex hero-ghost-btn items-center justify-center md:inline-flex">
@@ -610,7 +662,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECTION: FREE MATERIALS */}
+      {/* SECTION: FREE MATERIALS (POPRAWIONE) */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -626,8 +678,8 @@ function HomePage() {
               Pobierz przykładowe notatki i zadania. Sprawdź, jak uczę!
             </p>
 
-            {/* Mobile Grid */}
-            <div className="grid grid-cols-2 gap-4 md:hidden">
+            {/* Mobile Grid - POPRAWIONY */}
+            <div className="grid grid-cols-2 gap-3 md:hidden">
               {freeMaterials.map((item, idx) => (
                 <motion.div
                   key={idx}
@@ -639,23 +691,22 @@ function HomePage() {
                 >
                   <Link
                     to="/materialy"
-                    className="card-pdf group !bg-white/5 !bg-none !border-white/12 !p-0 overflow-hidden block"
+                    className="group block"
                     aria-label={`Zobacz materiały: ${item.title}`}
                   >
-                    <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 m-4 mb-0">
-                      <div className="aspect-[4/3] w-full">
-                        <img
-                          src={item.thumb}
-                          alt={`${item.title} – miniatura`}
-                          className="w-full h-full object-contain bg-white/5 p-2"
-                          loading="lazy"
-                        />
-                      </div>
+                    {/* ZMIANA: aspect-[210/297] (A4) dla pionowych materiałów */}
+                    <div className="rounded-2xl overflow-hidden aspect-[210/297] w-full mb-2 border border-white/10 bg-white/5">
+                      <img
+                        src={item.thumb}
+                        alt={`${item.title} – miniatura`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
                     </div>
-                    <div className="p-4 pt-3">
-                      <h4 className="text-white font-extrabold text-sm leading-snug">{item.title}</h4>
-                      <div className="mt-2 text-xs text-white/70 inline-flex items-center gap-2">
-                        Zobacz w materiałach <ArrowRight className="w-4 h-4" />
+                    <div className="px-1">
+                      <h4 className="text-white font-extrabold text-xs leading-snug">{item.title}</h4>
+                      <div className="mt-1 text-[10px] text-white/70 inline-flex items-center gap-1 group-hover:text-white transition-colors">
+                        Zobacz <ArrowRight className="w-3 h-3" />
                       </div>
                     </div>
                   </Link>
@@ -664,12 +715,12 @@ function HomePage() {
             </div>
 
             {/* Desktop Scroller */}
-            <div className="hidden md:block">
-              <div className="flex gap-4 overflow-x-auto no-scrollbar snap-x-mandatory py-2">
+           <div className="hidden md:block">
+  <div className="grid grid-cols-4 gap-6">
                 {freeMaterials.map((item, idx) => (
                   <motion.div
                     key={idx}
-                    className="snap-center flex-none w-[320px] lg:w-[360px]"
+                    className="w-full"
                     variants={fadeUp}
                     initial="hidden"
                     whileInView="show"
@@ -678,22 +729,21 @@ function HomePage() {
                   >
                     <Link
                       to="/materialy"
-                      className="card-pdf group !bg-white/5 !bg-none !border-white/12 !p-0 overflow-hidden block h-full"
+                      className="group block h-full"
                       aria-label={`Zobacz w materiałach: ${item.title}`}
                     >
-                      <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 m-4 mb-0">
-                        <div className="aspect-[16/10] w-full">
-                          <img
-                            src={item.thumb}
-                            alt={`${item.title} – miniatura`}
-                            className="w-full h-full object-contain bg-white/5 p-2"
-                            loading="lazy"
-                          />
-                        </div>
+                      {/* ZMIANA: aspect-[210/297] (A4) dla pionowych materiałów */}
+                      <div className="rounded-2xl overflow-hidden aspect-[210/297] w-full mb-4 border border-white/10 bg-white/5">
+                        <img
+                          src={item.thumb}
+                          alt={`${item.title} – miniatura`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
                       </div>
-                      <div className="p-4 pt-3">
+                      <div className="px-1">
                         <h4 className="text-white font-extrabold text-sm md:text-base leading-snug">{item.title}</h4>
-                        <div className="mt-2 text-xs text-white/70 inline-flex items-center gap-2">
+                        <div className="mt-2 text-xs text-white/70 inline-flex items-center gap-2 group-hover:text-white transition-colors">
                           Zobacz w materiałach <ArrowRight className="w-4 h-4" />
                         </div>
                       </div>
@@ -701,7 +751,7 @@ function HomePage() {
                   </motion.div>
                 ))}
               </div>
-              <p className="mt-2 text-center text-xs text-white/55">Przykładowy wygląd materiałów.</p>
+              <p className="mt-4 text-center text-xs text-white/55">Przykładowy wygląd materiałów.</p>
             </div>
 
             <div className="mt-6 flex justify-center">
@@ -725,10 +775,56 @@ function HomePage() {
             viewport={{ once: true, amount: 0.22 }}
           >
             <SectionTitle>Opinie</SectionTitle>
-            <p className="text-center text-white/80 mb-4 text-sm">Prawdziwe historie.</p>
+            <p className="text-center text-white/80 mb-6 text-sm">
+              Kliknij w zdjęcie, aby przeczytać pełną opinię.
+            </p>
 
-            <div className="opinions-marquee-wrap">
-              <OpinionsMarquee opinions={opinionsData} cardVariant="compact" />
+            {/* SLIDER OPINII */}
+            <div className="flex gap-3 md:gap-4 overflow-x-auto no-scrollbar pb-4 snap-x snap-mandatory px-1 md:px-0">
+              {opinionsData.map((op, idx) => {
+                const img = op.proofImage || pickProof(idx);
+                
+                return (
+                  <div 
+                    key={idx} 
+                    className="snap-center flex-none w-[160px] md:w-[260px] flex flex-col gap-3 group cursor-pointer"
+                    onClick={() => setSelectedImage(img)}
+                  >
+                    {/* ZDJĘCIE */}
+                    <div className="relative rounded-xl overflow-hidden border border-white/10 bg-black/40 aspect-[9/14] shadow-lg group-hover:border-purple-500/50 transition-colors duration-300">
+                      <img 
+                        src={img} 
+                        alt={`Opinia - ${op.name}`}
+                        className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                            <Maximize2 className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* OPIS */}
+                    <div className="px-1 flex flex-col gap-1">
+                       <div className="flex gap-0.5 text-yellow-400 mb-0.5">
+                         {[...Array(5)].map((_, i) => (
+                           <svg key={i} className="w-2.5 h-2.5 md:w-3 md:h-3 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                         ))}
+                       </div>
+                       
+                       <p className="text-white/80 text-[11px] md:text-xs leading-relaxed line-clamp-2 italic">
+                         "{op.text}"
+                       </p>
+                       
+                       <div className="mt-1 border-t border-white/10 pt-1">
+                         <div className="text-white font-bold text-xs">{op.name}</div>
+                         <div className="text-white/50 text-[10px]">{op.city}</div>
+                       </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
             <div className="text-center mt-4">
@@ -874,6 +970,28 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* --- LIGHTBOX (MODAL) --- */}
+      {selectedImage && (
+        <div 
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-10 animate-in fade-in duration-200"
+            onClick={() => setSelectedImage(null)}
+        >
+            <button 
+                className="absolute top-5 right-5 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-50"
+                onClick={() => setSelectedImage(null)}
+            >
+                <X className="w-6 h-6" />
+            </button>
+            
+            <img 
+                src={selectedImage} 
+                alt="Pełna opinia" 
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                onClick={(e) => e.stopPropagation()} 
+            />
+        </div>
+      )}
     </div>
   );
 }

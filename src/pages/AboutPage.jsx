@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, BookOpen, ClipboardList, Target } from 'lucide-react';
+import { ArrowRight, CheckCircle2, MessageCircle, Calendar, FileCheck2, Zap } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
 
 function AboutPage() {
@@ -12,251 +12,207 @@ function AboutPage() {
         <title>O mnie - MEDULIA | Merytoryczne przygotowanie do matury z biologii</title>
         <meta
           name="description"
-          content="Poznaj osobę stojącą za MEDULIA i sposób pracy: diagnoza, plan, merytoryka i trening zadań pod klucz odpowiedzi."
+          content="Poznaj osobę stojącą za MEDULIA. Uczę strategii egzaminacyjnej, języka klucza i zrozumienia biologii zamiast pamięciowego kucia."
         />
       </Helmet>
 
-      
-
       {/* MAIN */}
-      <section className="py-6">
+      <section className="py-8 md:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* LEFT */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* LEFT COLUMN: Filozofia + Proces (Konkret) */}
             <motion.div
               initial={{ opacity: 0, x: -18 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: 0.55, ease: 'easeOut' }}
-              className="lg:col-span-7"
+              className="lg:col-span-7 space-y-6"
             >
-              <div className="glass-panel p-7 md:p-9 space-y-5">
+              <div className="glass-panel p-6 md:p-8 space-y-6">
                 <SectionTitle>Moja droga i sposób pracy</SectionTitle>
 
-                <div className="space-y-4 text-white/80 text-sm leading-relaxed">
-                  <p>
-                    Uczę tak, żeby uczeń rozumiał temat i potrafił to pokazać w odpowiedzi maturalnej. Łączę porządek w
-                    teorii z treningiem zadań — zamiast „przerabiania tematów” bez jasnego celu.
+                <div className="text-white/90 text-base leading-relaxed">
+                  <p className="mb-4">
+                    Nie wierzę w "przerabianie materiału" bez celu. Uczę tak, żebyś rozumiał procesy biologiczne 
+                    i potrafił przelać tę wiedzę na papier zgodnie z kluczem maturalnym.
                   </p>
-                  <p>
-                    Zaczynamy od krótkiej diagnozy: co już umiesz, gdzie tracisz punkty i co jest priorytetem. Potem
-                    budujemy plan — realny do utrzymania w tygodniu. Na zajęciach pracujemy na schematach, języku
-                    odpowiedzi i typowych pułapkach z arkuszy.
-                  </p>
-                  <p>
-                    W trakcie współpracy dostajesz jasne zadania między spotkaniami (małe porcje, żeby dało się to robić)
-                    oraz szybki feedback: co poprawić i jak.
-                  </p>
+                  
+                  <ul className="space-y-3 mt-4">
+                    <li className="flex gap-3 items-start">
+                      <CheckCircle2 className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                      <span className="text-white/80 text-sm md:text-base">
+                        <strong className="text-white">Zero lania wody.</strong> Konkretne schematy odpowiedzi pod egzaminatorów CKE.
+                      </span>
+                    </li>
+                    <li className="flex gap-3 items-start">
+                      <CheckCircle2 className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                      <span className="text-white/80 text-sm md:text-base">
+                        <strong className="text-white">Strategia zamiast kucia.</strong> Łączę teorię z treningiem zadań i wyłapywaniem pułapek.
+                      </span>
+                    </li>
+                    <li className="flex gap-3 items-start">
+                      <CheckCircle2 className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                      <span className="text-white/80 text-sm md:text-base">
+                        <strong className="text-white">Szybki feedback.</strong> Dostajesz jasną informację zwrotną: co poprawić i jak to napisać lepiej.
+                      </span>
+                    </li>
+                  </ul>
                 </div>
 
-                {/* How I work */}
-                <div className="mt-2 rounded-2xl border border-white/10 bg-white/5 p-5">
-                  <h3 className="text-lg font-semibold text-white mb-4">Jak pracuję z uczniem</h3>
-
-                  <div className="grid sm:grid-cols-3 gap-3">
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                      <div className="flex items-center gap-2 mb-2 text-white">
-                        <Target className="w-5 h-5 text-purple-200" />
-                        <div className="font-semibold">Diagnoza</div>
-                      </div>
-                      <p className="text-white/70 text-sm">Ustalamy punkt startu, cel i najważniejsze braki.</p>
-                    </div>
-
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                      <div className="flex items-center gap-2 mb-2 text-white">
-                        <ClipboardList className="w-5 h-5 text-blue-200" />
-                        <div className="font-semibold">Plan</div>
-                      </div>
-                      <p className="text-white/70 text-sm">Priorytety + rytm nauki, który da się utrzymać.</p>
-                    </div>
-
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                      <div className="flex items-center gap-2 mb-2 text-white">
-                        <BookOpen className="w-5 h-5 text-yellow-200" />
-                        <div className="font-semibold">Arkusze</div>
-                      </div>
-                      <p className="text-white/70 text-sm">Zadania, klucz, uzasadnienia i typowe pułapki.</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 flex items-start gap-2 text-white/75 text-sm">
-                    <CheckCircle2 className="w-4 h-4 mt-0.5 text-green-200" />
-                    <p>
-                      Efekt: wiesz <span className="text-white">co</span> robisz, <span className="text-white">po co</span> to robisz i{' '}
-                      <span className="text-white">jak</span> zdobywasz punkty — krok po kroku.
-                    </p>
-                  </div>
+                {/* ZMIANA: Klasa 'lg:hidden' ukrywa zdjęcie na dużym ekranie */}
+                <div className="lg:hidden my-8 rounded-2xl overflow-hidden border border-white/10 bg-white/5 aspect-[3/4] md:aspect-[3/4] relative group shadow-2xl w-full">
+                   <img
+                     src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769814722/Projekt_bez_nazwy_38_phctzm.png" 
+                     alt="Biologia nauka separator"
+                     className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-500"
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-t from-[#1a0b2e] via-transparent to-transparent opacity-80"></div>
                 </div>
-              </div>
 
-              {/* WEB ONLY: 2 boxy obok siebie */}
-              <div className="hidden lg:grid grid-cols-2 gap-6 mt-6">
-                {/* Co dostajesz */}
-                <div className="glass-panel p-7">
-                  <h3 className="text-lg font-semibold text-white mb-3">Co dostajesz między zajęciami</h3>
-                  <p className="text-white/80 text-sm leading-relaxed mb-4">
-                    Żeby robić postęp, nie wystarczy „jedna godzina w tygodniu”. Dostajesz prosty system między zajęciami —
-                    krótko, konkretnie i do zrobienia.
-                  </p>
+                <div className="mt-8 pt-4 border-t border-white/10">
+                  <h3 className="text-xl font-bold text-white mb-6">Mapa drogowa współpracy</h3>
+                  
+                  <div className="grid gap-4">
+                    {/* Krok 1 */}
+                    <div className="group rounded-xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition-colors">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-200 font-bold text-sm border border-purple-500/30">1</div>
+                        <h4 className="text-white font-semibold flex items-center gap-2">
+                          Krótka rozmowa <MessageCircle className="w-4 h-4 text-white/50" />
+                        </h4>
+                      </div>
+                      <p className="text-white/70 text-sm ml-11">
+                        Ustalamy Twój cel, obecny poziom i czas do matury. Namierzamy największe trudności.
+                      </p>
+                    </div>
 
-                  <div className="grid gap-3">
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                      <div className="text-white font-semibold mb-1">Mini powtórki</div>
-                      <div className="text-white/70 text-sm">Schematy + kluczowe definicje w małych porcjach.</div>
+                    {/* Krok 2 */}
+                    <div className="group rounded-xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition-colors">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-200 font-bold text-sm border border-blue-500/30">2</div>
+                        <h4 className="text-white font-semibold flex items-center gap-2">
+                          Plan na 2 tygodnie <Calendar className="w-4 h-4 text-white/50" />
+                        </h4>
+                      </div>
+                      <p className="text-white/70 text-sm ml-11">
+                        Dostajesz priorytety i rytm nauki, który jest realny do utrzymania przy szkole.
+                      </p>
                     </div>
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                      <div className="text-white font-semibold mb-1">Zadania pod klucz</div>
-                      <div className="text-white/70 text-sm">Ćwiczenia na typowe pułapki i język odpowiedzi.</div>
-                    </div>
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                      <div className="text-white font-semibold mb-1">Feedback</div>
-                      <div className="text-white/70 text-sm">Co poprawić i jak — bez zgadywania.</div>
+
+                    {/* Krok 3 */}
+                    <div className="group rounded-xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition-colors">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-8 h-8 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-200 font-bold text-sm border border-yellow-500/30">3</div>
+                        <h4 className="text-white font-semibold flex items-center gap-2">
+                          Arkusze i szlifowanie <FileCheck2 className="w-4 h-4 text-white/50" />
+                        </h4>
+                      </div>
+                      <p className="text-white/70 text-sm ml-11">
+                        Dopieszczamy odpowiedzi pod klucz, żeby nie tracić głupio punktów na maturze.
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Jak zaczynamy */}
-                <div className="glass-panel p-7">
-                  <h3 className="text-lg font-semibold text-white mb-3">Jak zaczynamy?</h3>
-                  <p className="text-white/80 text-sm leading-relaxed mb-4">
-                    Na start robię krótką diagnozę i układam plan nauki pod Twój cel. Dostajesz konkretne kroki:
-                    co powtarzać, jakie zadania robić i jak poprawiać odpowiedzi pod klucz.
-                  </p>
-
-                  <div className="grid gap-3">
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                      <div className="text-white font-semibold mb-1">1) Krótka rozmowa</div>
-                      <div className="text-white/70 text-sm">Cel, poziom, czas do matury, największe trudności.</div>
-                    </div>
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                      <div className="text-white font-semibold mb-1">2) Plan na 2 tygodnie</div>
-                      <div className="text-white/70 text-sm">Priorytety + rytm, który da się utrzymać.</div>
-                    </div>
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                      <div className="text-white font-semibold mb-1">3) Arkusze i feedback</div>
-                      <div className="text-white/70 text-sm">Dopieszczamy odpowiedzi, żeby nie tracić punktów.</div>
-                    </div>
-                  </div>
+                {/* CTA w gradiencie */}
+                <div className="pt-6">
+                    <Link
+                    to="/kontakt"
+                    className="btn-accent py-2.5 px-6 text-base md:py-2.5 md:px-6 md:text-base rounded-2xl inline-flex items-center justify-center gap-2 font-bold group"
+                    >
+                    Umów się na pierwszą lekcję
+                    <ArrowRight className="w-4 h-4" />
+                    </Link>
                 </div>
               </div>
             </motion.div>
 
-            {/* RIGHT */}
+            {/* RIGHT COLUMN: Ongoing Value + Visuals */}
             <motion.div
               initial={{ opacity: 0, x: 18 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: 0.55, ease: 'easeOut' }}
-              className="lg:col-span-5"
+              className="lg:col-span-5 space-y-6"
             >
-              {/* MOBILE kolejność: zdj1 -> co dostajesz -> zdj2 -> jak zaczynamy -> zdj3 */}
-              <div className="grid gap-5">
-                {/* Zdjęcie 1 */}
-                <div className="glass-panel p-4">
-  <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 aspect-[4/3]">
-    <img
-      src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769454403/2_co3dkt.png"
-      alt="MEDULIA — praca i nauka"
-      className="w-full h-full object-cover"
-      loading="lazy"
-    />
-  </div>
-</div>
+              
+              {/* Sekcja: Co dostajesz między zajęciami */}
+              <div className="glass-panel p-6 md:p-8">
+                <div className="flex items-center gap-2 mb-4">
+                    <Zap className="w-5 h-5 text-yellow-300" />
+                    <h3 className="text-lg font-bold text-white">Między zajęciami</h3>
+                </div>
+                
+                <p className="text-white/80 text-sm leading-relaxed mb-6">
+                  Postęp robi się pracą własną, nie tylko na lekcji. Dlatego dostajesz 
+                  prosty system zadań — krótko, konkretnie i do zrobienia.
+                </p>
 
-
-                {/* MOBILE: Co dostajesz (po zdj1) */}
-                <div className="lg:hidden">
-                  <div className="glass-panel p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">Co dostajesz między zajęciami</h3>
-                    <p className="text-white/80 text-sm leading-relaxed mb-4">
-                      Żeby robić postęp, nie wystarczy „jedna godzina w tygodniu”. Dostajesz prosty system między
-                      zajęciami — krótko, konkretnie i do zrobienia.
-                    </p>
-
-                    <div className="grid gap-3">
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                        <div className="text-white font-semibold mb-1">Mini powtórki</div>
-                        <div className="text-white/70 text-sm">Schematy + kluczowe definicje w małych porcjach.</div>
-                      </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                        <div className="text-white font-semibold mb-1">Zadania pod klucz</div>
-                        <div className="text-white/70 text-sm">Ćwiczenia na typowe pułapki i język odpowiedzi.</div>
-                      </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                        <div className="text-white font-semibold mb-1">Feedback</div>
-                        <div className="text-white/70 text-sm">Co poprawić i jak — bez zgadywania.</div>
-                      </div>
+                <div className="space-y-3">
+                  <div className="rounded-xl border border-white/5 bg-white/5 p-3 flex gap-3">
+                    <div className="w-1 h-full min-h-[40px] bg-purple-500 rounded-full"></div>
+                    <div>
+                        <div className="text-white font-semibold text-sm">Mini powtórki</div>
+                        <div className="text-white/60 text-xs mt-0.5">Schematy + kluczowe definicje w małych porcjach.</div>
                     </div>
                   </div>
-                </div>
-
-                {/* Zdjęcie 2 */}
-                <div className="glass-panel p-4">
-  <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 aspect-[4/3]">
-    <img
-      src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769454401/1_mxfqja.png"
-      alt="MEDULIA — biurko i materiały"
-      className="w-full h-full object-cover"
-      loading="lazy"
-    />
-  </div>
-</div>
-
-
-                {/* MOBILE: Jak zaczynamy (po zdj2) */}
-                <div className="lg:hidden">
-                  <div className="glass-panel p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">Jak zaczynamy?</h3>
-                    <p className="text-white/80 text-sm leading-relaxed mb-4">
-                      Na start robię krótką diagnozę i układam plan nauki pod Twój cel. Dostajesz konkretne kroki:
-                      co powtarzać, jakie zadania robić i jak poprawiać odpowiedzi pod klucz.
-                    </p>
-
-                    <div className="grid gap-3">
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                        <div className="text-white font-semibold mb-1">1) Krótka rozmowa</div>
-                        <div className="text-white/70 text-sm">Cel, poziom, czas do matury, największe trudności.</div>
-                      </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                        <div className="text-white font-semibold mb-1">2) Plan na 2 tygodnie</div>
-                        <div className="text-white/70 text-sm">Priorytety + rytm, który da się utrzymać.</div>
-                      </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                        <div className="text-white font-semibold mb-1">3) Arkusze i feedback</div>
-                        <div className="text-white/70 text-sm">Dopieszczamy odpowiedzi, żeby nie tracić punktów.</div>
-                      </div>
+                  <div className="rounded-xl border border-white/5 bg-white/5 p-3 flex gap-3">
+                    <div className="w-1 h-full min-h-[40px] bg-blue-500 rounded-full"></div>
+                    <div>
+                        <div className="text-white font-semibold text-sm">Zadania "pod klucz"</div>
+                        <div className="text-white/60 text-xs mt-0.5">Ćwiczenia na typowe pułapki egzaminatorów.</div>
                     </div>
                   </div>
-                </div>
-
-                {/* Zdjęcie 3 (ostatnie na mobile) */}
-                <div className="glass-panel p-4">
-                  <div className="rounded-2xl bg-white/5 border border-dashed border-white/20 aspect-[4/3] flex items-center justify-center text-white/60 text-sm">
-                    Placeholder zdjęcia 3 (portret profesjonalny)
+                  <div className="rounded-xl border border-white/5 bg-white/5 p-3 flex gap-3">
+                    <div className="w-1 h-full min-h-[40px] bg-green-500 rounded-full"></div>
+                    <div>
+                        <div className="text-white font-semibold text-sm">Feedback non-stop</div>
+                        <div className="text-white/60 text-xs mt-0.5">Wiesz co poprawić, bez zgadywania.</div>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Zdjęcia */}
+              <div className="grid gap-5">
+                {/* Slot na zdjęcie portretowe */}
+                <div className="glass-panel p-3">
+                  <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 aspect-[3/4] relative group">
+                    <img
+                      src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769814988/Projekt_bez_nazwy_39_j3w5z2.png"
+                      alt="Medulia - Korepetycje z Biologii"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+
             </motion.div>
           </div>
 
-          {/* CTA */}
-          <div className="mt-6">
+          {/* FINAL CTA SECTION (Footer) */}
+          <div className="mt-12">
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: 0.55, ease: 'easeOut' }}
-              className="glass-panel p-7 md:p-9 text-center"
+              className="glass-panel p-8 md:p-12 text-center relative overflow-hidden"
             >
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                Chcesz sprawdzić, jaki tryb nauki będzie najlepszy?
+              {/* Decorative glow */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-1/2 bg-purple-500/10 blur-[100px] -z-10"></div>
+
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                Sprawdźmy, czy nadajemy na tych samych falach
               </h2>
-              <p className="text-white/80 max-w-2xl mx-auto mb-6">
-                Napisz krótko, w jakiej jesteś sytuacji (szkoła, poziom, cel). Zaproponuję kierunek i kolejne kroki.
+              <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
+                Napisz krótko, w jakiej jesteś sytuacji (szkoła, poziom, cel). 
+                Bez zobowiązań — po prostu ustalimy, czy jestem w stanie Ci pomóc.
               </p>
               <Link
                 to="/kontakt"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-gray-100 transition-all duration-200 hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-purple-700 font-bold rounded-xl hover:bg-gray-100 transition-all duration-200 hover:scale-[1.02] shadow-xl shadow-black/20"
               >
                 Napisz do mnie
                 <ArrowRight className="w-5 h-5" />

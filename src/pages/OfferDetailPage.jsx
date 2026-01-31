@@ -15,7 +15,7 @@ function MediaSlot({
   const finalAlt = alt || title || 'Zdjęcie';
 
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
+    <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden shadow-lg">
       <div className={`${ratio} w-full relative`}>
         {src ? (
           <>
@@ -41,22 +41,28 @@ function MediaSlot({
   );
 }
 
-function FileSlot({ title, desc = 'Miejsce na plik (PDF/Drive) — wstaw link' }) {
+function FileSlot({ title, desc = 'Materiały do zajęć', link }) {
+  const Wrapper = link ? 'a' : 'div';
+  const props = link ? { href: link, target: '_blank', rel: 'noopener noreferrer' } : {};
+
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 p-4 flex items-start gap-3">
-      <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0">
-        <FileText className="w-5 h-5 text-white/80" />
+    <Wrapper 
+      {...props} 
+      className="rounded-2xl bg-white/5 border border-white/10 p-4 flex items-start gap-3 hover:bg-white/10 transition-colors cursor-pointer group"
+    >
+      <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0 group-hover:bg-purple-500/20 group-hover:border-purple-500/40 transition-colors">
+        <FileText className="w-5 h-5 text-white/80 group-hover:text-purple-300" />
       </div>
       <div className="min-w-0">
         <div className="text-white font-semibold text-sm">{title}</div>
         <div className="text-white/60 text-xs mt-1">{desc}</div>
         <div className="mt-3">
-          <span className="inline-flex items-center gap-2 text-white/70 text-sm font-semibold">
-            Pobierz / Otwórz (link)
+          <span className="inline-flex items-center gap-2 text-white/70 text-xs font-semibold uppercase tracking-wider group-hover:text-white transition-colors">
+            Pobierz <ArrowRight className="w-3 h-3" />
           </span>
         </div>
       </div>
-    </div>
+    </Wrapper>
   );
 }
 
@@ -93,19 +99,28 @@ const OFFER_DETAILS = {
       'Jeśli nie możesz być na zajęciach: materiały dostajesz do samodzielnej nauki (bez zwrotów).',
     ],
     media: {
-      hero: 'Premium 1:1 — zdjęcie (np. praca 1:1)',
-      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/4_xshhhi.png',
+      hero: 'Premium 1:1',
+      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819048/1_pehldo.png',
 
-      sectionA: 'Plan nauki — zdjęcie (tablica / notatki / schemat)',
-      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459071/8_gggzxf.png',
+      sectionA: 'Plan nauki',
+      // ZMIANA: Nowe zdjęcie z listy nr 1
+      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822107/5_pcmgby.png',
 
-      sectionB: 'Zadania egzaminacyjne — zdjęcie (arkusz / analiza)',
-      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459082/9_zuxy3j.png',
+      sectionB: 'Zadania egzaminacyjne',
+      // ZMIANA: Nowe zdjęcie z listy nr 1
+      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822108/10_llktmt.png',
     },
     files: [
-      { title: 'Karta maturalna: Metabolizm (PDF)', desc: 'Wstaw link do pliku / Drive' },
-      { title: 'Karta maturalna: Genetyka (PDF)', desc: 'Wstaw link do pliku / Drive' },
-      { title: 'Mini-arkusz: Zadania CKE (PDF)', desc: 'Wstaw link do pliku / Drive' },
+      { 
+        title: 'Metabolizm (Komplet)', 
+        desc: 'Kompletny przewodnik po procesach', 
+        link: 'https://drive.google.com/file/d/1LcFjDDSHxyW6VsCNNtpfPVIL2frEJadW/view?usp=drive_link' 
+      },
+      { 
+        title: 'Matura Rozszerzona', 
+        desc: 'Konkretne wymagania i przykłady', 
+        link: 'https://drive.google.com/file/d/1NQr6KscUxVJEhJQumNn9DDv7RHkUHWFQ/view?usp=drive_link' 
+      },
     ],
   },
 
@@ -138,18 +153,28 @@ const OFFER_DETAILS = {
     ],
     rules: ['Brak pakietów dla pracowników — tylko pojedyncze godziny.', 'Rezerwacja terminu obowiązkowa.'],
     media: {
-      hero: '1:1 z pracownikiem — zdjęcie',
-      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/5_ieey8l.png',
+      hero: '1:1 z pracownikiem',
+      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819047/2_f9e9xj.png',
 
-      sectionA: 'Program i materiały — zdjęcie',
-      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459070/10_bsn9ts.png',
+      sectionA: 'Program i materiały',
+      // ZMIANA: Nowe zdjęcie z listy nr 2
+      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822108/12_tkkyvy.png',
 
-      sectionB: 'Powtórki i zadania — zdjęcie',
-      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459070/11_r8xosi.png',
+      sectionB: 'Powtórki i zadania',
+      // ZMIANA: Nowe zdjęcie z listy nr 2
+      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822106/2_woklfp.png',
     },
     files: [
-      { title: 'Karta maturalna: Fotosynteza (PDF)', desc: 'Wstaw link do pliku / Drive' },
-      { title: 'Karta maturalna: Układ krążenia (PDF)', desc: 'Wstaw link do pliku / Drive' },
+      { 
+        title: 'Pytania sprawdzające', 
+        desc: 'Zestaw do samodzielnej pracy', 
+        link: 'https://drive.google.com/file/d/1Szx0nKs4l2rtcG9jP9LLO-v3jWcenhvV/view?usp=drive_link' 
+      },
+      { 
+        title: 'Podstawa Programowa', 
+        desc: 'Wymagania CKE 2025/26', 
+        link: 'https://drive.google.com/file/d/1MzZsdCY2cwAbA-fJBPVLsLIag-2znoJZ/view?usp=drive_link' 
+      },
     ],
   },
 
@@ -185,18 +210,28 @@ const OFFER_DETAILS = {
       'Brak zwrotów przy nieobecności — przekazujemy materiały do samodzielnej nauki.',
     ],
     media: {
-      hero: 'Zajęcia grupowe — zdjęcie',
-      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457808/6_xjzcpu.png',
+      hero: 'Zajęcia grupowe',
+      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819048/3_rj1dp0.png',
 
-      sectionA: 'Kameralna grupa — zdjęcie',
-      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459070/12_tkszhv.png',
+      sectionA: 'Kameralna grupa',
+      // ZMIANA: Nowe zdjęcie z listy nr 3
+      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822107/9_pwb1tj.png',
 
-      sectionB: 'Wspólna praca — zdjęcie',
-      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459071/13_bxzkpe.png',
+      sectionB: 'Wspólna praca',
+      // ZMIANA: Nowe zdjęcie z listy nr 3
+      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822109/6_xbrhac.png',
     },
     files: [
-      { title: 'Karta maturalna: Ekologia (PDF)', desc: 'Wstaw link do pliku / Drive' },
-      { title: 'Zestaw zadań: CKE (PDF)', desc: 'Wstaw link do pliku / Drive' },
+      { 
+        title: 'Plan Maturalny', 
+        desc: 'Szczegółowy harmonogram', 
+        link: 'https://drive.google.com/file/d/1Bgngdk0wNAH_rHXYdL16c7O_Airno94X/view?usp=drive_link' 
+      },
+      { 
+        title: 'Metabolizm (Część II)', 
+        desc: 'Arkusz zadań z kluczem', 
+        link: 'https://drive.google.com/file/d/1LcFjDDSHxyW6VsCNNtpfPVIL2frEJadW/view?usp=drive_link' 
+      },
     ],
   },
 
@@ -244,19 +279,28 @@ const OFFER_DETAILS = {
       'Rezerwacja miejsca obowiązkowa; minimum 3 osoby.',
     ],
     media: {
-      hero: 'Pakiety — zdjęcie',
-      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769457807/7_anslg8.png',
+      hero: 'Pakiety miesięczne',
+      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819048/4_alpszx.png',
 
-      sectionA: 'Plan miesiąca — zdjęcie',
-      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459071/14_aak9fw.png',
+      sectionA: 'Plan miesiąca',
+      // ZMIANA: Nowe zdjęcie z listy nr 4
+      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822108/7_pwlfdd.png',
 
-      sectionB: 'Zadania i powtórki — zdjęcie',
-      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769459071/15_iyckee.png',
+      sectionB: 'Zadania i powtórki',
+      // ZMIANA: Nowe zdjęcie z listy nr 4
+      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822107/8_dlejjd.png',
     },
     files: [
-      { title: 'Kalendarz powtórek (PDF)', desc: 'Wstaw link do pliku / Drive' },
-      { title: 'Checklisty maturalne (PDF)', desc: 'Wstaw link do pliku / Drive' },
-      { title: 'Zestaw arkuszy (PDF)', desc: 'Wstaw link do pliku / Drive' },
+      { 
+        title: 'Matura Rozszerzona', 
+        desc: 'Kompendium wiedzy', 
+        link: 'https://drive.google.com/file/d/1NQr6KscUxVJEhJQumNn9DDv7RHkUHWFQ/view?usp=drive_link' 
+      },
+      { 
+        title: 'Pytania Sprawdzające', 
+        desc: 'Przykładowe arkusze', 
+        link: 'https://drive.google.com/file/d/1Szx0nKs4l2rtcG9jP9LLO-v3jWcenhvV/view?usp=drive_link' 
+      },
     ],
   },
 };
@@ -343,7 +387,7 @@ function OfferDetailPage() {
                 <MediaSlot
                   title={data.media?.hero || 'Zdjęcie oferty'}
                   desc="Wstaw tu realne zdjęcie tej formy zajęć"
-                  ratio="aspect-[4/3]"
+                  ratio="aspect-video"
                   src={data.media?.heroSrc}
                   alt={data.title}
                 />
@@ -359,7 +403,7 @@ function OfferDetailPage() {
           {/* HIGHLIGHTS + DLA KOGO */}
           <div className="grid lg:grid-cols-2 gap-6">
             <div id="skrot" className="glass-panel p-6 md:p-8 scroll-mt-28" data-bg="image">
-  <SectionTitle center={false}>Najważniejsze w skrócie</SectionTitle>
+              <SectionTitle center={false}>Najważniejsze w skrócie</SectionTitle>
               <ul className="mt-5 space-y-3 text-white/80 text-sm leading-relaxed">
                 {(data.highlights || []).map((p) => (
                   <li key={p} className="flex items-start gap-2">
@@ -451,8 +495,8 @@ function OfferDetailPage() {
 
           {/* PAKIETY (tylko jeśli istnieją) */}
           {Array.isArray(data.packages) && (
-  <div id="pakiety" className="glass-panel p-6 md:p-8 scroll-mt-28" data-bg="image">
-    <SectionTitle>Pakiety miesięczne</SectionTitle>
+            <div id="pakiety" className="glass-panel p-6 md:p-8 scroll-mt-28" data-bg="image">
+              <SectionTitle>Pakiety miesięczne</SectionTitle>
               <div className="mt-8 grid md:grid-cols-3 gap-4">
                 {data.packages.map((pkg) => (
                   <div key={pkg.name} className="rounded-2xl bg-white/5 border border-white/10 p-5">
@@ -478,7 +522,7 @@ function OfferDetailPage() {
 
             <div className="mt-6 grid md:grid-cols-2 gap-4">
               {(data.files || []).map((f) => (
-                <FileSlot key={f.title} title={f.title} desc={f.desc} />
+                <FileSlot key={f.title} title={f.title} desc={f.desc} link={f.link} />
               ))}
             </div>
 
