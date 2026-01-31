@@ -209,8 +209,8 @@ function OfferPage() {
              // Ujemny margin-bottom, żeby tekst wjechał na zdjęcie
              className="relative mx-auto w-full max-w-[360px] md:max-w-[420px] mb-[-40px] md:mb-[-50px]"
           >
-             <div className="offer-hero-mask relative bottom-13 md:bottom-16 w-full h-50 md:h-80
- rounded-[32px] overflow-hidden shadow-2xl">
+             <div className="offer-hero-mask relative w-full aspect-[2.8/3.9] md:aspect-[3/4] rounded-[32px] overflow-hidden shadow-2xl">
+
 
                <img 
                  src={HERO_IMAGE_URL} 
