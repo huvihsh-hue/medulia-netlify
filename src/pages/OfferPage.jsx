@@ -2,8 +2,18 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, GraduationCap, Users, UserRound, Package } from 'lucide-react';
+import { 
+  ArrowRight, 
+  CheckCircle, 
+  GraduationCap, 
+  Users, 
+  UserRound, 
+  Package, 
+  Phone 
+} from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
+
+const HERO_IMAGE_URL = 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769889281/Projekt_bez_nazwy_41_tfiqz4.png';
 
 const offers = [
   {
@@ -51,7 +61,6 @@ function MediaSlot({
 }) {
   return (
     <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden shadow-lg">
-      {/* ZMIANA: aspect-video (16:9) zamiast aspect-[16/10] - pasuje do wygenerowanych grafik i zmniejsza zoom/pikselozę */}
       <div className="aspect-video w-full relative">
         {src ? (
           <>
@@ -62,7 +71,6 @@ function MediaSlot({
               loading="lazy"
               decoding="async"
             />
-            {/* delikatna warstwa pod czytelność UI */}
             <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-black/0 to-black/10" />
           </>
         ) : (
@@ -165,6 +173,18 @@ function OfferCardRow({ o, index }) {
 function OfferPage() {
   return (
     <>
+      <style>{`
+        /* Maska dla zdjęcia w Hero */
+        .offer-hero-mask {
+          -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+        }
+      `}</style>
+
       <Helmet>
         <title>Oferta - MEDULIA | Korepetycje z biologii</title>
         <meta
@@ -173,12 +193,51 @@ function OfferPage() {
         />
       </Helmet>
 
-      <div className="pt-28 pb-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* HEADER SECTION Z OBRAZKIEM */}
+      {/* ZMNIEJSZONO PADDING-TOP (pt-4 md:pt-8) aby podciągnąć wszystko w górę */}
+      <div className="pt-4 md:pt-8 pb-6 relative overflow-hidden">
+        {/* Blaski w tle */}
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-64 h-64 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          {/* ZDJĘCIE HERO NA ŚRODKU */}
+          <motion.div
+             initial={{ opacity: 0, scale: 0.96 }}
+             animate={{ opacity: 1, scale: 1 }}
+             transition={{ duration: 0.6 }}
+             // Ujemny margin-bottom, żeby tekst wjechał na zdjęcie
+             className="relative mx-auto w-full max-w-[360px] md:max-w-[420px] mb-[-40px] md:mb-[-50px]"
+          >
+             <div className="offer-hero-mask relative bottom-13 md:bottom-16 w-full h-50 md:h-80
+ rounded-[32px] overflow-hidden shadow-2xl">
+
+               <img 
+                 src={HERO_IMAGE_URL} 
+                 alt="Julia z Medulii"
+                 // DODANO object-right-top aby przesunąć zdjęcie i pokazać cały tablet
+                 className="w-full h-full object-cover object-right-top"
+                 loading="eager"
+               />
+               
+               {/* NUMER TELEFONU - BUTTON */}
+               <a
+                  href="tel:+48532083335"
+                  className="absolute left-4 bottom-14 md:left-6 md:bottom-16 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 border border-white/20 text-white text-xs md:text-sm backdrop-blur-md hover:bg-black/70 transition-colors z-20"
+
+               >
+                  <Phone className="w-3.5 h-3.5 md:w-4 md:h-4 text-purple-400" />
+                  532 208 335
+               </a>
+             </div>
+          </motion.div>
+
+          {/* TEKST POD ZDJĘCIEM (z ujemnym marginesem, żeby nachodził) */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center glass-panel p-8"
+            transition={{ delay: 0.2 }}
+            className="text-center glass-panel p-8 pt-12 md:pt-16 relative z-10"
             data-bg="image"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Oferta zajęć - ONLINE</h1>

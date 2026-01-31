@@ -54,6 +54,13 @@ const proofImages = [
 const pickProof = (i) => proofImages[i % proofImages.length];
 
 const opinionsData = [
+  // NOWA OPINIA NA PIERWSZYM MIEJSCU
+  { 
+    name: 'Karolina Małecka', 
+    city: 'Warszawa', 
+    text: 'Świetny progres i opieka! Zaczynałam z chaosem w głowie, a teraz dzięki systematycznej pracy czuję się pewnie przed maturą.', 
+    proofImage: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769888472/250c9d13-8ea1-4ace-907f-99152bbe9541_r153uf.jpg' 
+  },
   { name: 'Zuzanna Nowak', city: 'Gdynia', text: 'Z czwórki na próbnej do 98% na prawdziwej. Totalny sztos.', proofImage: pickProof(0) },
   { name: 'Julia Wiśniewska', city: 'Lublin', text: 'W końcu zrozumiałam genetykę i zadania maturalne. Wynik 94%.', proofImage: pickProof(1) },
   { name: 'Martyna Kowalczyk', city: 'Szczecin', text: 'Zero stresu, konkret i plan. Pierwszy raz czułam, że ogarniam materiał.', proofImage: pickProof(2) },
@@ -604,7 +611,7 @@ function HomePage() {
                   to: '/oferta/pakiety-grupowe', 
                   icon: Package,
                   // ZIELONY (PAKIET/OSZCZĘDNOŚĆ)
-                  bgClass: "bg-gradient-to-br from-emerald-400 to-teal-600 shadow-emerald-500/25"
+                  bgClass: "bg-gradient-to-br from-pink-400 to-pink-600 shadow-black-500/25"
                 },
               ].map((item) => {
                 const Icon = item.icon;
@@ -850,9 +857,9 @@ function HomePage() {
         viewport={{ once: true, amount: 0.22 }}
       >
         <div className="absolute -inset-2 bg-purple-500/10 rounded-3xl blur-2xl" />
-        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[16/9] lg:aspect-auto">
+        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[3/3.7] lg:aspect-auto">
           <img
-            src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769826124/A_bright_cozy_study_desk_setup_during_late_afternoon._A_laptop_screen_shows_a_friendly_smiling_female_tutor_with_tied-back_hair_actively_explaining_a_biology_diagram._The_student_s_desk_is_neat_k4czfi.png"
+            src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769719548/Projekt_bez_nazwy_34_xstll6.png"
             alt="Przyjazna nauka biologii online"
             className="relative w-full h-full object-cover object-center max-h-[450px]"
             loading="lazy"

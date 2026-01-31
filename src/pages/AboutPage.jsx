@@ -180,7 +180,7 @@ function AboutPage() {
                 <div className="glass-panel p-3">
                   <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 aspect-[3/4] relative group">
                     <img
-                      src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769814988/Projekt_bez_nazwy_39_j3w5z2.png"
+                      src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769888713/Projekt_bez_nazwy_40_xjsu7a.png"
                       alt="Medulia - Korepetycje z Biologii"
                       className="w-full h-full object-cover"
                     />

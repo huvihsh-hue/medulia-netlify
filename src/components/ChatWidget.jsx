@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, User } from 'lucide-react';
 
 const CHAT_AVATAR_URL =
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769072404/logo_1na1_tcczjy.png'; // <-- TU WKLEJ URL DO LOGO JULII
+  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769072404/logo_1na1_tcczjy.png';
 
 const FAQ = [
   { q: 'Jak wygląda pierwsza konsultacja?', a: 'Poznajemy się, diagnozuję poziom, omawiamy cele i układamy plan nauki pod maturę.' },
@@ -27,7 +27,7 @@ function ChatWidget() {
   const chatEndRef = useRef(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setTeaserVisible(true), 15000);
+    const timer = setTimeout(() => setTeaserVisible(true), 5000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -50,17 +50,17 @@ function ChatWidget() {
 
   return createPortal(
     <>
-      {/* Chat Teaser */}
+      {/* Chat Teaser / Bubble */}
       <AnimatePresence>
         {teaserVisible && !chatOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 18 }}
-            className="medulia-chat-teaser !p-2 !rounded-full flex items-center gap-3 shadow-2xl transition-colors backdrop-blur-md cursor-pointer hover:scale-105"
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-6 right-6 z-[9999] p-2 rounded-full flex items-center gap-3 shadow-2xl transition-colors backdrop-blur-md cursor-pointer hover:scale-105"
             style={{
-              background: 'rgba(18, 24, 38, 0.55)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
+              background: 'rgba(18, 24, 38, 0.8)', // Lżejsze tło dla dymka
+              border: '1px solid rgba(255, 255, 255, 0.2)',
             }}
             onClick={toggleChat}
           >
@@ -72,17 +72,15 @@ function ChatWidget() {
                   className="w-full h-full object-cover"
                 />
               </div>
-
               {unread && (
-                <div className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 bg-red-500 text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-transparent shadow-sm">
+                <div className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-[#121826]">
                   1
                 </div>
               )}
             </div>
-
-            <div className="pr-2 hidden sm:block">
+            <div className="pr-3 hidden sm:block">
               <p className="text-white font-bold text-sm">Masz pytania?</p>
-              <p className="text-white/90 text-xs">Jestem online 👋</p>
+              <p className="text-white/80 text-xs">Jestem online 👋</p>
             </div>
           </motion.div>
         )}
@@ -92,93 +90,83 @@ function ChatWidget() {
       <AnimatePresence>
         {chatOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 14 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 14 }}
-            className="medulia-chat-panel glass-panel !p-0 overflow-hidden shadow-2xl border-white/20"
-            data-bg="image"
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="fixed bottom-4 right-4 left-4 sm:left-auto sm:w-[360px] z-[10000] overflow-hidden shadow-2xl rounded-2xl border border-white/20 flex flex-col"
+            style={{
+              // ZMIANA: Zmniejszone opacity do 0.85 + mocniejszy blur (20px)
+              // To zapewni czytelność, ale usunie wrażenie "ciężkiego kloca"
+              background: 'rgba(18, 24, 38, 0.85)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)', // Wsparcie dla Safari
+            }}
           >
             {/* Header */}
-            <div className="bg-white/10 p-4 flex justify-between items-center border-b border-white/10">
+            <div className="bg-white/5 p-4 flex justify-between items-center border-b border-white/10">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-8 h-8 rounded-full overflow-hidden border border-white/20 bg-white/5">
+                  <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 bg-white/5">
                     <img
                       src={CHAT_AVATAR_URL}
                       alt="Julia - MEDULIA"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border border-black/20"></div>
+                  <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#121826]"></div>
                 </div>
-
                 <div>
                   <h4 className="text-white font-bold text-sm">Julia z Medulii</h4>
-                  <p className="text-white/60 text-xs">Odpowiadam zazwyczaj w 1h</p>
+                  <p className="text-white/60 text-[11px]">Odpowiadam zazwyczaj w 1h</p>
                 </div>
               </div>
-
               <button
                 onClick={toggleChat}
-                className="text-white/60 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors"
-                aria-label="Zamknij czat"
+                className="text-white/60 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Messages */}
-            <div className="p-4 flex flex-col gap-4 max-h-[300px] overflow-y-auto no-scrollbar">
+            {/* Messages Area */}
+            <div className="p-4 flex flex-col gap-4 h-[280px] sm:h-[320px] overflow-y-auto no-scrollbar bg-transparent">
               {messages.map((msg, idx) => (
                 <div
                   key={idx}
                   className={`flex gap-2 ${msg.from === 'user' ? 'justify-end' : ''}`}
                 >
                   {msg.from === 'bot' && (
-                    <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0 mt-1 bg-white/5 border border-white/10">
-                      <img
-                        src={CHAT_AVATAR_URL}
-                        alt="Julia - MEDULIA"
-                        className="w-full h-full object-cover"
-                      />
+                    <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0 mt-1 bg-white/10 border border-white/10">
+                      <img src={CHAT_AVATAR_URL} className="w-full h-full object-cover" alt="Avatar" />
                     </div>
                   )}
-
                   <div
-                    className={`rounded-2xl p-3 text-sm shadow-md ${
+                    className={`max-w-[85%] rounded-2xl p-3 text-sm shadow-sm ${
                       msg.from === 'user'
-                        ? 'bg-gradient-to-br from-teal-900/50 to-cyan-900/40 border border-teal-400/30 rounded-tr-none text-white'
-                        : 'bg-gradient-to-br from-blue-900/50 to-purple-900/40 border border-blue-400/30 rounded-tl-none text-white/90'
+                        ? 'bg-teal-600/40 border border-teal-500/30 text-white rounded-tr-none'
+                        : 'bg-white/10 border border-white/10 text-white/95 rounded-tl-none'
                     }`}
                   >
-                    <p>{msg.text}</p>
+                    {msg.text}
                   </div>
-
-                  {msg.from === 'user' && (
-                    <div className="w-6 h-6 rounded-full bg-teal-900 flex items-center justify-center flex-shrink-0 mt-1 text-white border border-teal-500/30">
-                      <User className="w-3 h-3" />
-                    </div>
-                  )}
                 </div>
               ))}
               <div ref={chatEndRef} />
             </div>
 
-            {/* FAQ + CTA */}
-            <div className="p-4 pt-0 flex flex-col gap-2 border-t border-white/10 mt-2 bg-transparent">
-              <p className="text-white/50 text-xs my-2 uppercase tracking-wider font-bold">
-                Częste pytania
+            {/* FAQ Section */}
+            <div className="p-4 pt-2 flex flex-col gap-2 border-t border-white/10 bg-white/5">
+              <p className="text-white/40 text-[10px] uppercase tracking-[0.1em] font-bold mb-1">
+                Najczęstsze pytania
               </p>
-
-              <div className="flex flex-col gap-2 max-h-[140px] overflow-y-auto pr-1 no-scrollbar">
+              <div className="flex flex-col gap-1.5 max-h-[120px] overflow-y-auto no-scrollbar">
                 {FAQ.map((item, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleQuestionClick(item)}
-                    className="text-left p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-xs transition-colors flex items-center justify-between group flex-shrink-0"
+                    className="text-left p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/90 text-xs transition-all active:scale-[0.98]"
                   >
                     {item.q}
-                    <Send className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-purple-400 flex-shrink-0 ml-2" />
                   </button>
                 ))}
               </div>
@@ -186,7 +174,7 @@ function ChatWidget() {
               <Link
                 to="/kontakt"
                 onClick={() => setChatOpen(false)}
-                className="w-full py-2.5 mt-2 btn-accent text-white rounded-lg text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-md"
+                className="w-full py-3 mt-3 bg-white text-black font-bold rounded-xl text-sm flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors shadow-lg"
               >
                 Skontaktuj się ze mną
               </Link>
