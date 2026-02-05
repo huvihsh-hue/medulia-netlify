@@ -12,6 +12,7 @@ import BlogArticle from '@/pages/BlogArticle';
 import ContactPage from '@/pages/ContactPage';
 import SignupPage from '@/pages/SignupPage';
 import ScrollToTop from '@/components/ScrollToTop';
+import NotFoundPage from '@/pages/NotFoundPage'; // <--- 1. DODAJ IMPORT
 
 import { Toaster } from '@/components/ui/toaster';
 
@@ -35,6 +36,9 @@ function App() {
 
           {/* Kontakt */}
           <Route path="/kontakt" element={<ContactPage />} />
+
+          {/* 404 - Musi być na samym końcu */}
+          <Route path="*" element={<NotFoundPage />} /> {/* <--- 2. DODAJ TO */}
         </Routes>
 
         <Toaster />

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://medulia.pl/sitemap.xml

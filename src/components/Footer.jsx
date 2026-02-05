@@ -1,6 +1,24 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram } from 'lucide-react'; // Usunięto Facebook, Youtube
+
+// Ikona TikToka w stylu Lucide (robiona ręcznie, bo biblioteka jej nie ma domyślnie)
+const TikTokIcon = ({ className }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 
 function Footer() {
   const quickLinks = [
@@ -74,17 +92,9 @@ function Footer() {
               </p>
 
               <div className="flex gap-3">
+                {/* INSTAGRAM */}
                 <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-white/15 flex items-center justify-center transition-colors"
-                  aria-label="Facebook"
-                >
-                  <Facebook className="w-5 h-5 text-white" />
-                </a>
-                <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/jula_dob/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-white/15 flex items-center justify-center transition-colors"
@@ -92,14 +102,16 @@ function Footer() {
                 >
                   <Instagram className="w-5 h-5 text-white" />
                 </a>
+
+                {/* TIKTOK */}
                 <a
-                  href="https://youtube.com"
+                  href="https://www.tiktok.com/@med.ulia"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-white/15 flex items-center justify-center transition-colors"
-                  aria-label="YouTube"
+                  aria-label="TikTok"
                 >
-                  <Youtube className="w-5 h-5 text-white" />
+                  <TikTokIcon className="w-5 h-5 text-white" />
                 </a>
               </div>
             </div>

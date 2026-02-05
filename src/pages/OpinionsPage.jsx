@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Maximize2, X, ChevronDown, ArrowRight } from 'lucide-react';
@@ -63,11 +63,26 @@ function OpinionsPage() {
   const INITIAL_COUNT = 8;
   const displayedOpinions = isExpanded ? opinionsWithPhotos : opinionsWithPhotos.slice(0, INITIAL_COUNT);
 
+  // Schema.org - AggregateRating (Gwiazdki w Google)
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Korepetycje Medulia",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": opinionsWithPhotos.length.toString()
+    }
+  };
+
   return (
     <>
       <Helmet>
-        <title>Opinie uczniów - MEDULIA</title>
-        <meta name="description" content="Poznaj opinie moich uczniów. Prawdziwe wiadomości, realne wyniki maturalne i historie sukcesu." />
+        <title>Opinie o Medulia - Efekty Korepetycji z Biologii</title>
+        <meta name="description" content="Zobacz opinie i wyniki maturalne uczniów Medulii. 98% z matury, dostanie się na medycynę i zrozumienie biologii. Sprawdź historie sukcesu." />
+        <script type="application/ld+json">
+          {JSON.stringify(schemaData)}
+        </script>
       </Helmet>
 
       {/* START: PANEL Z OPINIAMI */}
@@ -129,7 +144,6 @@ function OpinionsPage() {
                 ))}
                 </motion.div>
 
-                {/* GRADIENT I PRZYCISK ZOBACZ WIĘCEJ (tylko gdy zwinięte) */}
                 {!isExpanded && (
                     <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#1a0b2e] via-[#1a0b2e]/90 to-transparent flex items-end justify-center z-10 rounded-b-2xl">
                         <button 
@@ -147,7 +161,6 @@ function OpinionsPage() {
                     </div>
                 )}
 
-                {/* PRZYCISK ZAPISZ SIĘ - dopasowany do szerokości na mobile */}
                 <div className={`${!isExpanded ? 'absolute bottom-8 left-0 w-full px-4' : 'mt-8 flex justify-center px-4'} z-20`}>
                     <motion.div 
                         className="w-full max-w-md mx-auto flex justify-center"
@@ -168,7 +181,6 @@ function OpinionsPage() {
         </div>
       </section>
 
-      {/* LIGHTBOX MODAL */}
       {selectedImage && (
         <div 
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-10 animate-in fade-in duration-200"

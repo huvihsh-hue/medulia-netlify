@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async'; // <--- ZMIANA: react-helmet-async
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
@@ -21,6 +21,23 @@ import {
 import SectionTitle from '@/components/SectionTitle';
 import OpinionsMarquee from '@/components/OpinionsMarquee';
 import ContactForm from '@/components/ContactForm';
+
+// ===== SEO DATA (SCHEMA.ORG) =====
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Medulia - Korepetycje z Biologii",
+  "image": "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787492/Projekt_bez_nazwy_36_mpubsb.png",
+  "telephone": "+48532083335",
+  "url": "https://medulia.pl",
+  "description": "Profesjonalne przygotowanie do matury z biologii. Zajęcia indywidualne i grupowe online.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Polska",
+    "addressCountry": "PL"
+  },
+  "priceRange": "$$"
+};
 
 // ===== HERO IMAGE =====
 const HERO_IMAGE_URL =
@@ -263,12 +280,25 @@ function HomePage() {
         }
       `}</style>
 
+      {/* ===== SEO HELMET SECTION ===== */}
       <Helmet>
-        <title>MEDULIA - Matura z biologii na 100% | Zapisy 2026/2027</title>
+        <title>Medulia - Biologia na maturę na 100% | Korepetycje Online</title>
         <meta
           name="description"
-          content="Profesjonalne przygotowanie do matury z biologii. Zajęcia indywidualne, grupowe i materiały edukacyjne. Dołącz do setek zadowolonych uczniów."
+          content="Profesjonalne korepetycje z biologii. Przygotowanie do matury rozszerzonej, które otwiera drzwi na studia medyczne. Sprawdź ofertę Medulii!"
         />
+        <link rel="canonical" href="https://medulia.pl/" />
+
+        <meta property="og:title" content="Medulia - Biologia na maturę na 100% | Korepetycje" />
+  <meta property="og:description" content="Profesjonalne przygotowanie do matury z biologii. Zajęcia indywidualne i grupowe online. Sprawdź!" />
+  <meta property="og:image" content="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787492/Projekt_bez_nazwy_36_mpubsb.png" />
+  <meta property="og:url" content="https://medulia.pl" />
+  <meta property="og:type" content="website" />
+        
+        {/* Schema.org structured data */}
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       </Helmet>
 
       {/* SECTION 1: HERO */}
@@ -293,7 +323,7 @@ function HomePage() {
                   <div className="relative h-[45vh] md:h-[65vh] min-h-[350px] w-full">
                     <img
                       src={HERO_IMAGE_URL}
-                      alt="MEDULIA - korepetycje"
+                      alt="Korepetycje z biologii online - przygotowanie do matury - Medulia" /* <--- ZMIANA ALT */
                       className="hero-img absolute inset-0 h-full w-full object-cover object-[50%_18%] md:object-top"
                       loading="eager"
                     />
@@ -320,8 +350,9 @@ function HomePage() {
                 className="rounded-[32px] p-4 md:p-10 bg-white/5 border border-white/10 shadow-2xl backdrop-blur-md relative overflow-hidden -mt-10 md:mt-0 z-10"
               >
                 
-                <h1 className="mt-4 md:mt-0 text-3xl md:text-6xl font-extrabold text-white leading-[1.1]">
-                  Biologia na <span className="text-gradient-purple">100%</span>
+                {/* --- ZMIANA H1 POD SEO --- */}
+                <h1 className="mt-4 md:mt-0 text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1]">
+                  Biologia na maturze – Twój krok w stronę <span className="text-gradient-purple">Medycyny</span>
                 </h1>
 
                 <p className="mt-2 md:mt-5 text-white/70 text-xs md:text-lg leading-relaxed max-w-md">
@@ -402,7 +433,7 @@ function HomePage() {
                     <div className="aspect-[4/5] w-full">
                       <img
                         src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787679/Projekt_bez_nazwy_37_t3jkss.png"
-                        alt="Julia - MEDULIA"
+                        alt="Julia Dobrzyńska - Korepetycje Biologia Medulia" /* <--- ZMIANA ALT */
                         className="h-full w-full object-cover object-[50%_20%] md:object-[50%_25%]"
                         loading="lazy"
                         decoding="async"
@@ -723,7 +754,7 @@ function HomePage() {
 
             {/* Desktop Scroller */}
            <div className="hidden md:block">
-  <div className="grid grid-cols-4 gap-6">
+              <div className="grid grid-cols-4 gap-6">
                 {freeMaterials.map((item, idx) => (
                   <motion.div
                     key={idx}
@@ -814,20 +845,20 @@ function HomePage() {
 
                     {/* OPIS */}
                     <div className="px-1 flex flex-col gap-1">
-                       <div className="flex gap-0.5 text-yellow-400 mb-0.5">
-                         {[...Array(5)].map((_, i) => (
-                           <svg key={i} className="w-2.5 h-2.5 md:w-3 md:h-3 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                         ))}
-                       </div>
-                       
-                       <p className="text-white/80 text-[11px] md:text-xs leading-relaxed line-clamp-2 italic">
-                         "{op.text}"
-                       </p>
-                       
-                       <div className="mt-1 border-t border-white/10 pt-1">
-                         <div className="text-white font-bold text-xs">{op.name}</div>
-                         <div className="text-white/50 text-[10px]">{op.city}</div>
-                       </div>
+                        <div className="flex gap-0.5 text-yellow-400 mb-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <svg key={i} className="w-2.5 h-2.5 md:w-3 md:h-3 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                          ))}
+                        </div>
+                        
+                        <p className="text-white/80 text-[11px] md:text-xs leading-relaxed line-clamp-2 italic">
+                          "{op.text}"
+                        </p>
+                        
+                        <div className="mt-1 border-t border-white/10 pt-1">
+                          <div className="text-white font-bold text-xs">{op.name}</div>
+                          <div className="text-white/50 text-[10px]">{op.city}</div>
+                        </div>
                     </div>
                   </div>
                 );
@@ -844,62 +875,62 @@ function HomePage() {
       </section>
 
       {/* SECTION 7: MY STORY / MISSION */}
-<section className="py-8 md:py-12 relative">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="grid lg:grid-cols-2 gap-6 xl:gap-8 items-center">
-      
-      {/* LEWA KOLUMNA - NOWA GRAFIKA (STUDY DESK) */}
-      <motion.div
-        className="relative order-2 lg:order-1"
-        variants={fadeLeft}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.22 }}
-      >
-        <div className="absolute -inset-2 bg-purple-500/10 rounded-3xl blur-2xl" />
-        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[3/3.7] lg:aspect-auto">
-          <img
-            src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769719548/Projekt_bez_nazwy_34_xstll6.png"
-            alt="Przyjazna nauka biologii online"
-            className="relative w-full h-full object-cover object-center max-h-[450px]"
-            loading="lazy"
-          />
-          {/* Delikatny fioletowy filtr nakładkowy, by lepiej siadło w designie */}
-          <div className="absolute inset-0 bg-purple-900/5 mix-blend-multiply pointer-events-none" />
-        </div>
-      </motion.div>
+      <section className="py-8 md:py-12 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-6 xl:gap-8 items-center">
+            
+            {/* LEWA KOLUMNA - NOWA GRAFIKA (STUDY DESK) */}
+            <motion.div
+              className="relative order-2 lg:order-1"
+              variants={fadeLeft}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.22 }}
+            >
+              <div className="absolute -inset-2 bg-purple-500/10 rounded-3xl blur-2xl" />
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[3/3.7] lg:aspect-auto">
+                <img
+                  src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769719548/Projekt_bez_nazwy_34_xstll6.png"
+                  alt="Przyjazna nauka biologii online - zajęcia z Medulią" /* <--- ZMIANA ALT */
+                  className="relative w-full h-full object-cover object-center max-h-[450px]"
+                  loading="lazy"
+                />
+                {/* Delikatny fioletowy filtr nakładkowy, by lepiej siadło w designie */}
+                <div className="absolute inset-0 bg-purple-900/5 mix-blend-multiply pointer-events-none" />
+              </div>
+            </motion.div>
 
-      {/* PRAWA KOLUMNA - TEKST MISJI */}
-      <motion.div
-        className="order-1 lg:order-2 glass-panel p-6 md:p-10"
-        data-bg="image"
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.22 }}
-      >
-        <SectionTitle className="!text-left" center={false}>
-          Moja misja
-        </SectionTitle>
-        <div className="prose prose-sm text-white/80 mt-4 space-y-4">
-          <p className="text-base md:text-lg leading-relaxed">
-            Biologia to sposób patrzenia na świat. Nie uczymy się regułek na pamięć – wspólnie <span className="text-white font-bold">rozgryzamy mechanizmy</span>, które rządzą życiem.
-          </p>
-          <p className="text-sm md:text-base opacity-90">
-            Na moich zajęciach tworzymy bezpieczną przestrzeń. Nie ma głupich pytań, a każdy błąd to tylko kolejny krok do Twojego <span className="text-gradient-purple font-bold">100% na maturze</span>.
-          </p>
-        </div>
-        <Link
-          to="/o-mnie"
-          className="mt-8 inline-flex items-center text-white font-bold hover:text-purple-300 transition-all group text-base"
-        >
-          Poznaj mnie bliżej <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </motion.div>
+            {/* PRAWA KOLUMNA - TEKST MISJI */}
+            <motion.div
+              className="order-1 lg:order-2 glass-panel p-6 md:p-10"
+              data-bg="image"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.22 }}
+            >
+              <SectionTitle className="!text-left" center={false}>
+                Moja misja
+              </SectionTitle>
+              <div className="prose prose-sm text-white/80 mt-4 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed">
+                  Biologia to sposób patrzenia na świat. Nie uczymy się regułek na pamięć – wspólnie <span className="text-white font-bold">rozgryzamy mechanizmy</span>, które rządzą życiem.
+                </p>
+                <p className="text-sm md:text-base opacity-90">
+                  Na moich zajęciach tworzymy bezpieczną przestrzeń. Nie ma głupich pytań, a każdy błąd to tylko kolejny krok do Twojego <span className="text-gradient-purple font-bold">100% na maturze</span>.
+                </p>
+              </div>
+              <Link
+                to="/o-mnie"
+                className="mt-8 inline-flex items-center text-white font-bold hover:text-purple-300 transition-all group text-base"
+              >
+                Poznaj mnie bliżej <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
 
-    </div>
-  </div>
-</section>
+          </div>
+        </div>
+      </section>
 
       {/* SECTION 9: SIGNUP */}
       <section className="py-8 md:py-12 relative">

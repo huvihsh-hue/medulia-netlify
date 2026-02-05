@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -53,6 +53,26 @@ const offers = [
     imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819048/4_alpszx.png',
   },
 ];
+
+// Schema.org - Lista usług i cennik
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": offers.map((offer, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Service",
+      "name": offer.title,
+      "description": offer.bullets.join(". "),
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "PLN",
+        "price": offer.priceLine.match(/\d+/)?.[0] || "0"
+      }
+    }
+  }))
+};
 
 function MediaSlot({
   alt,
@@ -174,7 +194,6 @@ function OfferPage() {
   return (
     <>
       <style>{`
-        /* Maska dla zdjęcia w Hero */
         .offer-hero-mask {
           -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
           mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
@@ -186,45 +205,39 @@ function OfferPage() {
       `}</style>
 
       <Helmet>
-        <title>Oferta - MEDULIA | Korepetycje z biologii</title>
+        <title>Cennik i Oferta Korepetycji - Biologia Medulia</title>
         <meta
           name="description"
-          content="Oferta zajęć MEDULIA: indywidualne premium, indywidualne – Medulia Team, grupowe oraz pakiety miesięczne. Zobacz szczegóły każdej opcji."
+          content="Sprawdź cennik korepetycji z biologii. Zajęcia indywidualne (od 140 zł) i grupowe (od 80 zł). Przygotowanie do matury i egzaminów. Zobacz pakiety!"
         />
+        <script type="application/ld+json">
+          {JSON.stringify(schemaData)}
+        </script>
       </Helmet>
 
       {/* HEADER SECTION Z OBRAZKIEM */}
-      {/* ZMNIEJSZONO PADDING-TOP (pt-4 md:pt-8) aby podciągnąć wszystko w górę */}
       <div className="pt-4 md:pt-8 pb-6 relative overflow-hidden">
-        {/* Blaski w tle */}
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-64 h-64 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          {/* ZDJĘCIE HERO NA ŚRODKU */}
           <motion.div
-             initial={{ opacity: 0, scale: 0.96 }}
-             animate={{ opacity: 1, scale: 1 }}
-             transition={{ duration: 0.6 }}
-             // Ujemny margin-bottom, żeby tekst wjechał na zdjęcie
-             className="relative mx-auto w-full max-w-[360px] md:max-w-[420px] mb-[-40px] md:mb-[-50px]"
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="relative mx-auto w-full max-w-[360px] md:max-w-[420px] mb-[-40px] md:mb-[-50px]"
           >
              <div className="offer-hero-mask relative w-full aspect-[2.8/3.9] md:aspect-[3/4] rounded-[32px] overflow-hidden shadow-2xl">
-
-
                <img 
                  src={HERO_IMAGE_URL} 
-                 alt="Julia z Medulii"
-                 // DODANO object-right-top aby przesunąć zdjęcie i pokazać cały tablet
+                 alt="Julia z Medulii - oferta zajęć"
                  className="w-full h-full object-cover object-right-top"
                  loading="eager"
                />
                
-               {/* NUMER TELEFONU - BUTTON */}
                <a
                   href="tel:+48532083335"
                   className="absolute left-4 bottom-14 md:left-6 md:bottom-16 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 border border-white/20 text-white text-xs md:text-sm backdrop-blur-md hover:bg-black/70 transition-colors z-20"
-
                >
                   <Phone className="w-3.5 h-3.5 md:w-4 md:h-4 text-purple-400" />
                   532 208 335
@@ -232,7 +245,6 @@ function OfferPage() {
              </div>
           </motion.div>
 
-          {/* TEKST POD ZDJĘCIEM (z ujemnym marginesem, żeby nachodził) */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -244,10 +256,6 @@ function OfferPage() {
 
             <p className="hidden md:block text-lg text-white/80 max-w-2xl mx-auto">
               Kliknij „Zobacz szczegóły”, żeby zobaczyć dokładny opis, zasady i materiały.
-            </p>
-
-            <p className="md:hidden text-sm text-white/80 max-w-2xl mx-auto leading-relaxed">
-              Kliknij w kartę, aby zobaczyć szczegóły oferty.
             </p>
           </motion.div>
         </div>
@@ -271,9 +279,6 @@ function OfferPage() {
               >
                 Zapisz się <ArrowRight className="w-4 h-4" />
               </Link>
-              <p className="mt-2 text-xs text-white/55 text-center">
-                Po wybraniu oferty dopasujemy najlepszą formę zajęć.
-              </p>
             </div>
 
             <div className="mt-8 rounded-2xl bg-white/5 border border-white/10 p-5 md:p-6">
@@ -290,10 +295,6 @@ function OfferPage() {
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 mt-0.5 text-white/70" />
                   Brak zwrotów przy nieobecności – przekazujemy materiały do samodzielnej nauki.
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 mt-0.5 text-white/70" />
-                  Rezerwacja miejsca w grupie obowiązkowa; grupy odbywają się przy minimum 3 osobach.
                 </li>
               </ul>
             </div>
