@@ -291,7 +291,7 @@ function HomePage() {
 
         <meta property="og:title" content="Medulia - Biologia na maturę na 100% | Korepetycje" />
   <meta property="og:description" content="Profesjonalne przygotowanie do matury z biologii. Zajęcia indywidualne i grupowe online. Sprawdź!" />
-  <meta property="og:image" content="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787492/Projekt_bez_nazwy_36_mpubsb.png" />
+  <meta property="og:image" content="https://res.cloudinary.com/dyxif8hyp/image/upload/v1770384332/Projekt_bez_nazwy_2_caljvz.png" />
   <meta property="og:url" content="https://medulia.pl" />
   <meta property="og:type" content="website" />
         
