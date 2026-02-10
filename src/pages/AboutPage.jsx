@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, MessageCircle, Calendar, FileCheck2, Zap } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
+import { optimizeImage } from '@/lib/utils'; // <--- IMPORT OPTYMALIZACJI
 
 function AboutPage() {
   return (
@@ -62,12 +63,13 @@ function AboutPage() {
 
                 {/* ZMIANA: Klasa 'lg:hidden' ukrywa zdjęcie na dużym ekranie */}
                 <div className="lg:hidden my-8 rounded-2xl overflow-hidden border border-white/10 bg-white/5 aspect-[3/4] md:aspect-[3/4] relative group shadow-2xl w-full">
+                   {/* --- OPTYMALIZACJA ZDJĘCIA (MOBILE) --- */}
                    <img
-                     src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769814722/Projekt_bez_nazwy_38_phctzm.png" 
-                     alt="Biologia nauka separator"
-                     className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-500"
-                   />
-                   <div className="absolute inset-0 bg-gradient-to-t from-[#1a0b2e] via-transparent to-transparent opacity-80"></div>
+                      src={optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769814722/Projekt_bez_nazwy_38_phctzm.png", 800)} 
+                      alt="Biologia nauka separator"
+                      className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a0b2e] via-transparent to-transparent opacity-80"></div>
                 </div>
 
                 <div className="mt-8 pt-4 border-t border-white/10">
@@ -179,8 +181,9 @@ function AboutPage() {
                 {/* Slot na zdjęcie portretowe */}
                 <div className="glass-panel p-3">
                   <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 aspect-[3/4] relative group">
+                    {/* --- OPTYMALIZACJA ZDJĘCIA (DESKTOP/MAIN) --- */}
                     <img
-                      src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769888713/Projekt_bez_nazwy_40_xjsu7a.png"
+                      src={optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769888713/Projekt_bez_nazwy_40_xjsu7a.png", 800)}
                       alt="Medulia - Korepetycje z Biologii"
                       className="w-full h-full object-cover"
                     />

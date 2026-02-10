@@ -12,6 +12,7 @@ import {
   Phone 
 } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
+import { optimizeImage } from '@/lib/utils'; // <--- IMPORT
 
 const HERO_IMAGE_URL = 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769889281/Projekt_bez_nazwy_41_tfiqz4.png';
 
@@ -84,8 +85,9 @@ function MediaSlot({
       <div className="aspect-video w-full relative">
         {src ? (
           <>
+            {/* --- OPTYMALIZACJA ZDJĘCIA USŁUGI (600px) --- */}
             <img
-              src={src}
+              src={optimizeImage(src, 600)}
               alt={alt}
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
@@ -228,8 +230,9 @@ function OfferPage() {
               className="relative mx-auto w-full max-w-[360px] md:max-w-[420px] mb-[-40px] md:mb-[-50px]"
           >
              <div className="offer-hero-mask relative w-full aspect-[2.8/3.9] md:aspect-[3/4] rounded-[32px] overflow-hidden shadow-2xl">
+               {/* --- OPTYMALIZACJA ZDJĘCIA HERO OFERTY (800px) --- */}
                <img 
-                 src={HERO_IMAGE_URL} 
+                 src={optimizeImage(HERO_IMAGE_URL, 800)} 
                  alt="Julia z Medulii - oferta zajęć"
                  className="w-full h-full object-cover object-right-top"
                  loading="eager"

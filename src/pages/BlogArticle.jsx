@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowLeft, ArrowRight, Clock, Share2, BookOpen, CheckCircle } from 'lucide-react';
+import { optimizeImage } from '@/lib/utils'; // <--- IMPORT OPTYMALIZACJI
 
-// --- MOCK BAZY DANYCH ARTYKUŁÓW (MEGA TREŚĆ POD SEO) ---
+// --- BAZA DANYCH ARTYKUŁÓW (SEO POWERHOUSE) ---
 const ARTICLES_DATA = {
   '5-strategii-nauki-biologia-matura': {
     title: '5 strategii, które gwarantują wynik 80%+ z biologii (Bez wkuwania)',
@@ -17,50 +18,24 @@ const ARTICLES_DATA = {
       <h2>1. Planowanie wsteczne (Reverse Engineering)</h2>
       <p>Nie planuj "od dzisiaj do matury". To pułapka. Planuj <strong>od matury do dzisiaj</strong>. Weź kalendarz, zaznacz datę egzaminu majowego i cofaj się tydzień po tygodniu.</p>
       <p>Dlaczego to działa? Bo widzisz realnie, ile masz czasu. W <a href="/oferta">korepetycjach Medulia</a> zawsze zaczynamy od tego kroku. Okazuje się, że na genetykę masz tylko 3 tygodnie, a nie "jakoś to będzie".</p>
-      <ul>
-        <li><strong>Maj:</strong> Ostatnie szlify i relaks przed egzaminem.</li>
-        <li><strong>Kwiecień:</strong> Tylko arkusze maturalne na czas (symulacja warunków).</li>
-        <li><strong>Marzec:</strong> Fizjologia człowieka (największy dział).</li>
-        <li><strong>Luty:</strong> Metabolizm i cytologia.</li>
-      </ul>
-
-      <div class="my-10">
-        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=1000" alt="Planowanie nauki biologia" class="rounded-xl shadow-lg w-full object-cover h-[300px] md:h-[400px]" />
-        <p class="text-xs text-white/50 mt-2 text-center">Dobry plan to 50% sukcesu na maturze.</p>
-      </div>
-
+      
       <h2>2. Metoda Interwałowa (Spaced Repetition)</h2>
-      <p>Zapominanie to naturalny proces biologiczny. Krzywa zapominania Ebbinghausa jest bezlitosna: po 6 dniach pamiętasz tylko ok. 20% materiału, jeśli go nie powtórzysz. Wkuwanie "na blachę" raz, a porządnie, nie działa.</p>
-      <p><strong>Złota zasada Medulii:</strong> Powtórka musi nastąpić w konkretnych momentach:</p>
-      <ol>
-        <li>Po 24 godzinach od nauki.</li>
-        <li>Po 3 dniach.</li>
-        <li>Po tygodniu.</li>
-        <li>Po miesiącu.</li>
-      </ol>
-      <p>Używaj aplikacji typu Anki lub twórz własne fiszki. Na naszych <a href="/oferta/grupowe-ze-mna">zajęciach grupowych</a> powtórki są wbudowane w każdą lekcję.</p>
+      <p>Zapominanie to naturalny proces biologiczny. Krzywa zapominania Ebbinghausa jest bezlitosna: po 6 dniach pamiętasz tylko ok. 20% materiału. Wkuwanie "na blachę" raz, a porządnie, nie działa.</p>
+      <p><strong>Złota zasada Medulii:</strong> Powtórka musi nastąpić w konkretnych momentach: po 24h, po 3 dniach, po tygodniu i po miesiącu.</p>
 
       <h2>3. Aktywne przypominanie (Active Recall)</h2>
-      <p>Czytanie notatek to najgorsza metoda nauki. Twój mózg jest wtedy bierny. Musisz zmusić go do wysiłku. Jak?</p>
-      <p>Zamiast czytać rozdział o fotosyntezie, zamknij książkę i spróbuj narysować schemat fazy jasnej z pamięci. Boli? Ma boleć. Ten "ból" to moment, w którym tworzą się połączenia nerwowe. To właśnie robimy na korepetycjach – ja pytam, Ty musisz "wygrzebać" wiedzę z głowy.</p>
+      <p>Czytanie notatek to najgorsza metoda nauki. Twój mózg jest wtedy bierny. Zamiast czytać rozdział o fotosyntezie, zamknij książkę i spróbuj narysować schemat fazy jasnej z pamięci. Boli? Ma boleć. Ten "ból" to moment, w którym tworzą się połączenia nerwowe.</p>
 
       <div class="my-8 p-6 bg-purple-500/10 border-l-4 border-purple-500 rounded-r-lg">
         <h3 class="text-purple-300 font-bold text-lg mb-2">Tip Julii Dobrzyńskiej:</h3>
-        <p class="text-white/90 m-0">Nie rób notatek "na czysto" kolorowymi pisakami. To strata czasu. Rób notatki w formie pytań do samego siebie. Np. zamiast pisać definicję mitochondrium, napisz pytanie: "Jakie są 3 dowody na endosymbiotyczne pochodzenie mitochondriów?".</p>
+        <p class="text-white/90 m-0">Nie rób notatek "na czysto" kolorowymi pisakami. To strata czasu. Rób notatki w formie pytań do samego siebie.</p>
       </div>
 
       <h2>4. Klucz CKE to Twój wróg i przyjaciel</h2>
       <p>Możesz mieć wiedzę profesora akademickiego, a nie zdasz matury, jeśli nie trafisz w klucz. Czasowniki operacyjne: <em>wyjaśnij, podaj, określ, wykaż</em> oznaczają zupełnie co innego.</p>
-      <p>To najczęstszy powód, dla którego uczniowie trafiają do Medulii. Mają wiedzę, ale tracą punkty. Na naszych zajęciach uczymy się "języka egzaminatora". "Wyjaśnij" zawsze wymaga spójnika "dlatego, że" lub ciągu przyczynowo-skutkowego.</p>
 
       <h2>5. Arkusze rób na czas</h2>
-      <p>W domu jest ciepła herbata, koc i spokój. Na sali egzaminacyjnej jest stres i presja czasu. Musisz trenować w warunkach bojowych.</p>
-      <p>Od marca rób jeden arkusz tygodniowo ze stoperem. Jeśli nie zdążysz przenieść odpowiedzi do karty w domu, nie zdążysz też na maturze. Trening czyni mistrza.</p>
-
-      <hr class="my-8 border-white/10" />
-
-      <h3>Podsumowanie</h3>
-      <p>Biologia to nauka logiczna. Przestań kuć na pamięć, zacznij rozumieć procesy. Jeśli potrzebujesz kogoś, kto poprowadzi Cię za rękę przez ten proces i sprawdzi Twoje postępy – sprawdź ofertę <strong>Medulia</strong>. Jesteśmy tu, żebyś dostał/a się na wymarzoną medycynę.</p>
+      <p>Od marca rób jeden arkusz tygodniowo ze stoperem. Jeśli nie zdążysz przenieść odpowiedzi do karty w domu, nie zdążysz też na maturze.</p>
     `
   },
   'czasowniki-operacyjne-cke-biologia': {
@@ -71,93 +46,136 @@ const ARTICLES_DATA = {
     image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&q=80&w=1200',
     intro: 'Masz wrażenie, że napisałeś dobrze, a sprawdzający skreślił całą odpowiedź i dał 0 punktów? Witaj w świecie klucza maturalnego. To najczęstsza przyczyna niepowodzeń na maturze z biologii.',
     content: `
-      <h2>Dlaczego "ludzki język" nie działa na maturze?</h2>
-      <p>Egzaminatorzy CKE mają przed sobą sztywny klucz odpowiedzi. Nie mogą domyślać się, "co poeta miał na myśli". Musisz być precyzyjny jak chirurg. W Medulii nazywamy to "biologicznym konkretem".</p>
-
       <h2>Wyjaśnij vs Opisz – Odwieczna walka</h2>
       <p>To klasyka gatunku. Mylenie tych dwóch poleceń kosztuje maturzystów średnio 10-15% punktów.</p>
       
       <h3>Polecenie: Opisz</h3>
       <p>Oznacza: przedstaw cechy, budowę, przebieg. Nie musisz pisać "dlaczego". Masz pisać "jak jest".</p>
-      <p><em>Przykład: Opisz budowę mitochondrium.</em></p>
-      <p><strong>Dobra odpowiedź:</strong> Mitochondrium jest otoczone dwiema błonami. Błona zewnętrzna jest gładka, a wewnętrzna tworzy fałdy zwane grzebieniami. Wnętrze wypełnia matrix.</p>
+      <p><strong>Dobra odpowiedź:</strong> Mitochondrium jest otoczone dwiema błonami. Błona zewnętrzna jest gładka, a wewnętrzna tworzy fałdy.</p>
 
       <h3>Polecenie: Wyjaśnij</h3>
       <p>Oznacza: musisz podać mechanizm przyczynowo-skutkowy. Musisz połączyć przyczynę z efektem.</p>
       <p><em>Przykład: Wyjaśnij, dlaczego błona wewnętrzna mitochondrium jest pofałdowana.</em></p>
       <ul>
-        <li><strong>Źle (Opis):</strong> Błona tworzy grzebienie mitochondrialne. (To jest prawda, ale to opis, nie wyjaśnienie!)</li>
-        <li><strong>Dobrze (Wyjaśnienie - Metoda Medulii):</strong> Pofałdowanie zwiększa powierzchnię błony [PRZYCZYNA], co pozwala na umieszczenie w niej większej liczby kompleksów łańcucha oddechowego [MECHANIZM], co z kolei zwiększa wydajność syntezy ATP [SKUTEK].</li>
+        <li><strong>Źle (Opis):</strong> Błona tworzy grzebienie mitochondrialne.</li>
+        <li><strong>Dobrze (Wyjaśnienie):</strong> Pofałdowanie zwiększa powierzchnię błony [PRZYCZYNA], co pozwala na umieszczenie w niej większej liczby kompleksów łańcucha oddechowego [MECHANIZM], co zwiększa wydajność syntezy ATP [SKUTEK].</li>
       </ul>
 
-      <div class="my-10">
-         <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1000" alt="Egzamin maturalny biologia pisanie" class="rounded-xl shadow-lg w-full object-cover h-[300px]" />
-      </div>
-
       <h2>Wykaż (związek)</h2>
-      <p>Tutaj musisz pokazać relację między dwoma faktami. Zazwyczaj budową a funkcją.</p>
-      <p><em>Przykład: Wykaż związek między budową erytrocytu a jego funkcją.</em></p>
-      <p><strong>Odpowiedź:</strong> Brak jądra komórkowego w dojrzałym erytrocycie [CECHA BUDOWY] zapewnia więcej miejsca dla hemoglobiny [ZWIĄZEK], co zwiększa efektywność transportu tlenu [FUNKCJA].</p>
-
-      <h2>Jak się tego nauczyć?</h2>
-      <p>Praktyka, praktyka, praktyka. Ale nie "ślepa" praktyka. Musisz mieć kogoś, kto sprawdzi Twoje odpowiedzi i bezlitośnie wytknie błędy logiczne. Właśnie to robimy na <a href="/oferta/indywidualne-premium">zajęciach Premium</a>. Ja jestem Twoim egzaminatorem przed egzaminem.</p>
+      <p>Tutaj musisz pokazać relację między dwoma faktami. Zazwyczaj budową a funkcją. Np. Wykaż związek między brakiem jądra w erytrocycie a transportem tlenu.</p>
     `
   },
-  'genetyka-w-7-dni-plan': {
-      title: 'Genetyka w 7 dni – plan powtórkowy',
-      date: '05.01.2026',
-      category: 'Wiedza',
-      readTime: '10 min',
-      image: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&q=80&w=1200',
-      intro: 'Genetyka to dział, który albo kochasz, albo nienawidzisz. Jest logiczna, matematyczna i... schematyczna. Jeśli nauczysz się schematów, zdobędziesz pewne punkty.',
-      content: `
-        <h2>Dzień 1: Podstawy i Prawa Mendla</h2>
-        <p>Musisz znać pojęcia: allel, locus, homozygota, heterozygota, genotyp, fenotyp. Bez tego ani rusz. Przypomnij sobie I i II prawo Mendla. Zrób 5 prostych krzyżówek z grochem.</p>
-        
-        <h2>Dzień 2: Dziedziczenie płci i cechy sprzężone</h2>
-        <p>To pewniak maturalny. Hemofilia i daltonizm. Pamiętaj: geny są na chromosomie X. Y jest "pusty" (dla tych cech). Pamiętaj o zapisie X^H, X^h.</p>
+  'fotosynteza-c3-c4-cam-porownanie': {
+    title: 'Fotosynteza C3, C4 i CAM – Jak to w końcu zrozumieć?',
+    date: '02.02.2026',
+    category: 'Metabolizm',
+    readTime: '12 min czytania',
+    image: 'https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&fit=crop&q=80&w=1200',
+    intro: 'RuBisCO to najbardziej leniwy enzym świata, który czasem myli tlen z dwutlenkiem węgla. Rośliny musiały wymyślić sposób, żeby sobie z tym poradzić. Poznaj mechanizmy C4 i CAM bez tajemnic.',
+    content: `
+      <h2>Problem: Fotooddychanie</h2>
+      <p>Zanim zrozumiemy C4 i CAM, musimy zrozumieć problem roślin C3. Ich enzym, RuBisCO, ma powinowactwo zarówno do CO2, jak i do O2. W gorące dni, gdy aparaty szparkowe się zamykają (żeby nie stracić wody), stężenie O2 w liściu rośnie. RuBisCO przyłącza tlen zamiast CO2. To marnotrawstwo energii zwane <strong>fotooddychaniem</strong>.</p>
 
-        <h2>Dzień 3: Grupy krwi i czynnik Rh</h2>
-        <p>Kodominacja (grupa AB) i allele wielokrotne. Konflikt serologiczny - kiedy zachodzi? (Matka Rh-, Ojciec Rh+, Dziecko Rh+).</p>
+      <h2>Rozwiązanie C4: Rozdział przestrzenny</h2>
+      <p>Rośliny C4 (kukurydza, trzcina cukrowa) są sprytne. Oddzieliły proces wiązania CO2 od Cyklu Calvina.</p>
+      <ul>
+        <li><strong>Komórki mezofilu:</strong> Tutaj działa enzym karboksylaza PEP. Nie myli się on nigdy z tlenem. Wiąże CO2 do szczawiooctanu (4 węgle - stąd nazwa C4).</li>
+        <li><strong>Komórki pochwy okołowiązkowej:</strong> Tutaj transportowany jest jabłczan, który uwalnia CO2 prosto "pod nos" RuBisCO. Dzięki temu stężenie CO2 jest tak wysokie, że RuBisCO nie ma szans na pomyłkę.</li>
+      </ul>
 
-        <h2>Dzień 4: Hardy-Weinberg</h2>
-        <p>Wzór, który przeraża, a jest prosty. p + q = 1 oraz (p+q)^2 = 1. Pamiętaj: p^2 to homozygoty dominujące, q^2 to recesywne, 2pq to heterozygoty. Zawsze zaczynaj obliczenia od q^2 (recesywnych), bo tylko je widać w fenotypie!</p>
+      <h2>Rozwiązanie CAM: Rozdział czasowy</h2>
+      <p>Rośliny CAM (kaktusy, ananas) żyją w ekstremalnej suszy. Nie mogą otworzyć szparek w dzień.</p>
+      <ul>
+        <li><strong>Noc:</strong> Szparki otwarte. CO2 wchodzi i jest wiązane do kwasu jabłkowego, który magazynowany jest w wakuoli.</li>
+        <li><strong>Dzień:</strong> Szparki zamknięte. Kwas jabłkowy z wakuoli uwalnia CO2 do Cyklu Calvina.</li>
+      </ul>
 
-        <div class="my-8 p-6 bg-purple-500/10 border-l-4 border-purple-500 rounded-r-lg">
-            <h3 class="text-purple-300 font-bold text-lg mb-2">Potrzebujesz pomocy z zadaniami?</h3>
-            <p class="text-white/90 m-0">W moich <a href="/materialy">darmowych materiałach</a> znajdziesz PDF z rozpisanymi krok po kroku zadaniami z genetyki.</p>
-        </div>
-
-        <h2>Dzień 5: Choroby genetyczne</h2>
-        <p>Musisz umieć rozróżniać: autosomalne dominujące (Huntington), autosomalne recesywne (mukowiscydoza, fenyloketonuria) i sprzężone z płcią. Ucz się objawów i mechanizmów dziedziczenia.</p>
-
-        <h2>Dzień 6: Mutacje</h2>
-        <p>Genowe (punktowe) vs Chromosomowe. Delecja, insercja, substytucja. Które są groźniejsze? Te, które przesuwają ramkę odczytu.</p>
-
-        <h2>Dzień 7: Wielki Test</h2>
-        <p>Weź zbiór zadań maturalnych (np. Biologhelp) i rozwiąż 20 zadań tylko z genetyki. Sprawdź z kluczem. Gdzie robisz błędy?</p>
-      `
+      <div class="my-8 p-6 bg-green-500/10 border-l-4 border-green-500 rounded-r-lg">
+        <h3 class="text-green-300 font-bold text-lg mb-2">Pewniak Maturalny:</h3>
+        <p class="text-white/90 m-0">Na maturze często dają wykresy pobierania CO2 w ciągu doby. Jeśli roślina pobiera CO2 w nocy = CAM. Jeśli w dzień = C3 lub C4 (tu trzeba patrzeć na anatomię liścia - wieniec komórek w C4).</p>
+      </div>
+    `
   },
-  'stres-przed-matura-jak-opanowac': {
-      title: 'Panika w dniu egzaminu? Techniki, które ratują wynik',
-      date: '20.12.2025',
-      category: 'Mindset',
-      readTime: '5 min',
-      image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=1200',
-      intro: 'Ręce się trzęsą, w głowie pustka, a serce wali jak młot. Stres egzaminacyjny potrafi zniweczyć lata nauki. Ale można nad nim zapanować.',
-      content: `
-        <h2>Co się dzieje w Twoim mózgu?</h2>
-        <p>W silnym stresie Twoje ciało migdałowate przejmuje kontrolę i odcina dopływ krwi do kory przedczołowej. To ta część mózgu odpowiada za logikę, planowanie i przypominanie sobie wiedzy. Dlatego masz "pustkę w głowie".</p>
+  'potencjal-czynnosciowy-uklad-nerwowy': {
+    title: 'Potencjał spoczynkowy i czynnościowy – Fizjologia neuronu',
+    date: '28.01.2026',
+    category: 'Fizjologia',
+    readTime: '15 min czytania',
+    image: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=1200',
+    intro: 'Jak to się dzieje, że myślisz? To tylko ruch jonów sodu i potasu przez błonę. Wyjaśniamy polaryzację, depolaryzację i repolaryzację krok po kroku.',
+    content: `
+      <h2>1. Potencjał spoczynkowy (-70mV)</h2>
+      <p>Błona neuronu jest spolaryzowana. Na zewnątrz jest "plus" (dużo Na+), wewnątrz jest "minus" (dużo anionów białkowych i K+). Ten stan utrzymuje <strong>Pompa Sodowo-Potasowa</strong>, która wyrzuca 3 jony Na+ i wprowadza 2 jony K+, zużywając ATP.</p>
 
-        <h2>Technika 1: Oddychanie pudełkowe</h2>
-        <p>Stosowane przez Navy SEALs. Wdech 4 sekundy, zatrzymanie 4 sekundy, wydech 4 sekundy, zatrzymanie 4 sekundy. To fizycznie wymusza uspokojenie serca.</p>
+      <h2>2. Depolaryzacja (Strzał)</h2>
+      <p>Gdy bodziec jest wystarczająco silny (przekroczy próg pobudliwości), otwierają się kanały sodowe bramkowane napięciem. Sód (Na+) lawinowo napływa do środka komórki. Potencjał skacze do +30mV. Wnętrze staje się dodatnie.</p>
 
-        <h2>Technika 2: Zmień narrację</h2>
-        <p>Objawy stresu (szybkie bicie serca) są identyczne jak objawy ekscytacji. Powiedz sobie: "Nie denerwuję się, jestem podekscytowany wyzwaniem". To brzmi głupio, ale działa na biochemię mózgu.</p>
+      <h2>3. Repolaryzacja (Powrót)</h2>
+      <p>Neuron musi odpocząć. Zamykają się kanały sodowe, otwierają potasowe. Potas (K+) ucieka na zewnątrz, zabierając ładunki dodatnie. Błona wraca do "minusa".</p>
 
-        <h2>Wsparcie w Medulii</h2>
-        <p>Jako korepetytorka, widzę moją rolę szerzej niż tylko nauczanie biologii. Jestem też Waszym mentorem. Na zajęciach budujemy pewność siebie. Kiedy wiesz, że przerobiłeś tysiące zadań, stres jest mniejszy. Dołącz do <a href="/opinie">naszej społeczności</a>.</p>
-      `
+      <h2>4. Hiperpolaryzacja</h2>
+      <p>Kanały potasowe są leniwe i zamykają się powoli. Ucieka za dużo potasu, potencjał spada poniżej -70mV. Wtedy do gry znów wchodzi pompa Na+/K+, żeby przywrócić równowagę.</p>
+
+      <h3>Co to jest impuls saltacyjny?</h3>
+      <p>W aksonach z osłonką mielinową impuls "skacze" od przewężenia Ranviera do przewężenia. To znacznie przyspiesza przewodzenie (do 120 m/s). To kluczowe pytanie na maturze przy porównywaniu układu nerwowego bezkręgowców i kręgowców.</p>
+    `
+  },
+  'odpornosc-swoista-nieswoista-szczepionki': {
+    title: 'Immunologia w pigułce: Odporność swoista vs nieswoista',
+    date: '18.02.2026',
+    category: 'Immunologia',
+    readTime: '10 min czytania',
+    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200',
+    intro: 'Limfocyty T, B, makrofagi, antygeny... Gubisz się w tym? Uporządkujmy wiedzę o układzie odpornościowym, bo to pewniak w zadaniach typu "wykaż związek".',
+    content: `
+      <h2>Linia obrony 1: Odporność Nieswoista (Wrodzona)</h2>
+      <p>Działa szybko, ale "na ślepo". Atakuje wszystko, co obce.</p>
+      <ul>
+        <li><strong>Bariery fizyczne:</strong> Skóra, błony śluzowe.</li>
+        <li><strong>Bariery chemiczne:</strong> Pot, łzy (lizozym), kwas w żołądku.</li>
+        <li><strong>Komórki:</strong> Makrofagi (wielkie żarłacze) i Granulocyty. Działają przez fagocytozę.</li>
+      </ul>
+
+      <h2>Linia obrony 2: Odporność Swoista (Nabyta)</h2>
+      <p>Działa wolniej, ale precyzyjnie. Wymaga rozpoznania konkretnego wroga (antygenu).</p>
+      <ul>
+        <li><strong>Odpowiedź humoralna (Limfocyty B):</strong> Produkcja przeciwciał. Przeciwciała "oblepiają" wirusy i bakterie (opsonizacja), ułatwiając ich zjedzenie przez makrofagi.</li>
+        <li><strong>Odpowiedź komórkowa (Limfocyty T):</strong>
+          <ul>
+            <li>Limfocyty Tc (cytotoksyczne): Zabijają własne komórki organizmu, które zostały zakażone (np. wirusem) lub są nowotworowe.</li>
+            <li>Limfocyty Th (pomocnicze): Dyrygenci. Wydzielają cytokiny, które pobudzają limfocyty B i Tc do ataku. Bez nich (jak w HIV) odporność siada.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2>Szczepionka vs Surowica</h2>
+      <p>To pytanie pojawia się co roku.</p>
+      <ul>
+        <li><strong>Szczepionka (Czynna):</strong> Podajemy antygen (zabitego wirusa). Organizm sam musi wyprodukować przeciwciała i komórki pamięci. Działa długotrwale.</li>
+        <li><strong>Surowica (Bierna):</strong> Podajemy gotowe przeciwciała. Działa natychmiast, ale krótko (bo przeciwciała się zużyją, a nie ma komórek pamięci). Stosujemy np. przy ukąszeniu żmii.</li>
+      </ul>
+    `
+  },
+  'enzymy-kinetyka-i-regulacja': {
+    title: 'Enzymy: Inhibicja kompetycyjna i niekompetycyjna',
+    date: '12.02.2026',
+    category: 'Biochemia',
+    readTime: '9 min czytania',
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=1200',
+    intro: 'Wykresy Michaelisa-Menten to zmora wielu uczniów. Jak odróżnić inhibicję na wykresie? Czym jest allosteria? Tłumaczę to na prostych przykładach.',
+    content: `
+      <h2>Jak działa enzym?</h2>
+      <p>Enzym nie zmienia równowagi reakcji, ale obniża <strong>energię aktywacji</strong>. Dzięki temu reakcja zachodzi szybciej. Kluczowe pojęcie: Centrum Aktywne.</p>
+
+      <h2>Inhibicja Kompetycyjna (Walka o krzesło)</h2>
+      <p>Inhibitor jest podobny do substratu. Walczy z nim o wejście do centrum aktywnego. Jak wygrać tę walkę? Dodać więcej substratu! Jeśli zwiększymy stężenie substratu, Vmax (szybkość maksymalna) pozostanie bez zmian, ale Km (stała Michaelisa) wzrośnie (powinowactwo maleje).</p>
+
+      <h2>Inhibicja Niekompetycyjna (Zepsucie zamka)</h2>
+      <p>Inhibitor wiąże się w innym miejscu niż centrum aktywne. Zmienia kształt całego enzymu. Substrat może się przyłączyć, ale reakcja nie zajdzie lub zajdzie wolniej. Zwiększanie stężenia substratu nic nie da! Vmax maleje, Km zazwyczaj stałe.</p>
+
+      <h2>Sprzężenie zwrotne ujemne</h2>
+      <p>Gdy produktu jest za dużo, staje się on inhibitorem pierwszego enzymu w szlaku metabolicznym. To genialny mechanizm oszczędzania energii. Nie produkuj, jeśli magazyn jest pełny.</p>
+    `
   }
 };
 
@@ -167,7 +185,7 @@ function BlogArticle() {
   // Pobieramy dane artykułu
   const article = ARTICLES_DATA[slug];
 
-  // Jeśli nie ma artykułu, przekieruj lub pokaż 404
+  // Jeśli nie ma artykułu
   if (!article) {
      return (
         <div className="pt-32 pb-20 text-center px-4">
@@ -182,12 +200,12 @@ function BlogArticle() {
      );
   }
 
-  // SEO: Schema.org dla artykułu
+  // SEO Schema
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": article.title,
-    "image": [article.image],
+    "image": [optimizeImage(article.image, 1200)],
     "datePublished": "2026-01-15T08:00:00+08:00",
     "author": [{
         "@type": "Person",
@@ -200,7 +218,7 @@ function BlogArticle() {
         "name": "Medulia",
         "logo": {
             "@type": "ImageObject",
-            "url": "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769105274/Projekt_bez_nazwy_31_ay7ahl.png"
+            "url": optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769105274/Projekt_bez_nazwy_31_ay7ahl.png", 200)
         }
     },
     "description": article.intro
@@ -214,19 +232,19 @@ function BlogArticle() {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={article.title} />
         <meta property="og:description" content={article.intro} />
-        <meta property="og:image" content={article.image} />
+        <meta property="og:image" content={optimizeImage(article.image, 1200)} />
         <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>
       </Helmet>
 
-      {/* HERO IMAGE BACKGROUND */}
+      {/* HERO IMAGE */}
       <div className="relative h-[55vh] min-h-[450px] w-full overflow-hidden">
          <motion.img 
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.5 }}
-            src={article.image} 
+            src={optimizeImage(article.image, 1920)} 
             alt={article.title} 
             className="absolute inset-0 w-full h-full object-cover"
          />
@@ -256,8 +274,7 @@ function BlogArticle() {
                   <div className="flex items-center gap-4 border-t border-white/20 pt-6">
                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 p-[2px]">
                         <div className="w-full h-full rounded-full overflow-hidden bg-black">
-                            {/* Tu w przyszłości Twoje zdjęcie */}
-                            <img src="https://ui-avatars.com/api/?name=Julia+D&background=000&color=fff" alt="Julia Dobrzyńska" className="w-full h-full object-cover" />
+                           <img src="https://ui-avatars.com/api/?name=Julia+D&background=000&color=fff" alt="Julia Dobrzyńska" className="w-full h-full object-cover" />
                         </div>
                      </div>
                      <div>
@@ -280,7 +297,6 @@ function BlogArticle() {
                animate={{ opacity: 1 }}
                transition={{ delay: 0.2 }}
             >
-               {/* INTRO LEAD */}
                <p className="text-xl md:text-2xl text-white/90 leading-relaxed font-light mb-10 border-l-4 border-purple-500 pl-6 italic">
                   {article.intro}
                </p>
@@ -299,7 +315,6 @@ function BlogArticle() {
                   dangerouslySetInnerHTML={{ __html: article.content }}
                />
 
-               {/* SHARE & TAGS (dolna sekcja) */}
                <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
                   <div className="text-white/60 text-sm font-medium">
                      Podobało się? Pomóż innym maturzystom:
@@ -310,17 +325,16 @@ function BlogArticle() {
                </div>
             </motion.div>
 
-            {/* SIDEBAR (Sticky) */}
+            {/* SIDEBAR */}
             <aside className="hidden lg:block space-y-8">
                <div className="sticky top-24 space-y-8">
                   
                   {/* CTA BOX 1: OFERTA */}
                   <div className="rounded-3xl bg-gradient-to-b from-[#1a1a1e] to-black border border-purple-500/30 p-8 text-center shadow-2xl relative overflow-hidden group">
                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-500" />
-                     
                      <div className="relative z-10">
                         <div className="w-16 h-16 mx-auto bg-purple-900/30 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 border border-purple-500/20">
-                            <BookOpen className="w-8 h-8 text-purple-400" />
+                           <BookOpen className="w-8 h-8 text-purple-400" />
                         </div>
                         <h3 className="text-2xl font-bold text-white mb-2">Matura 2026?</h3>
                         <p className="text-white/70 text-sm mb-6 leading-relaxed">
@@ -347,8 +361,8 @@ function BlogArticle() {
 
                   {/* LINKI WEWNĘTRZNE */}
                   <div className="pt-4 border-t border-white/10">
-                     <h4 className="text-white font-bold mb-4 text-sm uppercase tracking-widest text-white/50">Warto sprawdzić</h4>
-                     <ul className="space-y-3">
+                      <h4 className="text-white font-bold mb-4 text-sm uppercase tracking-widest text-white/50">Warto sprawdzić</h4>
+                      <ul className="space-y-3">
                         <li>
                            <Link to="/oferta" className="flex items-center justify-between text-white/80 hover:text-purple-300 text-sm transition-colors group">
                               <span>Pełna oferta kursów</span>
@@ -361,16 +375,14 @@ function BlogArticle() {
                               <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                            </Link>
                         </li>
-                     </ul>
+                      </ul>
                   </div>
-
                </div>
             </aside>
-
          </div>
       </section>
 
-      {/* MOBILE CTA (widoczne tylko na telefonach na dole) */}
+      {/* MOBILE CTA */}
       <section className="lg:hidden py-8 px-4 border-t border-white/10">
          <div className="rounded-2xl bg-gradient-to-r from-purple-900/40 to-black border border-white/10 p-6 text-center">
             <h3 className="text-xl font-bold text-white mb-2">Chcesz taki wynik na maturze?</h3>

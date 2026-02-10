@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import SectionTitle from '@/components/SectionTitle';
 import { Download, CheckCircle2 } from 'lucide-react';
+import { optimizeImage } from '@/lib/utils'; // <--- IMPORT
 
 function MaterialsPage() {
   const materials = [
@@ -117,8 +118,9 @@ function MaterialsPage() {
                         <div className="sm:hidden w-full">
                           {(item.previews || []).slice(0, 1).map((src, pIdx) => (
                             <div key={pIdx} className="w-full rounded-2xl overflow-hidden bg-transparent">
+                              {/* --- OPTYMALIZACJA MINIATUR (600px) --- */}
                               <img
-                                src={src}
+                                src={optimizeImage(src, 600)}
                                 alt={`${item.title} – podgląd strony 1`}
                                 className="w-full h-auto object-contain select-none pointer-events-none"
                                 loading="lazy"
@@ -131,8 +133,9 @@ function MaterialsPage() {
                         <div className="hidden sm:flex gap-3 w-full">
                           {(item.previews || []).slice(0, 3).map((src, pIdx) => (
                             <div key={pIdx} className="snap-center flex-none w-[45%] lg:w-[32%] rounded-2xl overflow-hidden bg-transparent">
+                              {/* --- OPTYMALIZACJA MINIATUR (400px) --- */}
                               <img
-                                src={src}
+                                src={optimizeImage(src, 400)}
                                 alt={`${item.title} – podgląd strony ${pIdx + 1}`}
                                 className="w-full h-auto object-contain select-none pointer-events-none"
                                 loading="lazy"

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet-async'; // <--- ZMIANA: react-helmet-async
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
@@ -19,15 +19,19 @@ import {
 } from 'lucide-react';
 
 import SectionTitle from '@/components/SectionTitle';
-import OpinionsMarquee from '@/components/OpinionsMarquee';
 import ContactForm from '@/components/ContactForm';
+import { optimizeImage } from '@/lib/utils'; // <--- IMPORT OPTYMALIZACJI
+
+// ===== HERO IMAGE =====
+const HERO_IMAGE_URL =
+  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787492/Projekt_bez_nazwy_36_mpubsb.png';
 
 // ===== SEO DATA (SCHEMA.ORG) =====
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Medulia - Korepetycje z Biologii",
-  "image": "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787492/Projekt_bez_nazwy_36_mpubsb.png",
+  "image": optimizeImage(HERO_IMAGE_URL, 1200), // Optymalizacja też dla Google
   "telephone": "+48532083335",
   "url": "https://medulia.pl",
   "description": "Profesjonalne przygotowanie do matury z biologii. Zajęcia indywidualne i grupowe online.",
@@ -38,10 +42,6 @@ const structuredData = {
   },
   "priceRange": "$$"
 };
-
-// ===== HERO IMAGE =====
-const HERO_IMAGE_URL =
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787492/Projekt_bez_nazwy_36_mpubsb.png';
 
 const proofImages = [
   'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198554/2c273e46-a225-4aa8-8eb8-5cec120f6b5b_cjmnsf.jpg',
@@ -71,7 +71,6 @@ const proofImages = [
 const pickProof = (i) => proofImages[i % proofImages.length];
 
 const opinionsData = [
-  // NOWA OPINIA NA PIERWSZYM MIEJSCU
   { 
     name: 'Karolina Małecka', 
     city: 'Warszawa', 
@@ -144,13 +143,6 @@ const freeMaterials = [
     title: 'Matura Rozszerzona 2026',
     thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769817607/2_jdxk7h.png',
   },
-];
-
-const offerTypesCompact = [
-  { title: 'Indywidualne Premium – ze mną', to: '/oferta/indywidualne-premium', icon: GraduationCap },
-  { title: 'Indywidualne – Medulia Team', to: '/oferta/indywidualne-pracownicy', icon: UserRound },
-  { title: 'Grupowe – ze mną', to: '/oferta/grupowe-ze-mna', icon: Users },
-  { title: 'Pakiety miesięczne – grupowe', to: '/oferta/pakiety-grupowe', icon: Package },
 ];
 
 // ✅ SEKJCA VIDEO
@@ -291,7 +283,8 @@ function HomePage() {
 
         <meta property="og:title" content="Medulia - Biologia na maturę na 100% | Korepetycje" />
   <meta property="og:description" content="Profesjonalne przygotowanie do matury z biologii. Zajęcia indywidualne i grupowe online. Sprawdź!" />
-  <meta property="og:image" content="https://res.cloudinary.com/dyxif8hyp/image/upload/v1770384332/Projekt_bez_nazwy_2_caljvz.png" />
+  {/* OPTIMIZED OG IMAGE */}
+  <meta property="og:image" content={optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1770384332/Projekt_bez_nazwy_2_caljvz.png", 1200)} />
   <meta property="og:url" content="https://medulia.pl" />
   <meta property="og:type" content="website" />
         
@@ -321,9 +314,10 @@ function HomePage() {
                 <div className="absolute -inset-6 rounded-[52px] bg-purple-500/10 blur-3xl" aria-hidden="true" />
                 <div className="relative overflow-hidden rounded-[44px] -mx-4 sm:mx-0 lg:ml-auto lg:w-[110%] xl:w-[120%] 2xl:w-[100%]">
                   <div className="relative h-[45vh] md:h-[65vh] min-h-[350px] w-full">
+                    {/* --- OPTYMALIZACJA ZDJĘCIA HERO (1920px) --- */}
                     <img
-                      src={HERO_IMAGE_URL}
-                      alt="Korepetycje z biologii online - przygotowanie do matury - Medulia" /* <--- ZMIANA ALT */
+                      src={optimizeImage(HERO_IMAGE_URL, 1920)}
+                      alt="Korepetycje z biologii online - przygotowanie do matury - Medulia"
                       className="hero-img absolute inset-0 h-full w-full object-cover object-[50%_18%] md:object-top"
                       loading="eager"
                     />
@@ -408,7 +402,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 2: VALUES (Poprawiona: Ikony Solid Gradient + Czytelność) */}
+      {/* SECTION 2: VALUES */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -431,9 +425,10 @@ function HomePage() {
                 <div className="relative mx-auto lg:mx-0 w-full max-w-[520px]">
                   <div className="relative overflow-hidden rounded-[28px] border border-white/12 bg-white/5 shadow-2xl">
                     <div className="aspect-[4/5] w-full">
+                      {/* --- OPTYMALIZACJA PORTRETU (800px) --- */}
                       <img
-                        src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787679/Projekt_bez_nazwy_37_t3jkss.png"
-                        alt="Julia Dobrzyńska - Korepetycje Biologia Medulia" /* <--- ZMIANA ALT */
+                        src={optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787679/Projekt_bez_nazwy_37_t3jkss.png", 800)}
+                        alt="Julia Dobrzyńska - Korepetycje Biologia Medulia"
                         className="h-full w-full object-cover object-[50%_20%] md:object-[50%_25%]"
                         loading="lazy"
                         decoding="async"
@@ -463,28 +458,24 @@ function HomePage() {
                   {[
                     { 
                       icon: Target, 
-                      // FIOLETOWY GRADIENT
                       bgClass: "bg-gradient-to-br from-purple-500 to-indigo-600 shadow-purple-500/25",
                       title: 'Strategia "pod klucz"', 
                       desc: 'Piszesz dokładnie to, za co CKE przyznaje punkty. Zero lania wody.' 
                     },
                     { 
                       icon: Zap, 
-                      // ZŁOTY/BURSZTYNOWY GRADIENT (Czytelniejszy niż żółty)
                       bgClass: "bg-gradient-to-br from-amber-400 to-orange-500 shadow-orange-500/25",
                       title: 'Logika, nie pamięć', 
                       desc: 'Rozumiesz procesy, zamiast kuć definicje na blachę. To zostaje w głowie.' 
                     },
                     { 
                       icon: Heart, 
-                      // RÓŻOWY GRADIENT
                       bgClass: "bg-gradient-to-br from-pink-500 to-rose-600 shadow-pink-500/25",
                       title: 'Zero stresu', 
                       desc: 'Pytasz o wszystko. Tłumaczę do skutku, aż w końcu "kliknie".' 
                     },
                     { 
                       icon: GraduationCap, 
-                      // NIEBIESKI GRADIENT
                       bgClass: "bg-gradient-to-br from-blue-400 to-cyan-500 shadow-blue-500/25",
                       title: 'Wynik na medycynę', 
                       desc: 'Nie celujemy w "zdanie". Walczymy o każdy procent powyżej 90%.' 
@@ -494,7 +485,6 @@ function HomePage() {
                       key={idx} 
                       className="group flex items-center gap-4 p-3 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-colors"
                     >
-                      {/* Ikona na pełnym gradiencie */}
                       <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-white shadow-lg ${item.bgClass} group-hover:scale-105 transition-transform duration-300`}>
                         <item.icon className="w-6 h-6" />
                       </div>
@@ -601,7 +591,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 3: TYPES (Poprawiona: Ikony Solid Gradient + Kolory Kategorii) */}
+      {/* SECTION 3: TYPES */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -620,28 +610,24 @@ function HomePage() {
                   title: 'Indywidualne Premium – ze mną', 
                   to: '/oferta/indywidualne-premium', 
                   icon: GraduationCap,
-                  // ZŁOTY (PREMIUM)
                   bgClass: "bg-gradient-to-br from-amber-400 to-orange-600 shadow-orange-500/25"
                 },
                 { 
                   title: 'Indywidualne – Medulia Team', 
                   to: '/oferta/indywidualne-pracownicy', 
                   icon: UserRound,
-                  // NIEBIESKI (ZAUFANIE)
                   bgClass: "bg-gradient-to-br from-blue-400 to-cyan-600 shadow-blue-500/25"
                 },
                 { 
                   title: 'Grupowe – ze mną', 
                   to: '/oferta/grupowe-ze-mna', 
                   icon: Users,
-                  // FIOLETOWY (SPOŁECZNOŚĆ)
                   bgClass: "bg-gradient-to-br from-purple-500 to-indigo-600 shadow-purple-500/25"
                 },
                 { 
                   title: 'Pakiety miesięczne – grupowe', 
                   to: '/oferta/pakiety-grupowe', 
                   icon: Package,
-                  // ZIELONY (PAKIET/OSZCZĘDNOŚĆ)
                   bgClass: "bg-gradient-to-br from-pink-400 to-pink-600 shadow-black-500/25"
                 },
               ].map((item) => {
@@ -658,7 +644,6 @@ function HomePage() {
                     "
                   >
                     <div className="flex items-center gap-4 min-w-0">
-                      {/* Ikona Solid Gradient */}
                       <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-white shadow-lg ${item.bgClass} group-hover:scale-105 transition-transform duration-300`}>
                         <Icon className="w-6 h-6" />
                       </div>
@@ -673,12 +658,10 @@ function HomePage() {
                       </div>
                     </div>
 
-                    {/* Strzałka na desktopie z napisem */}
                     <div className="hidden md:inline-flex items-center gap-2 text-white/60 group-hover:text-white transition-colors text-xs font-bold uppercase tracking-wider flex-shrink-0 whitespace-nowrap">
                       Szczegóły <ArrowRight className="w-4 h-4" />
                     </div>
 
-                    {/* Strzałka na mobile */}
                     <div className="md:hidden w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors flex-shrink-0">
                         <ArrowRight className="w-4 h-4 text-white/70" />
                     </div>
@@ -700,7 +683,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECTION: FREE MATERIALS (POPRAWIONE) */}
+      {/* SECTION: FREE MATERIALS */}
       <section className="py-8 md:py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -716,7 +699,7 @@ function HomePage() {
               Pobierz przykładowe notatki i zadania. Sprawdź, jak uczę!
             </p>
 
-            {/* Mobile Grid - POPRAWIONY */}
+            {/* Mobile Grid */}
             <div className="grid grid-cols-2 gap-3 md:hidden">
               {freeMaterials.map((item, idx) => (
                 <motion.div
@@ -732,10 +715,10 @@ function HomePage() {
                     className="group block"
                     aria-label={`Zobacz materiały: ${item.title}`}
                   >
-                    {/* ZMIANA: aspect-[210/297] (A4) dla pionowych materiałów */}
                     <div className="rounded-2xl overflow-hidden aspect-[210/297] w-full mb-2 border border-white/10 bg-white/5">
+                      {/* --- OPTYMALIZACJA MINIATUR MATERIAŁÓW (400px) --- */}
                       <img
-                        src={item.thumb}
+                        src={optimizeImage(item.thumb, 400)}
                         alt={`${item.title} – miniatura`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
@@ -770,10 +753,10 @@ function HomePage() {
                       className="group block h-full"
                       aria-label={`Zobacz w materiałach: ${item.title}`}
                     >
-                      {/* ZMIANA: aspect-[210/297] (A4) dla pionowych materiałów */}
                       <div className="rounded-2xl overflow-hidden aspect-[210/297] w-full mb-4 border border-white/10 bg-white/5">
+                        {/* --- OPTYMALIZACJA MINIATUR MATERIAŁÓW (400px) --- */}
                         <img
-                          src={item.thumb}
+                          src={optimizeImage(item.thumb, 400)}
                           alt={`${item.title} – miniatura`}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
@@ -830,8 +813,9 @@ function HomePage() {
                   >
                     {/* ZDJĘCIE */}
                     <div className="relative rounded-xl overflow-hidden border border-white/10 bg-black/40 aspect-[9/14] shadow-lg group-hover:border-purple-500/50 transition-colors duration-300">
+                      {/* --- OPTYMALIZACJA ZDJĘĆ OPINII (300px) --- */}
                       <img 
-                        src={img} 
+                        src={optimizeImage(img, 300)} 
                         alt={`Opinia - ${op.name}`}
                         className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                         loading="lazy"
@@ -889,13 +873,13 @@ function HomePage() {
             >
               <div className="absolute -inset-2 bg-purple-500/10 rounded-3xl blur-2xl" />
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[3/3.7] lg:aspect-auto">
+                {/* --- OPTYMALIZACJA ZDJĘCIA MISJI (800px) --- */}
                 <img
-                  src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769719548/Projekt_bez_nazwy_34_xstll6.png"
-                  alt="Przyjazna nauka biologii online - zajęcia z Medulią" /* <--- ZMIANA ALT */
+                  src={optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769719548/Projekt_bez_nazwy_34_xstll6.png", 800)}
+                  alt="Przyjazna nauka biologii online - zajęcia z Medulią"
                   className="relative w-full h-full object-cover object-center max-h-[450px]"
                   loading="lazy"
                 />
-                {/* Delikatny fioletowy filtr nakładkowy, by lepiej siadło w designie */}
                 <div className="absolute inset-0 bg-purple-900/5 mix-blend-multiply pointer-events-none" />
               </div>
             </motion.div>
@@ -1035,8 +1019,9 @@ function HomePage() {
                 <X className="w-6 h-6" />
             </button>
             
+            {/* --- OPTYMALIZACJA ZDJĘCIA W LIGHTBOX (PEŁNY ROZMIAR, ALE LEKKI) --- */}
             <img 
-                src={selectedImage} 
+                src={optimizeImage(selectedImage, 1200)} 
                 alt="Pełna opinia" 
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                 onClick={(e) => e.stopPropagation()} 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Maximize2, X, ChevronDown, ArrowRight } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
+import { optimizeImage } from '@/lib/utils'; // <--- IMPORT
 
 // ===== DATA =====
 const proofImages = [
@@ -113,8 +114,9 @@ function OpinionsPage() {
                       onClick={() => setSelectedImage(op.proofImage)}
                     >
                         <div className="relative rounded-xl overflow-hidden border border-white/10 bg-black/40 aspect-[9/16] shadow-lg group-hover:border-purple-500/50 transition-colors duration-300">
+                            {/* --- OPTYMALIZACJA ZDJĘCIA OPINII (300px) --- */}
                             <img 
-                              src={op.proofImage} 
+                              src={optimizeImage(op.proofImage, 300)} 
                               alt={`Opinia - ${op.name}`}
                               className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                               loading="lazy"
@@ -181,6 +183,7 @@ function OpinionsPage() {
         </div>
       </section>
 
+      {/* LIGHTBOX MODAL */}
       {selectedImage && (
         <div 
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-10 animate-in fade-in duration-200"
@@ -192,8 +195,9 @@ function OpinionsPage() {
             >
                 <X className="w-6 h-6" />
             </button>
+            {/* --- OPTYMALIZACJA ZDJĘCIA W LIGHTBOX (PEŁNY ROZMIAR) --- */}
             <img 
-                src={selectedImage} 
+                src={optimizeImage(selectedImage, 1200)} 
                 alt="Pełna opinia" 
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                 onClick={(e) => e.stopPropagation()} 

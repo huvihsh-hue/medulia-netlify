@@ -4,17 +4,13 @@ import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, CheckCircle, FileText, Info } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
-
-// --- DATA DEFINITION (Skrócone dla czytelności kodu, ale dane są te same) ---
-// (Tutaj jest ten sam obiekt OFFER_DETAILS co u Ciebie, nie zmieniałem treści, tylko logikę SEO)
-// Używam Twojej struktury, żeby nic się nie zepsuło.
+import { optimizeImage } from '@/lib/utils'; // <--- IMPORT
 
 const OFFER_DETAILS = {
   'indywidualne-premium': {
     title: 'Indywidualne Premium – zajęcia ze mną',
     price: '180 zł / 60 minut',
     lead: 'To wariant dla osób, które chcą pracować na maksymalnej intensywności i mieć pełną uwagę nauczyciela.',
-    // ... reszta danych ...
     highlights: ['Pełna uwaga nauczyciela', 'Indywidualny plan nauki', 'Przygotowanie do medycyny'],
     benefits: ['Tempo dopasowane do Ciebie', 'Analiza błędów', 'Domykanie luk', 'Stała kontrola'],
     forWho: ['Maturzyści celujący w medycynę', 'Osoby chcące zamknąć luki', 'Uczniowie lubiący strukturę'],
@@ -105,7 +101,6 @@ const OFFER_DETAILS = {
   },
 };
 
-// ... (Komponenty MediaSlot i FileSlot bez zmian - skopiuj je ze starego pliku, tutaj dla czytelności pomijam ich definicję, ale wklej je u siebie!)
 function MediaSlot({ title, desc = 'Miejsce na zdjęcie', ratio = 'aspect-[16/10]', src, alt }) {
   const finalAlt = alt || title || 'Zdjęcie';
   return (
@@ -113,7 +108,8 @@ function MediaSlot({ title, desc = 'Miejsce na zdjęcie', ratio = 'aspect-[16/10
       <div className={`${ratio} w-full relative`}>
         {src ? (
           <>
-            <img src={src} alt={finalAlt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+            {/* --- OPTYMALIZACJA ZDJĘCIA DETALU OFERTY (800px) --- */}
+            <img src={optimizeImage(src, 800)} alt={finalAlt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
             <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-black/0 to-black/10" />
           </>
         ) : (
@@ -255,7 +251,7 @@ function OfferDetailPage() {
         </div>
       </div>
 
-      {/* CONTENT SECTIONS... (Reszta sekcji identyczna jak w Twoim kodzie, zachowana struktura) */}
+      {/* CONTENT SECTIONS... */}
       <section className="py-6 pb-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-6">
           
