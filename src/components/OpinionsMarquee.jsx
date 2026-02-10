@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import OpinionCard from '@/components/OpinionCard.jsx';
+import { optimizeImage } from '@/lib/utils'; // <--- IMPORT
 
 function interleave3to1(proofs, texts) {
   const out = [];
@@ -38,7 +39,7 @@ function OpinionsMarquee({ opinions = [] }) {
     typeof window === 'undefined' ? 1 : getPerPage(window.innerWidth)
   );
   const [page, setPage] = useState(0);
-  const [dir, setDir] = useState(1); // 1 -> next, -1 -> prev (do animacji)
+  const [dir, setDir] = useState(1);
 
   const base = useMemo(() => (Array.isArray(opinions) ? opinions : []), [opinions]);
 
@@ -59,40 +60,32 @@ function OpinionsMarquee({ opinions = [] }) {
     return mixedBase.slice(start, start + perPage);
   }, [mixedBase, page, perPage]);
 
-  // reset page, gdy zmieni się perPage / dane
   useEffect(() => {
     setPage(0);
   }, [perPage, mixedBase.length]);
 
-  // responsywne perPage
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
     const onResize = () => setPerPage(getPerPage(window.innerWidth));
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // ✅ blokada scrolla + ESC do zamknięcia lightbox
   useEffect(() => {
     if (!openImage) return;
-
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-
     const onKeyDown = (e) => {
       if (e.key === 'Escape') setOpenImage(null);
       if (e.key === 'ArrowRight') next();
       if (e.key === 'ArrowLeft') prev();
     };
     window.addEventListener('keydown', onKeyDown);
-
     return () => {
       document.body.style.overflow = prevOverflow;
       window.removeEventListener('keydown', onKeyDown);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openImage, page, perPage, pagesCount]);
+  }, [openImage]);
 
   const prev = () => {
     setDir(-1);
@@ -108,7 +101,7 @@ function OpinionsMarquee({ opinions = [] }) {
     <AnimatePresence>
       {openImage && (
         <motion.div
-          className="fixed inset-0 z-[99999] bg-black/75 flex items-center justify-center p-4"
+          className="fixed inset-0 z-[99999] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -117,23 +110,28 @@ function OpinionsMarquee({ opinions = [] }) {
           aria-modal="true"
         >
           <motion.div
-            className="relative w-full max-w-[560px]"
-            initial={{ scale: 0.98, opacity: 0 }}
+            className="relative w-full max-w-[600px]"
+            initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.98, opacity: 0 }}
+            exit={{ scale: 0.95, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               onClick={() => setOpenImage(null)}
-              className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-black/60 border border-white/15 text-white flex items-center justify-center hover:bg-black/75"
+              className="absolute -top-12 right-0 md:-right-12 w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
               aria-label="Zamknij"
             >
               ✕
             </button>
 
-            <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/20">
-              <img src={openImage} alt="Zdjęcie opinii" className="w-full h-auto block" loading="lazy" />
+            <div className="rounded-xl overflow-hidden bg-black shadow-2xl">
+              {/* --- 2. OPTYMALIZACJA: Duże zdjęcie w Lightboxie (w_1000) --- */}
+              <img 
+                src={optimizeImage(openImage, 1000)} 
+                alt="Pełna opinia" 
+                className="w-full h-auto max-h-[85vh] object-contain" 
+              />
             </div>
           </motion.div>
         </motion.div>
@@ -150,17 +148,11 @@ function OpinionsMarquee({ opinions = [] }) {
   return (
     <>
       <div className="relative">
-        {/* Strzałki */}
         <button
           type="button"
           onClick={prev}
-          className="
-            absolute left-0 top-1/2 -translate-y-1/2 z-10
-            w-10 h-10 md:w-11 md:h-11 rounded-full
-            bg-black/35 hover:bg-black/50 border border-white/12
-            text-white flex items-center justify-center
-          "
-          aria-label="Poprzednie opinie"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 border border-white/10 text-white flex items-center justify-center backdrop-blur-sm transition-colors"
+          aria-label="Poprzednie"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -168,18 +160,12 @@ function OpinionsMarquee({ opinions = [] }) {
         <button
           type="button"
           onClick={next}
-          className="
-            absolute right-0 top-1/2 -translate-y-1/2 z-10
-            w-10 h-10 md:w-11 md:h-11 rounded-full
-            bg-black/35 hover:bg-black/50 border border-white/12
-            text-white flex items-center justify-center
-          "
-          aria-label="Następne opinie"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 border border-white/10 text-white flex items-center justify-center backdrop-blur-sm transition-colors"
+          aria-label="Następne"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
 
-        {/* Widok */}
         <div className="px-12 md:px-14">
           <AnimatePresence mode="wait" custom={dir}>
             <motion.div
@@ -189,7 +175,7 @@ function OpinionsMarquee({ opinions = [] }) {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
               className="grid gap-4 md:gap-5"
               style={{
                 gridTemplateColumns: `repeat(${perPage}, minmax(0, 1fr))`,
@@ -199,23 +185,18 @@ function OpinionsMarquee({ opinions = [] }) {
                 <div key={`${page}-${idx}`} className="h-full">
                   <OpinionCard
                     {...op}
+                    // --- 1. OPTYMALIZACJA: Miniaturka w karuzeli (w_300) ---
+                    proofImage={optimizeImage(op.proofImage, 300)}
+                    // Przekazujemy oryginalny (lub lekko większy) URL do otwarcia
                     onImageClick={() => op.proofImage && setOpenImage(op.proofImage)}
                   />
                 </div>
               ))}
             </motion.div>
           </AnimatePresence>
-
-          <p className="mt-2 text-center text-xs text-white/55"></p>
-
-
-          <p className="mt-2 text-center text-xs text-white/55">
-           
-          </p>
         </div>
       </div>
 
-      {/* Portal lightbox */}
       {typeof document !== 'undefined' ? createPortal(Lightbox, document.body) : null}
     </>
   );

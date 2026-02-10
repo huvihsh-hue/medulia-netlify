@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://medulia.pl/</loc>
-    <lastmod>2026-02-05</lastmod>
+    <lastmod>2026-02-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -34,11 +34,58 @@
   <url>
     <loc>https://medulia.pl/zapisy</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   
   <url>
+    <loc>https://medulia.pl/kontakt</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://medulia.pl/o-mnie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://medulia.pl/blog/5-strategii-nauki-biologia-matura</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://medulia.pl/blog/czasowniki-operacyjne-cke-biologia</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://medulia.pl/blog/genetyka-w-7-dni-plan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://medulia.pl/blog/stres-przed-matura-jak-opanowac</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://medulia.pl/blog/fotosynteza-c3-c4-cam-porownanie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://medulia.pl/blog/potencjal-czynnosciowy-uklad-nerwowy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://medulia.pl/blog/odpornosc-swoista-nieswoista-szczepionki</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://medulia.pl/blog/enzymy-kinetyka-i-regulacja</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

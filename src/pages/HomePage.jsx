@@ -31,7 +31,7 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Medulia - Korepetycje z Biologii",
-  "image": optimizeImage(HERO_IMAGE_URL, 1200), // Optymalizacja też dla Google
+  "image": optimizeImage(HERO_IMAGE_URL, 1000), // Optymalizacja też dla Google
   "telephone": "+48532083335",
   "url": "https://medulia.pl",
   "description": "Profesjonalne przygotowanie do matury z biologii. Zajęcia indywidualne i grupowe online.",
@@ -314,9 +314,9 @@ function HomePage() {
                 <div className="absolute -inset-6 rounded-[52px] bg-purple-500/10 blur-3xl" aria-hidden="true" />
                 <div className="relative overflow-hidden rounded-[44px] -mx-4 sm:mx-0 lg:ml-auto lg:w-[110%] xl:w-[120%] 2xl:w-[100%]">
                   <div className="relative h-[45vh] md:h-[65vh] min-h-[350px] w-full">
-                    {/* --- OPTYMALIZACJA ZDJĘCIA HERO (1920px) --- */}
+                    {/* --- OPTYMALIZACJA ZDJĘCIA HERO (1000px) --- */}
                     <img
-                      src={optimizeImage(HERO_IMAGE_URL, 1920)}
+                      src={optimizeImage(HERO_IMAGE_URL, 1000)}
                       alt="Korepetycje z biologii online - przygotowanie do matury - Medulia"
                       className="hero-img absolute inset-0 h-full w-full object-cover object-[50%_18%] md:object-top"
                       loading="eager"
