@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, ArrowRight, User, Tag, Clock } from 'lucide-react';
+import { Calendar, ArrowRight, Clock } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
+import { optimizeImage } from '@/lib/utils'; // <--- IMPORT OPTYMALIZACJI
 
-// Baza danych postów (skróty na listę)
+// --- Baza danych postów (Zgodna z BlogArticle.jsx) ---
 export const blogPosts = [
   {
     slug: '5-strategii-nauki-biologia-matura',
@@ -20,7 +21,7 @@ export const blogPosts = [
   {
     slug: 'czasowniki-operacyjne-cke-biologia',
     title: 'Klucz CKE: Wyjaśnij vs Opisz. Dlaczego tracisz punkty?',
-    excerpt: 'Masz wiedzę, ale nie masz punktów? To wina czasowników operacyjnych. Analizujemy arkusze CKE i pokazujemy, jak pisać "pod klucz", żeby egzaminator nie miał wyjścia.',
+    excerpt: 'Masz wiedzę, ale nie masz punktów? To wina czasowników operacyjnych. Analizujemy arkusze CKE i pokazujemy, jak pisać "pod klucz".',
     date: '10.01.2026',
     readTime: '6 min',
     category: 'Błędy CKE',
@@ -28,23 +29,43 @@ export const blogPosts = [
     featured: false
   },
   {
-    slug: 'genetyka-w-7-dni-plan',
-    title: 'Genetyka: Jak ogarnąć krzyżówki i Hardy\'ego-Weinberga?',
-    excerpt: 'Genetyka to matematyka biologii. Zobacz schematy rozwiązywania zadań, które pojawiają się co roku. Kompletny plan powtórkowy na tydzień.',
-    date: '05.01.2026',
-    readTime: '10 min',
-    category: 'Wiedza',
-    image: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&q=80&w=800',
+    slug: 'fotosynteza-c3-c4-cam-porownanie',
+    title: 'Fotosynteza C3, C4 i CAM – Jak to w końcu zrozumieć?',
+    excerpt: 'RuBisCO myli tlen z CO2? Poznaj sprytne mechanizmy C4 i CAM, które rośliny wykształciły, by przetrwać suszę i upały.',
+    date: '02.02.2026',
+    readTime: '12 min',
+    category: 'Metabolizm',
+    image: 'https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&fit=crop&q=80&w=800',
     featured: false
   },
   {
-    slug: 'stres-przed-matura-jak-opanowac',
-    title: 'Panika w dniu egzaminu? Techniki, które ratują wynik',
-    excerpt: 'Stres odcina korę przedczołową – Twoje centrum logicznego myślenia. Poznaj techniki oddechowe i mindsetowe, które stosujemy z uczniami Medulii.',
-    date: '20.12.2025',
-    readTime: '5 min',
-    category: 'Mindset',
-    image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=800',
+    slug: 'potencjal-czynnosciowy-uklad-nerwowy',
+    title: 'Potencjał spoczynkowy i czynnościowy – Fizjologia neuronu',
+    excerpt: 'Jak działa neuron? Depolaryzacja, repolaryzacja i pompa sodowo-potasowa wyjaśnione krok po kroku na prostych schematach.',
+    date: '28.01.2026',
+    readTime: '15 min',
+    category: 'Fizjologia',
+    image: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=800',
+    featured: false
+  },
+  {
+    slug: 'odpornosc-swoista-nieswoista-szczepionki',
+    title: 'Immunologia w pigułce: Odporność swoista vs nieswoista',
+    excerpt: 'Limfocyty T, B, makrofagi... Gubisz się w liniach obrony organizmu? Uporządkuj wiedzę o odporności raz na zawsze.',
+    date: '18.02.2026',
+    readTime: '10 min',
+    category: 'Immunologia',
+    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800',
+    featured: false
+  },
+  {
+    slug: 'enzymy-kinetyka-i-regulacja',
+    title: 'Enzymy: Inhibicja kompetycyjna i niekompetycyjna',
+    excerpt: 'Jak czytać wykresy Michaelisa-Menten? Czym różni się inhibicja odwracalna od nieodwracalnej? Pewniak maturalny.',
+    date: '12.02.2026',
+    readTime: '9 min',
+    category: 'Biochemia',
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800',
     featured: false
   }
 ];
@@ -55,8 +76,9 @@ function BlogCard({ post }) {
       <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden hover:border-purple-500/30 transition-all h-full flex flex-col shadow-lg hover:shadow-purple-500/10">
         {/* Image Wrapper */}
         <div className="aspect-[16/9] overflow-hidden relative">
+          {/* --- OPTYMALIZACJA ZDJĘCIA KAFELKA (600px) --- */}
           <img 
-            src={post.image} 
+            src={optimizeImage(post.image, 600)} 
             alt={post.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             loading="lazy"
@@ -98,8 +120,9 @@ function FeaturedPost({ post }) {
   return (
     <div className="relative rounded-3xl overflow-hidden border border-white/10 group shadow-2xl">
       <div className="absolute inset-0">
+        {/* --- OPTYMALIZACJA ZDJĘCIA WYRÓŻNIONEGO (1200px) --- */}
         <img 
-           src={post.image} 
+           src={optimizeImage(post.image, 1200)} 
            alt={post.title} 
            className="w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-700 scale-105 group-hover:scale-100"
         />
