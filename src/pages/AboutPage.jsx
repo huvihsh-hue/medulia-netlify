@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, MessageCircle, Calendar, FileCheck2, Zap } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
 import { optimizeImage } from '@/lib/utils'; // <--- IMPORT OPTYMALIZACJI
+import TeamSection from '@/components/TeamSection';
 
 function AboutPage() {
   return (
@@ -193,6 +194,11 @@ function AboutPage() {
 
             </motion.div>
           </div>
+          {/* ZESPÓŁ MEDULII */}
+          <TeamSection />
+
+          {/* FINAL CTA SECTION (Footer) */}
+          <div className="mt-12"></div>
 
           {/* FINAL CTA SECTION (Footer) */}
           <div className="mt-12">

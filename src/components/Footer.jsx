@@ -94,7 +94,7 @@ function Footer() {
               <div className="flex gap-3">
                 {/* INSTAGRAM */}
                 <a
-                  href="https://www.instagram.com/jula_dob/"
+                  href="https://www.instagram.com/medulia.bio?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-white/15 flex items-center justify-center transition-colors"

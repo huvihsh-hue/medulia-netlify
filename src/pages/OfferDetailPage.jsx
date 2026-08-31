@@ -5,11 +5,12 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, CheckCircle, FileText, Info } from 'lucide-react';
 import SectionTitle from '@/components/SectionTitle';
 import { optimizeImage } from '@/lib/utils'; // <--- IMPORT
+import TeamSection from '@/components/TeamSection';
 
 const OFFER_DETAILS = {
   'indywidualne-premium': {
     title: 'Indywidualne Premium – zajęcia ze mną',
-    price: '180 zł / 60 minut',
+    price: '120 zł / 60 minut',
     lead: 'To wariant dla osób, które chcą pracować na maksymalnej intensywności i mieć pełną uwagę nauczyciela.',
     highlights: ['Pełna uwaga nauczyciela', 'Indywidualny plan nauki', 'Przygotowanie do medycyny'],
     benefits: ['Tempo dopasowane do Ciebie', 'Analiza błędów', 'Domykanie luk', 'Stała kontrola'],
@@ -31,7 +32,7 @@ const OFFER_DETAILS = {
   },
   'indywidualne-pracownicy': {
     title: 'Indywidualne - Medulia Team',
-    price: '140 zł / 60 minut',
+    price: '120 zł / 60 minut',
     lead: 'Zajęcia 1:1 prowadzone przez nauczycieli po rekrutacji i szkoleniu. Metoda Medulia w niższej cenie.',
     highlights: ['Wykwalifikowani nauczyciele', 'Materiały Medulii', 'Brak pakietów', 'Jednolita jakość'],
     benefits: ['Standard Medulii taniej', 'Praca 1:1', 'Stabilna regularność', 'Materiały'],
@@ -255,7 +256,7 @@ function OfferDetailPage() {
       <section className="py-6 pb-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-6">
           
-          <div className="grid lg:grid-cols-2 gap-6">
+          <div className="grid lg:grid-cols-2 gap-6 items-start">
             <div id="skrot" className="glass-panel p-6 md:p-8 scroll-mt-28" data-bg="image">
               <SectionTitle center={false}>Najważniejsze w skrócie</SectionTitle>
               <ul className="mt-5 space-y-3 text-white/80 text-sm leading-relaxed">
@@ -280,8 +281,7 @@ function OfferDetailPage() {
               </ul>
             </div>
           </div>
-
-          <div className="grid lg:grid-cols-2 gap-6">
+<div className="grid lg:grid-cols-2 gap-6 items-start">
             <div className="glass-panel p-6 md:p-8" data-bg="image">
               <SectionTitle center={false}>Jak wyglądają zajęcia</SectionTitle>
               <ul className="mt-5 space-y-3 text-white/80 text-sm leading-relaxed">
@@ -318,13 +318,6 @@ function OfferDetailPage() {
                   src={data.media?.sectionASrc}
                   alt={`${data.title} – galeria A`}
                 />
-                <MediaSlot
-                  title={data.media?.sectionB}
-                  desc="np. zadania CKE"
-                  ratio="aspect-[16/10]"
-                  src={data.media?.sectionBSrc}
-                  alt={`${data.title} – galeria B`}
-                />
               </div>
             </div>
           </div>
@@ -348,6 +341,13 @@ function OfferDetailPage() {
                 ))}
               </div>
             </div>
+          )}
+
+          {/* OTO NOWY KOD: ZESPÓŁ TYLKO DLA PRACOWNIKÓW */}
+          {slug === 'indywidualne-pracownicy' && (
+             <div className="glass-panel p-6 md:p-8 mb-6" data-bg="image">
+               <TeamSection />
+             </div>
           )}
 
           <div className="glass-panel p-6 md:p-8" data-bg="image">
