@@ -238,8 +238,8 @@ button {
 
 /* Global Background */
 :root {
-  --medulia-bg-desktop: url("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769006603/t%C5%82o_web_lyfz7y.png");
-  --medulia-bg-mobile: url("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769006603/t%C5%82o_mobile_kaogba.png");
+  --medulia-bg-desktop: url("/tło_web_lyfz7y.png");
+  --medulia-bg-mobile: url("/tło_mobile_kaogba.png");
 }
 
 

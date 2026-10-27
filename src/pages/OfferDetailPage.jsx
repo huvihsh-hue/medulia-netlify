@@ -19,11 +19,11 @@ const OFFER_DETAILS = {
     rules: ['Rezerwacja obowiązkowa', 'Brak zwrotów przy nieobecności (materiały)'],
     media: {
       hero: 'Premium 1:1',
-      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819048/1_pehldo.png',
+      heroSrc: '/1_pehldo.png',
       sectionA: 'Plan nauki',
-      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822107/5_pcmgby.png',
+      sectionASrc: '/5_pcmgby.png',
       sectionB: 'Zadania egzaminacyjne',
-      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822108/10_llktmt.png',
+      sectionBSrc: '/10_llktmt.png',
     },
     files: [
       { title: 'Metabolizm (Komplet)', desc: 'Kompletny przewodnik', link: 'https://drive.google.com/file/d/1LcFjDDSHxyW6VsCNNtpfPVIL2frEJadW/view?usp=drive_link' },
@@ -41,11 +41,11 @@ const OFFER_DETAILS = {
     rules: ['Brak pakietów', 'Rezerwacja obowiązkowa'],
     media: {
       hero: '1:1 z pracownikiem',
-      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819047/2_f9e9xj.png',
+      heroSrc: '/2_f9e9xj.png',
       sectionA: 'Program i materiały',
-      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822108/12_tkkyvy.png',
+      sectionASrc: '/12_tkkyvy.png',
       sectionB: 'Powtórki i zadania',
-      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822106/2_woklfp.png',
+      sectionBSrc: '/2_woklfp.png',
     },
     files: [
       { title: 'Pytania sprawdzające', desc: 'Zestaw do pracy', link: 'https://drive.google.com/file/d/1Szx0nKs4l2rtcG9jP9LLO-v3jWcenhvV/view?usp=drive_link' },
@@ -63,11 +63,11 @@ const OFFER_DETAILS = {
     rules: ['Rezerwacja obowiązkowa', 'Min. 3 osoby', 'Brak zwrotów (materiały)'],
     media: {
       hero: 'Zajęcia grupowe',
-      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819048/3_rj1dp0.png',
+      heroSrc: '/3_rj1dp0.png',
       sectionA: 'Kameralna grupa',
-      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822107/9_pwb1tj.png',
+      sectionASrc: '/9_pwb1tj.png',
       sectionB: 'Wspólna praca',
-      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822109/6_xbrhac.png',
+      sectionBSrc: '/6_xbrhac.png',
     },
     files: [
       { title: 'Plan Maturalny', desc: 'Harmonogram', link: 'https://drive.google.com/file/d/1Bgngdk0wNAH_rHXYdL16c7O_Airno94X/view?usp=drive_link' },
@@ -89,11 +89,11 @@ const OFFER_DETAILS = {
     rules: ['Płatność z góry', 'Brak zwrotów (materiały)', 'Min. 3 osoby'],
     media: {
       hero: 'Pakiety miesięczne',
-      heroSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819048/4_alpszx.png',
+      heroSrc: '/4_alpszx.png',
       sectionA: 'Plan miesiąca',
-      sectionASrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822108/7_pwlfdd.png',
+      sectionASrc: '/7_pwlfdd.png',
       sectionB: 'Zadania i powtórki',
-      sectionBSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769822107/8_dlejjd.png',
+      sectionBSrc: '/8_dlejjd.png',
     },
     files: [
       { title: 'Matura Rozszerzona', desc: 'Kompendium', link: 'https://drive.google.com/file/d/1NQr6KscUxVJEhJQumNn9DDv7RHkUHWFQ/view?usp=drive_link' },
@@ -186,8 +186,8 @@ function OfferDetailPage() {
   return (
     <>
       <Helmet>
-        <title>{data.title} - Korepetycje Biologia | MEDULIA</title>
-        <meta name="description" content={`${data.title} - ${data.price}. ${data.lead}. Przygotowanie do matury z biologii na 100%.`} />
+        <title>{data.title} Korepetycje Biologia | MEDULIA</title>
+        <meta name="description" content={`${data.title}. ${data.price}. ${data.lead}. Przygotowanie do matury z biologii na 100%.`} />
         <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>

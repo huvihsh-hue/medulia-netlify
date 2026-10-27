@@ -14,45 +14,13 @@ import {
 import SectionTitle from '@/components/SectionTitle';
 import { optimizeImage } from '@/lib/utils'; // <--- IMPORT
 
-const HERO_IMAGE_URL = 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769889281/Projekt_bez_nazwy_41_tfiqz4.png';
+const HERO_IMAGE_URL = '/Projekt_bez_nazwy_41_tfiqz4.png';
 
 const offers = [
-  {
-    slug: 'indywidualne-premium',
-    icon: GraduationCap,
-    title: 'Indywidualne Premium – zajęcia ze mną',
-    priceLine: '120 zł / 60 minut',
-    bullets: ['Pełna uwaga nauczyciela', 'Indywidualny plan nauki'],
-    imageAlt: 'Indywidualne Premium – zdjęcie',
-    imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819048/1_pehldo.png',
-  },
-  {
-    slug: 'indywidualne-pracownicy',
-    icon: UserRound,
-    title: 'Indywidualne – Medulia Team',
-    priceLine: '120 zł / 60 minut',
-    bullets: ['Nauczyciele po rekrutacji i szkoleniu', 'Materiały i metoda zgodne z programem'],
-    imageAlt: 'Indywidualne – MEDULIA Team – zdjęcie',
-    imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819047/2_f9e9xj.png',
-  },
-  {
-    slug: 'grupowe-ze-mna',
-    icon: Users,
-    title: 'Grupowe zajęcia ze mną',
-    priceLine: '80 zł / osoba / 60 minut',
-    bullets: ['Kameralne grupy 3–5 osób', 'Regularna nauka w stałej grupie'],
-    imageAlt: 'Grupowe zajęcia – zdjęcie',
-    imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819048/3_rj1dp0.png',
-  },
-  {
-    slug: 'pakiety-grupowe',
-    icon: Package,
-    title: 'Pakiety miesięczne – grupowe zajęcia',
-    priceLine: 'Pakiety: 4 / 8 / 12 zajęć',
-    bullets: ['Tylko dla grup prowadzonych przeze mnie', 'Płatność z góry'],
-    imageAlt: 'Pakiety miesięczne – zdjęcie',
-    imageSrc: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769819048/4_alpszx.png',
-  },
+  { slug: 'indywidualne-premium', icon: GraduationCap, title: 'Indywidualne Premium – zajęcia ze mną', priceLine: '120 zł / 60 minut', bullets: ['Pełna uwaga nauczyciela', 'Indywidualny plan nauki'], imageAlt: 'Indywidualne Premium – zdjęcie', imageSrc: '/1_pehldo.png' },
+  { slug: 'indywidualne-pracownicy', icon: UserRound, title: 'Indywidualne – Medulia Team', priceLine: '120 zł / 60 minut', bullets: ['Nauczyciele po rekrutacji i szkoleniu', 'Materiały i metoda zgodne z programem'], imageAlt: 'Indywidualne – MEDULIA Team – zdjęcie', imageSrc: '/2_f9e9xj.png' },
+  { slug: 'grupowe-ze-mna', icon: Users, title: 'Grupowe zajęcia ze mną', priceLine: '80 zł / osoba / 60 minut', bullets: ['Kameralne grupy 3–5 osób', 'Regularna nauka w stałej grupie'], imageAlt: 'Grupowe zajęcia – zdjęcie', imageSrc: '/3_rj1dp0.png' },
+  { slug: 'pakiety-grupowe', icon: Package, title: 'Pakiety miesięczne – grupowe zajęcia', priceLine: 'Pakiety: 4 / 8 / 12 zajęć', bullets: ['Tylko dla grup prowadzonych przeze mnie', 'Płatność z góry'], imageAlt: 'Pakiety miesięczne – zdjęcie', imageSrc: '/4_alpszx.png' },
 ];
 
 // Schema.org - Lista usług i cennik

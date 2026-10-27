@@ -23,8 +23,7 @@ import ContactForm from '@/components/ContactForm';
 import { optimizeImage } from '@/lib/utils'; // <--- IMPORT OPTYMALIZACJI
 
 // ===== HERO IMAGE =====
-const HERO_IMAGE_URL =
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787492/Projekt_bez_nazwy_36_mpubsb.png';
+const HERO_IMAGE_URL = '/Projekt_bez_nazwy_36_mpubsb.png';
 
 // ===== SEO DATA (SCHEMA.ORG) =====
 const structuredData = {
@@ -44,28 +43,28 @@ const structuredData = {
 };
 
 const proofImages = [
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198554/2c273e46-a225-4aa8-8eb8-5cec120f6b5b_cjmnsf.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198553/b9bf748a-472b-41dc-9523-b3897df6066e_yk3eok.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198554/9e5e4bf2-82fa-49ae-9aa9-f3404abeb368_klevnq.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198554/2763f9b7-a383-43b5-a9fb-61f7a4fd5294_mk16na.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198554/1f883083-329f-4940-a455-2aa453af8981_uyyekj.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198554/62376121-40b1-4e93-983d-4a8e0f468646_yzib9d.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198555/a7f1c29d-8303-4b64-bcd8-e0a68932f86c_uzo2cu.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198555/e6b97a21-da72-42b4-ba62-891a377f4616_1_utsxhl.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198555/f1ff0dda-360d-4d7c-b22b-dcf8609011de_dzpyww.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198554/40a08a42-97b4-46eb-b1e7-5b549c262c28_bhaven.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198556/e1643ecc-efee-4751-a072-ff4db6292b9f_oqjyjj.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198556/cd51f7ec-a0a3-42ee-baf6-4bd513a8be5f_ejsa84.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198556/f2a4bb6b-cce8-42d3-9865-25d21f1810f2_faadqk.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198556/e98343e0-93ff-4eef-947d-1fd20aec2419_uspwjz.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198554/a5c72514-910e-436e-90cc-e4e5127a7043_nw2oxy.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198556/3de9a9a3-8b21-4ef0-97bf-60ddfff25e37_h8jgc6.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198555/ba6d6658-b0b9-4957-83b3-5262d61d7132_ay1x5b.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198557/a74272de-4774-4922-8f1b-f9e4f5774bf1_tvkubj.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198556/e6b97a21-da72-42b4-ba62-891a377f4616_zk60vb.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198557/20735b78-0110-4dfc-b8ea-29a2676f0c37_t0fsve.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198557/000c349f-d533-4ad7-9900-59b22239c5a8_xz1ezr.jpg',
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769198556/d85766a4-6f82-4db4-b2b5-6754448e9761_dddiyc.jpg',
+  '/2c273e46-a225-4aa8-8eb8-5cec120f6b5b_cjmnsf.jpg',
+  '/b9bf748a-472b-41dc-9523-b3897df6066e_yk3eok.jpg',
+  '/9e5e4bf2-82fa-49ae-9aa9-f3404abeb368_klevnq.jpg',
+  '/2763f9b7-a383-43b5-a9fb-61f7a4fd5294_mk16na.jpg',
+  '/1f883083-329f-4940-a455-2aa453af8981_uyyekj.jpg',
+  '/62376121-40b1-4e93-983d-4a8e0f468646_yzib9d.jpg',
+  '/a7f1c29d-8303-4b64-bcd8-e0a68932f86c_uzo2cu.jpg',
+  '/e6b97a21-da72-42b4-ba62-891a377f4616_1_utsxhl.jpg',
+  '/f1ff0dda-360d-4d7c-b22b-dcf8609011de_dzpyww.jpg',
+  '/40a08a42-97b4-46eb-b1e7-5b549c262c28_bhaven.jpg',
+  '/e1643ecc-efee-4751-a072-ff4db6292b9f_oqjyjj.jpg',
+  '/cd51f7ec-a0a3-42ee-baf6-4bd513a8be5f_ejsa84.jpg',
+  '/f2a4bb6b-cce8-42d3-9865-25d21f1810f2_faadqk.jpg',
+  '/e98343e0-93ff-4eef-947d-1fd20aec2419_uspwjz.jpg',
+  '/a5c72514-910e-436e-90cc-e4e5127a7043_nw2oxy.jpg',
+  '/3de9a9a3-8b21-4ef0-97bf-60ddfff25e37_h8jgc6.jpg',
+  '/ba6d6658-b0b9-4957-83b3-5262d61d7132_ay1x5b.jpg',
+  '/a74272de-4774-4922-8f1b-f9e4f5774bf1_tvkubj.jpg',
+  '/e6b97a21-da72-42b4-ba62-891a377f4616_zk60vb.jpg',
+  '/20735b78-0110-4dfc-b8ea-29a2676f0c37_t0fsve.jpg',
+  '/000c349f-d533-4ad7-9900-59b22239c5a8_xz1ezr.jpg',
+  '/d85766a4-6f82-4db4-b2b5-6754448e9761_dddiyc.jpg',
 ];
 
 const pickProof = (i) => proofImages[i % proofImages.length];
@@ -75,7 +74,7 @@ const opinionsData = [
     name: 'Karolina Małecka', 
     city: 'Warszawa', 
     text: 'Świetny progres i opieka! Zaczynałam z chaosem w głowie, a teraz dzięki systematycznej pracy czuję się pewnie przed maturą.', 
-    proofImage: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769888472/250c9d13-8ea1-4ace-907f-99152bbe9541_r153uf.jpg' 
+    proofImage: '/250c9d13-8ea1-4ace-907f-99152bbe9541_r153uf.jpg' 
   },
   { name: 'Zuzanna Nowak', city: 'Gdynia', text: 'Z czwórki na próbnej do 98% na prawdziwej. Totalny sztos.', proofImage: pickProof(0) },
   { name: 'Julia Wiśniewska', city: 'Lublin', text: 'W końcu zrozumiałam genetykę i zadania maturalne. Wynik 94%.', proofImage: pickProof(1) },
@@ -126,22 +125,22 @@ const freeMaterials = [
   {
     slug: 'metabolizm',
     title: 'Metabolizm',
-    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769817607/3_xuy5d3.png',
+    thumb: '/3_xuy5d3.png',
   },
   {
     slug: 'plan-maturalny',
     title: 'Plan maturalny',
-    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769817607/1_tpw8vw.png',
+    thumb: '/1_tpw8vw.png',
   },
   {
     slug: 'pytania-sprawdzajace',
     title: 'Pytania sprawdzające',
-    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769817607/4_esfg8k.png',
+    thumb: '/4_esfg8k.png',
   },
   {
     slug: 'matura-rozszerzona-2026',
     title: 'Matura Rozszerzona 2026',
-    thumb: 'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769817607/2_jdxk7h.png',
+    thumb: '/2_jdxk7h.png',
   },
 ];
 
@@ -150,17 +149,17 @@ const videoClips = [
   {
     title: 'Fotosynteza - jak odróżnić',
     desc: 'Zobacz jak tłumaczę krok po kroku.',
-    src: 'https://res.cloudinary.com/dyxif8hyp/video/upload/v1769202939/WhatsApp_Video_2026-01-22_at_16.43.42_orl5k0.mp4',
+    src: '/WhatsApp_Video_2026-01-22_at_16.43.42_orl5k0.mp4',
   },
   {
     title: 'Zadania CKE',
     desc: 'Ogarniamy każdy rodzaj zadań!.',
-    src: 'https://res.cloudinary.com/dyxif8hyp/video/upload/v1769202943/WhatsApp_Video_2026-01-22_at_16.43.42_1_i6aonx.mp4',
+    src: '/WhatsApp_Video_2026-01-22_at_16.43.42_1_i6aonx.mp4',
   },
   {
     title: 'Oddychanie komórkowe',
     desc: 'Najważniejsze informacje w pigułce!.',
-    src: 'https://res.cloudinary.com/dyxif8hyp/video/upload/v1769453167/0126_1_umuqmc.mp4',
+    src: '/0126_1_umuqmc.mp4',
   },
 ];
 
@@ -284,7 +283,7 @@ function HomePage() {
         <meta property="og:title" content="Medulia - Biologia na maturę na 100% | Korepetycje" />
   <meta property="og:description" content="Profesjonalne przygotowanie do matury z biologii. Zajęcia indywidualne i grupowe online. Sprawdź!" />
   {/* OPTIMIZED OG IMAGE */}
-  <meta property="og:image" content={optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1770384332/Projekt_bez_nazwy_2_caljvz.png", 1200)} />
+  <meta property="og:image" content={optimizeImage("/Projekt_bez_nazwy_2_caljvz.png", 1200)} />
   <meta property="og:url" content="https://medulia.pl" />
   <meta property="og:type" content="website" />
         
@@ -427,7 +426,7 @@ function HomePage() {
                     <div className="aspect-[4/5] w-full">
                       {/* --- OPTYMALIZACJA PORTRETU (800px) --- */}
                       <img
-                        src={optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769787679/Projekt_bez_nazwy_37_t3jkss.png", 800)}
+                        src={optimizeImage("/Projekt_bez_nazwy_37_t3jkss.png", 800)}
                         alt="Julia Dobrzyńska - Korepetycje Biologia Medulia"
                         className="h-full w-full object-cover object-[50%_20%] md:object-[50%_25%]"
                         loading="lazy"
@@ -875,7 +874,7 @@ function HomePage() {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[3/3.7] lg:aspect-auto">
                 {/* --- OPTYMALIZACJA ZDJĘCIA MISJI (800px) --- */}
                 <img
-                  src={optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769719548/Projekt_bez_nazwy_34_xstll6.png", 800)}
+                  src={optimizeImage("/Projekt_bez_nazwy_34_xstll6.png", 800)}
                   alt="Przyjazna nauka biologii online - zajęcia z Medulią"
                   className="relative w-full h-full object-cover object-center max-h-[450px]"
                   loading="lazy"

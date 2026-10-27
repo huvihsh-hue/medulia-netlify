@@ -218,7 +218,7 @@ function BlogArticle() {
         "name": "Medulia",
         "logo": {
             "@type": "ImageObject",
-            "url": optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769105274/Projekt_bez_nazwy_31_ay7ahl.png", 200)
+            "url": optimizeImage("/Projekt_bez_nazwy_31_ay7ahl.png", 200)
         }
     },
     "description": article.intro

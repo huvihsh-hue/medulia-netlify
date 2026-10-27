@@ -66,7 +66,7 @@ function AboutPage() {
                 <div className="lg:hidden my-8 rounded-2xl overflow-hidden border border-white/10 bg-white/5 aspect-[3/4] md:aspect-[3/4] relative group shadow-2xl w-full">
                    {/* --- OPTYMALIZACJA ZDJĘCIA (MOBILE) --- */}
                    <img
-                      src={optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769814722/Projekt_bez_nazwy_38_phctzm.png", 800)} 
+                      src={optimizeImage("/Projekt_bez_nazwy_38_phctzm.png", 800)}
                       alt="Biologia nauka separator"
                       className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-500"
                     />
@@ -184,7 +184,7 @@ function AboutPage() {
                   <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 aspect-[3/4] relative group">
                     {/* --- OPTYMALIZACJA ZDJĘCIA (DESKTOP/MAIN) --- */}
                     <img
-                      src={optimizeImage("https://res.cloudinary.com/dyxif8hyp/image/upload/v1769888713/Projekt_bez_nazwy_40_xjsu7a.png", 800)}
+                      src={optimizeImage("/Projekt_bez_nazwy_40_xjsu7a.png", 800)}
                       alt="Medulia - Korepetycje z Biologii"
                       className="w-full h-full object-cover"
                     />

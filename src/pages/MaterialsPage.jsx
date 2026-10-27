@@ -12,9 +12,9 @@ function MaterialsPage() {
       desc: "Co dokładnie obowiązuje na maturze w tym roku? (CKE) – idealne na start.",
       link: "https://drive.google.com/file/d/1MzZsdCY2cwAbA-fJBPVLsLIag-2znoJZ/view?usp=drive_link",
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697796/12_pm7rsk.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697797/14_qqdeer.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697796/13_swe6jx.png",
+        "/12_pm7rsk.png",
+        "/14_qqdeer.png",
+        "/13_swe6jx.png",
       ],
     },
     {
@@ -22,9 +22,9 @@ function MaterialsPage() {
       desc: "Kompletny przewodnik po procesach.",
       link: "https://drive.google.com/file/d/1LcFjDDSHxyW6VsCNNtpfPVIL2frEJadW/view?usp=drive_link",
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/3_ejqxtr.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/4_zu1mmt.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769096122/5_sootg9.png",
+        "/3_ejqxtr.png",
+        "/4_zu1mmt.png",
+        "/5_sootg9.png",
       ],
     },
     {
@@ -32,9 +32,9 @@ function MaterialsPage() {
       desc: "Zestaw do samodzielnej pracy.",
       link: "https://drive.google.com/file/d/1Szx0nKs4l2rtcG9jP9LLO-v3jWcenhvV/view?usp=drive_link",
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104665/6_q9wzxo.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104666/7_pxzxup.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104668/8_xvepb6.png",
+        "/6_q9wzxo.png",
+        "/7_pxzxup.png",
+        "/8_xvepb6.png",
       ],
     },
     {
@@ -42,9 +42,9 @@ function MaterialsPage() {
       desc: "Materiały do matury rozszerzonej – konkretne wymagania i przykłady.",
       link: "https://drive.google.com/file/d/1NQr6KscUxVJEhJQumNn9DDv7RHkUHWFQ/view?usp=drive_link",
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697805/9_y0edsb.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697805/11_rzpgco.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769697805/10_tym8f3.png",
+        "/9_y0edsb.png",
+        "/11_rzpgco.png",
+        "/10_tym8f3.png",
       ],
     },
     {
@@ -52,8 +52,8 @@ function MaterialsPage() {
       desc: "Szczegółowy harmonogram nauki.",
       link: "https://drive.google.com/file/d/1Bgngdk0wNAH_rHXYdL16c7O_Airno94X/view?usp=drive_link",
       previews: [
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104949/ipad_grafiki_zvf9pe.png",
-        "https://res.cloudinary.com/dyxif8hyp/image/upload/v1769104950/5_xkv60z.png",
+        "/ipad_grafiki_zvf9pe.png",
+        "/5_xkv60z.png",
       ],
     },
   ];

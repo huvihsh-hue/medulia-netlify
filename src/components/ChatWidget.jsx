@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, User } from 'lucide-react';
 
-const CHAT_AVATAR_URL =
-  'https://res.cloudinary.com/dyxif8hyp/image/upload/v1769072404/logo_1na1_tcczjy.png';
+const CHAT_AVATAR_URL = '/logo_1na1_tcczjy.png';
 
 const FAQ = [
   { q: 'Jak wygląda pierwsza konsultacja?', a: 'Poznajemy się, diagnozuję poziom, omawiamy cele i układamy plan nauki pod maturę.' },
