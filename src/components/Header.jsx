@@ -59,12 +59,12 @@ style={{ backgroundColor: 'rgba(18, 24, 38, 0.55)' }}
           <div className="flex justify-between items-center h-16 md:h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center py-2">
-              <img
-                src="https://res.cloudinary.com/dyxif8hyp/image/upload/v1769105274/Projekt_bez_nazwy_31_ay7ahl.png"
-                alt="Medulia"
-                className="h-10 md:h-12 w-auto"
-                loading="eager"
-              />
+             <img
+  src="/Projekt_bez_nazwy_31_ay7ahl.png"
+  alt="Medulia"
+  className="h-10 md:h-12 w-auto"
+  loading="eager"
+/>
             </Link>
 
             {/* Desktop Navigation */}
